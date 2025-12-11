@@ -1,0 +1,49 @@
+.bg-primary{
+    background-color: rgb(187,46,41) !important;
+}
+.logo{
+    width: 8em;
+}
+.bg-primary .logo{
+    filter: brightness(100);
+}
+.navbar-brand{
+    display: flex;
+    justify-content: flex-start !important;
+}
+.navbar  h1{
+    display: flex;
+    align-items: center;
+    
+}
+
+body {
+    font-family: "Merriweather Sans", sans-serif;
+}
+
+.cinzel-logo {
+    font-family: "Cinzel", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+.navbar  .cinzel-logo{
+    color: white;
+}
+.nav-link{
+    color: white;
+}
+.navbar-toggler{
+    filter: brightness(100);
+    border-color: white;
+    border-radius: 5px;
+}
+.nav-link:hover{
+    text-decoration: underline ;
+    color: white;
+}
+.vr{
+    background-color: white;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
