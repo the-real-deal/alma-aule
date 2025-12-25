@@ -5,7 +5,7 @@
 nav .logo{
     width: 8em;
 }
-.bg-primary .logo{
+.navbar-brand .logo{
     filter: brightness(100);
 }
 .navbar-brand{
@@ -14,12 +14,12 @@ nav .logo{
 }
 .navbar  h1{
     display: flex;
-    align-items: center;
-    
+    align-items: center;    
 }
 
 body {
     font-family: "Merriweather Sans", sans-serif;
+    
 }
 
 .cinzel-logo {
@@ -35,7 +35,7 @@ body {
     color: white;
 }
 .navbar-toggler{
-    filter: brightness(100);
+    filter:brightness(100);
     border-color: white;
     border-radius: 0.4em;
 }
@@ -49,11 +49,13 @@ body {
     margin-right: 0.5em;
 }
 .card {
-    margin: 15em;
+    display: flex;
+    justify-content: center;
     border-radius: 2em;
     border-color:rgb(187, 46, 41) !important ;
     color: rgb(187, 46, 41);
     border-width: 3px;
+    flex-wrap: wrap;
     
 }
 .card-header{
@@ -65,5 +67,5 @@ body {
     
 }
 .card-img-top .logo{
-    width: 20em;
+    width: 40%;
 }
