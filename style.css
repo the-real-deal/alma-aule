@@ -2,6 +2,15 @@
 .bg-primary{
     background-color: rgb(187,46,41) !important;
 }
+.btn-primary{
+
+    background-color: hsl(2deg, 64%, 45%) !important;
+    border-color: hsl(2deg, 64%, 45%) !important;
+    &:hover{
+        background-color: hsl(2deg, 64%, 40%) !important;
+        border-color: hsl(2deg, 64%, 40%)!important;
+    }
+}
 nav .logo{
     width: 8em;
 }
