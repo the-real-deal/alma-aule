@@ -1,9 +1,6 @@
 <?php
 require "bootstrap.php";
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 $result["logineseguito"] = false;
 
 if(isset($_POST["submit"])) {
@@ -16,15 +13,6 @@ if(isset($_POST["submit"])) {
          $result["errorelogin"] = "Mail e/o password errati";
     }
 }
-=======
-=======
-=======
-
->>>>>>> Stashed changes
-
->>>>>>> Stashed changes
-
->>>>>>> Stashed changes
 
 if(isUserLoggedIn()){
     header("Location: home.html");
