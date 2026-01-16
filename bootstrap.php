@@ -1,5 +1,16 @@
 <?php
-session_start();
+$configs = include("config.php");
+$session_started = session_start();
+if (!$session_started) {
+    die("Cannot start session!");
+}
 require $_SERVER['DOCUMENT_ROOT'] . "/db/database.php";
 require $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php";
-$dbh = new DatabaseHelper("localhost", "root", "", "almaule", 3307);
+
+$dbh = new DatabaseHelper(
+    $configs["SERVER"], 
+    $configs["DB"]["USERNAME"], 
+    $configs["DB"]["PASSWORD"], 
+    $configs["DB"]["NAME"],
+    $configs["DB"]["PORT"]
+);
