@@ -1,3 +1,7 @@
+<?php 
+    require $_SERVER['DOCUMENT_ROOT'] . '/apis/login.php';     
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -17,11 +21,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"
             defer></script>
+
     </head>
     <body>
-        <?php 
-            require $_SERVER['DOCUMENT_ROOT'] . '/apis/login.php';        
-        ?>
         <main>   
             <div class="background vh-100">
                 <div class="container">
@@ -63,7 +65,6 @@
                     <i class="obj bi bi-backpack4"></i>
                 </div>
             </div> 
-                   
         </main>
     </body>
 </html>
