@@ -6,8 +6,8 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-        <link href="background.css" rel="stylesheet">
-        <link href="style.css" rel="stylesheet">
+        <link href="/components/login/css/background.css" rel="stylesheet">
+        <link href="/components/style.css" rel="stylesheet">
         
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,14 +19,13 @@
             defer></script>
     </head>
     <body>
-        <?php require "login.php"?>
         <main>   
             <div class="background vh-100">
                 <div class="container ">
                     <div class="card shadow-lg z-1">
                         <h1 class="cinzel-logo card-header text-muted">Alma Aule</h1>
                         <div class="card-img-top">
-                            <img class="logo " src="misc/logo-unibo.png" alt="">
+                            <img class="logo " src="/assets/img/logo-unibo.png" alt="">
                         </div>
                         <div class="card-body">
                             <h2 class="card-title">Login</h2>
