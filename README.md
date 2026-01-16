@@ -13,7 +13,7 @@ Per aggiungere la repo a XAMPP bisogna:
 
 2. Eliminare la cartella `xamppfiles/htdocs`: 
 ```sh
-rm -rf xamppfiles/htdocs"
+rm -rf xamppfiles/htdocs
 ```
 
 3. Posizionarsi all'interno della cartella `xamppfiles`:
