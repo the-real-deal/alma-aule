@@ -1,5 +1,5 @@
 <?php 
-    require $_SERVER['DOCUMENT_ROOT'] . '/apis/login.php';        
+    require $GLOBALS["pathOf"]('/apis/login.php');        
 ?>
 
 <!DOCTYPE html>
