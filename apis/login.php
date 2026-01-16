@@ -1,6 +1,11 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php';
 
+if(isUserLoggedIn()){
+    header("Location: /components/home");
+    exit();
+}
+
 $result["logineseguito"] = false;
 
 if(isset($_POST["submit"])) {
@@ -12,9 +17,4 @@ if(isset($_POST["submit"])) {
     } else {
         $result["errorelogin"] = "Mail e/o password errati";
     }
-}
-
-if(isUserLoggedIn()){
-    header("Location: /components/home");
-    exit();
 }
