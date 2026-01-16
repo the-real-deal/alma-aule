@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link href="style.css" rel="stylesheet">
+    <link href="/components/style.css" rel="stylesheet">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +21,7 @@
         <nav class="navbar navbar-expand-md bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img class="logo d-inline-block align-text-top" src="misc/logo-unibo.png">
+                    <img class="logo d-inline-block align-text-top" src="/assets/img/logo-unibo.png" alt="Alma Mater Studiorum Logo">
                     <div class="vr"></div>
                     <h1 class="cinzel-logo">Alma Aule</h1>
                 </a>
