@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Creato il: Gen 15, 2026 alle 18:08
+-- Creato il: Gen 16, 2026 alle 14:29
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -40,13 +40,13 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`Username`, `codiceRuolo`, `Attivo`, `Mail`, `Password`) VALUES
-('beagre003', 3, 1, 'beagre003@scuola.it', 'StudPass004'),
-('clarom001', 3, 1, 'clarom001@scuola.it', 'StudPass003'),
-('fedrus001', 2, 1, 'fedrus001@unibo.it', 'ProfPass002'),
-('ilabru001', 3, 1, 'ilabru001@scuola.it', 'StudPass001'),
-('marmar001', 2, 1, 'marmar001@unibo.it', 'ProfPass001'),
-('matrus001', 3, 1, 'matrus001@scuola.it', 'StudPass002'),
-('vinesp001', 1, 1, 'vinesp001@unibo.it', 'ProfPass003');
+('beagre003', 3, 1, 'beagre003@studio.unibo.it', 'StudPass004'),
+('clarom001', 3, 1, 'clarom001@studio.unibo.it', 'StudPass003'),
+('fedrus001', 2, 1, 'fedrus001@studio.unibo.it', 'ProfPass002'),
+('ilabru001', 3, 1, 'ilabru001@studio.unibo.it', 'StudPass001'),
+('marmar001', 2, 1, 'marmar001@studio.unibo.it', 'ProfPass001'),
+('matrus001', 3, 1, 'matrus001@studio.unibo.it', 'StudPass002'),
+('vinesp001', 1, 1, 'vinesp001@studio.unibo.it', 'ProfPass003');
 
 -- --------------------------------------------------------
 
