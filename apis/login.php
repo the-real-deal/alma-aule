@@ -3,6 +3,7 @@ require "bootstrap.php";
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 $result["logineseguito"] = false;
 
 if(isset($_POST["submit"])) {
@@ -17,6 +18,9 @@ if(isset($_POST["submit"])) {
 }
 =======
 =======
+=======
+
+>>>>>>> Stashed changes
 
 >>>>>>> Stashed changes
 
