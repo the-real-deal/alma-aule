@@ -24,7 +24,7 @@
         ?>
         <main>   
             <div class="background vh-100">
-                <div class="container ">
+                <div class="container">
                     <div class="card shadow-lg z-1">
                         <h1 class="cinzel-logo card-header text-muted">Alma Aule</h1>
                         <div class="card-img-top">

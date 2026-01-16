@@ -10,12 +10,11 @@ if(isset($_POST["submit"])) {
         $result["logineseguito"] = true;
         registerLoggedIn($login_result[0]);
     } else {
-         $result["errorelogin"] = "Mail e/o password errati";
+        $result["errorelogin"] = "Mail e/o password errati";
     }
 }
 
 if(isUserLoggedIn()){
-    header("Location: /components/home/");
+    header("Location: /components/home");
     exit();
 }
-?>

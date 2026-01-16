@@ -1,6 +1,8 @@
 <?php
 session_start();
-require "db/database.php";
-require "utils/functions.php";
-$dbh = new DatabaseHelper("localhost", "root", "", "almaule",3307);
+$_SESSION['username'] = "";
+$_SESSION['mail'] = "";
+require $_SERVER['DOCUMENT_ROOT'] . "/db/database.php";
+require $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php";
+$dbh = new DatabaseHelper("localhost", "root", "", "almaule", 3307);
 ?>
