@@ -29,7 +29,7 @@
     width: 100%;
     justify-content:space-around;
     display: flex;
-    overflow:visible;
+    overflow:scroll;
     margin-bottom: 0%;
     text-align: left;
 }

@@ -1,17 +1,21 @@
 <?php
-$email="tmp@tmp.it";
-$pwd="tmp";
+require "bootstrap.php";
 
-if($_REQUEST["REQUEST_METHOD"] == "POST"){
-    if(!empty($_POST["email"])){
-        echo "<h2>PHP is Fun!</h2>";
-        
-        
-    }
-    else{
-        echo "<h2>NO</h2>";
-    }
+$result["logineseguito"] = false;
+
+if(isset($_POST["submit"])) {
+    $login_result = $dbh->checkLogin($_POST["email"], $_POST["password"]);
     
+    if(!empty($login_result)) {
+        $result["logineseguito"] = true;
+        registerLoggedIn($login_result[0]);
+    } else {
+         $result["errorelogin"] = "Mail e/o password errati";
+    }
 }
 
+if(isUserLoggedIn()){
+    header("Location: home.html");
+    exit();
+}
 ?>
