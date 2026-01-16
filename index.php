@@ -18,7 +18,7 @@
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"
             defer></script>
     </head>
-    <body >
+    <body>
         <?php require "login.php"?>
         <main>   
             <div class="background vh-100">
