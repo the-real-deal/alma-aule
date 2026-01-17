@@ -9,7 +9,15 @@
 
 <body>
     <main>
+
         <div id="map"></div>
+        <div class="container-fluid"></div>
+        <?php
+        $data = require "/apis/aule.php";
+        foreach ($data as $obj) {
+            echo '<h1>$obj["as"]</h1>';
+        }
+        ?>
     </main>
 
 </body>
