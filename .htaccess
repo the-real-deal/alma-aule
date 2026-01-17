@@ -1,0 +1,15 @@
+RewriteEngine On
+RewriteBase /
+
+# Se l'URL contiene /components/, reindirizza a quello senza
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+components/([^\s]+) [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# Riscrivi internamente solo se il file/cartella non esiste nella root
+# e la richiesta non è già per /components/
+RewriteCond %{REQUEST_URI} !^/components/ [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/components%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/components%{REQUEST_URI} -d
+RewriteRule ^(.*)$ /components/$1 [L]
