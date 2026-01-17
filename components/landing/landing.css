@@ -5,3 +5,9 @@ body {
         hsl(from var(--bs-primary) h s l / .65)
     );
 }
+
+main img {
+    filter: brightness(0) invert(1);
+    min-width: 64px;
+    max-width: 450px;
+}
