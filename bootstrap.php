@@ -2,14 +2,12 @@
 $configs = include("config.php");
 $session_started = session_start();
 
-$GLOBALS["pathOf"] = fn($path) => $_SERVER['DOCUMENT_ROOT'] . $path;
-
 if (!$session_started) {
     die("Cannot start session!");
 }
 
-require $GLOBALS["pathOf"]("/db/database.php");
-require $GLOBALS["pathOf"]("/utils/functions.php");
+require "{$_SERVER['DOCUMENT_ROOT']}/db/database.php";
+require "{$_SERVER['DOCUMENT_ROOT']}/utils/auth.php";
 
 $dbh = new DatabaseHelper(
     $configs["SERVER"], 
