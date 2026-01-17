@@ -8,6 +8,7 @@ if(isUserLoggedIn()){
 
 $result["logineseguito"] = false;
 
+
 if(isset($_POST["submit"])) {
     $login_result = $dbh->checkLogin($_POST["email"], $_POST["password"]);
     
