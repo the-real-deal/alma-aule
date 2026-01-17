@@ -32,19 +32,19 @@
                     <div class="navbar-nav gap-1 gap-md-4">
                         <a class="nav-link text-white d-flex flex-row flex-md-column align-items-start align-items-md-center">
                             <strong class="fs-3 bi bi-house-fill"></strong>
-                            <span class="d-inline-block my-auto ps-2 font-merriweather">Home</span>
+                            <span class="d-inline-block my-auto ps-2 ps-md-0 font-merriweather">Home</span>
                         </a>
                         <a class="nav-link text-white d-flex flex-row flex-md-column align-items-start align-items-md-center">
                             <strong class="fs-3 bi bi-door-closed-fill"></strong>
-                            <span class="d-inline-block my-auto ps-2 font-merriweather">Aule</span>
+                            <span class="d-inline-block my-auto ps-2 ps-md-0 font-merriweather">Aule</span>
                         </a>
                         <a class="nav-link text-white d-flex flex-row flex-md-column align-items-start align-items-md-center">
                             <strong class="fs-3 bi bi-bookmark-plus-fill"></strong>
-                            <span class="d-inline-block my-auto ps-2 font-merriweather">Prenotazioni</span>
+                            <span class="d-inline-block my-auto ps-2 ps-md-0 font-merriweather">Prenotazioni</span>
                         </a>
                         <a class="nav-link text-white d-flex flex-row flex-md-column align-items-start align-items-center">
                             <strong class="fs-3 bi bi-person-fill"></strong>
-                            <span class="d-inline-block my-auto ps-2 font-merriweather">Profilo</span>
+                            <span class="d-inline-block my-auto ps-2 ps-md-0 font-merriweather">Profilo</span>
                         </a>
                     </div>
                 </div> 
