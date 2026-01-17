@@ -13,6 +13,14 @@
     --bs-primary-rgb: 187, 46, 41;
 }
 
+.font-cinzel {
+    font-family: "Cinzel" !important;
+}
+
+.font-merriweather {
+    font-family: "Merriweather Sans" !important;
+}
+
 * {
     font-family: source-sans-pro, sans-serif;
 }
