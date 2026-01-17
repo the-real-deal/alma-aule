@@ -62,7 +62,7 @@ function mostraErrore(messaggio = 'Errore nel caricamento delle prenotazioni') {
     return `
         <div class="error-state">
             <p>${messaggio}</p>
-            <button class="prenota-btn" onclick="caricaPrenotazioni()">Riprova</button>
+            <button class="btn-primary p-3" onclick="caricaPrenotazioni()">Riprova</button>
         </div>
     `;
 }
