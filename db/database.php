@@ -20,7 +20,7 @@ class DatabaseHelper    {
     }
 
     public function getSedi() {
-        $query = "SELECT Latitudine, Longitudine FROM localita";
+        $query = "SELECT Via, Latitudine, Longitudine FROM sedi";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();
