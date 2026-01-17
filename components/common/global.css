@@ -1,0 +1,58 @@
+@font-face {
+    font-family: 'Cinzel';
+    src: url("../../assets/fonts/Cinzel-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: 'Merriweather Sans';
+    src: url("../../assets/fonts/MerriweatherSans-VariableFont_wght.ttf");
+}
+
+:root {
+    --bs-primary: #bb2e29;
+    --bs-primary-rgb: 187, 46, 41;
+}
+
+* {
+    font-family: source-sans-pro, sans-serif;
+}
+
+/*
+* Buttons
+*/
+.btn-primary {
+    --bs-btn-bg: var(--bs-primary);
+    --bs-btn-border-color: var(--bs-primary);
+}
+
+.btn-primary:hover, .btn:focus-visible, :not(.btn-check) + .btn:active {
+    background-color: hsl(from var(--bs-btn-bg) h s 35%);
+    border-color: hsl(from var(--bs-btn-bg) h s 35%);
+    box-shadow: none;
+}
+
+/*
+* Form control
+*/
+.form-control:focus {
+    box-shadow: 0 0 0 .25rem hsl(from var(--bs-primary) h s l / .25);
+    border-color: hsl(from var(--bs-primary) h s l / .75);
+}
+
+/*
+* Headers
+*/
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Merriweather Sans";
+}
+
+button, [class*="btn"], a {
+    font-family: "Merriweather Sans";
+}
+
+/*
+* General layout
+*/
+html, body {
+    min-height: 100dvh;
+}

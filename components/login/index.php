@@ -1,71 +1,43 @@
-<?php 
-    require $_SERVER['DOCUMENT_ROOT'] . '/apis/login.php';        
-?>
-
+<?php require "{$_SERVER['DOCUMENT_ROOT']}/apis/login.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-        <link href="/components/login/css/background.css" rel="stylesheet">
-        <link href="/components/style.css" rel="stylesheet">
-        
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-            rel="stylesheet">
-        <title>Alma Aule - Login</title>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"
-            defer></script>
 
-    </head>
-    <body>
-        
-        <main>   
-            <div class="background vh-100">
-                <div class="container">
-                    <div class="card shadow-lg z-1">
-                        <h1 class="cinzel-logo card-header text-muted">Alma Aule</h1>
-                        <div class="card-img-top">
-                            <img class="logo " src="/assets/img/logo-unibo.png" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h2 class="card-title">Login</h2>
-                            <!-- htmlspecialchars() used to avoid PHP_SELF exploit -->
-                            <form method="post" action="<?php echo htmlspecialchars($_SERVER[" PHP_SELF "]); ?>">
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input required id="email" type="email" name="email" class="form-control"
-                                        placeholder="nome.cognome@studio.unibo.it">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input required id="password" name="password" aria-label="password" type="password" class="form-control">
-                                </div>
-                                <button type="submit" name="submit" class="btn btn-primary">Login</button>
-                            </form>
-                        </div>
+<head>
+    <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/head.php" ?>
+    <link href="./login.css" rel="stylesheet">
+    <script src="../../components/common/animatedBackground.js"></script>
+    <title>Alma Aule - Login</title>
+</head>
+
+<body class="d-flex justify-content-center align-items-center">
+    <main>
+        <div class="card border-0 rounded-2 shadow-lg" style="min-width: 18rem; max-width: 22rem;">
+            <div class="card-header text-center">
+                <img class="img-fluid" src="../../assets/imgs/logo-unibo.png">
+                <h3 class="text-dark">ESEGUI L'ACCESSO</h3>
+            </div>
+            <div class="card-body px-3 px-md-5 my-3">
+                <form class="d-flex flex-column justify-content-center">
+                    <div class="mb-3">
+                        <label for="inputEmail" class="form-label text-dark">
+                            <i class="bi bi-person-circle"></i>    
+                            E-mail
+                        </label>
+                        <input placeholder="marco.rossi@unibo.it" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
                     </div>
-                </div>
-                <div class="objects ">
-                    <strong class="obj bi bi-backpack"></strong>
-                    <strong class="obj bi bi-mortarboard"></strong>
-                    <strong class="obj bi bi-backpack"></strong>
-                    <strong class="obj bi bi-book"></strong>
-                    <strong class="obj bi bi-backpack"></strong>
-                    <strong class="obj bi bi-backpack4"></strong>
-                    <strong class="obj bi bi-highlighter"></strong>
-                    <strong class="obj bi bi-backpack4"></strong>
-                    <strong class="obj bi bi-backpack"></strong>
-                    <strong class="obj bi bi-book"></strong>
-                    <strong class="obj bi bi-backpack"></strong>
-                    <strong class="obj bi bi-backpack4"></strong>
-                </div>
-            </div> 
-        </main>
-    </body>
+                    <div class="mb-3">
+                        <label for="inputPassword" class="form-label text-dark">
+                            <i class="bi bi-key"></i>
+                            Password
+                        </label>
+                        <input type="password" class="form-control" id="inputPassword">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Accedi</button>
+                    <small class="pt-3 text-center">Non hai un account? <a class="fw-bolder text-primary text-decoration-underline" href="../signup/">Registrati</a></small>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+
 </html>
