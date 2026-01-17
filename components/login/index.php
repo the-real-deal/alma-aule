@@ -17,7 +17,7 @@
                 <h3 class="text-dark">ESEGUI L'ACCESSO</h3>
             </div>
             <div class="card-body px-3 px-md-5 my-3">
-                <form class="d-flex flex-column justify-content-center">
+                <form class="d-flex flex-column justify-content-center" action="">
                     <div class="mb-3">
                         <label for="inputEmail" class="form-label text-dark">
                             <i class="bi bi-person-circle"></i>    

@@ -1,26 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link href="/components/style.css" rel="stylesheet">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-        rel="stylesheet">
+    <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/head.php" ?>    
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <link href="/components/home/style.css" rel="stylesheet">
+    <link href="./style.css" rel="stylesheet">
 
     <title>Alma Aule</title>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"
-        defer></script>
+    
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="map.js" defer></script>
+    <script src="prenotazioni.js"></script>
 
 </head>
 <body>
@@ -28,9 +18,9 @@
         <nav class="navbar navbar-expand-md bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img class="logo d-inline-block align-text-top" src="/assets/img/logo-unibo.png" alt="Alma Mater Studiorum Logo">
+                    <img class="w-25" src="/assets/imgs/logo-unibo.png" alt="Alma Mater Studiorum Logo">
                     <div class="vr"></div>
-                    <h1 class="cinzel-logo">Alma Aule</h1>
+                    <h1>Alma Aule</h1>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
@@ -51,6 +41,30 @@
     <main>
         <div id=map></div>
     </main>
+
+    <div class="container">
+        <div class="header">
+            <h1>Le Tue Prenotazioni</h1>
+            <a href="#" class="vedi-tutte">Vedi tutte</a>
+        </div>
+
+        <div class="prenotazioni-card" id="prenotazioniContainer">
+            <div class="loading">Caricamento...</div>
+        </div>
+
+        <div class="statistiche">
+            <h2>Statistiche</h2>
+            <div class="stat-row">
+                <span class="stat-label">Totale Prenotazioni</span>
+                <span class="stat-value" id="totalePrenotazioni">0</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">Prenotazioni Future</span>
+                <span class="stat-value" id="prenotazioniFuture">0</span>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
 
