@@ -9,7 +9,7 @@
 
     <script src="prenotazioni.js"></script>
     <link href="./home.css" rel="stylesheet">
-    <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/map.php" ?>
+    <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/map/map.php" ?>
 </head>
 
 <body>

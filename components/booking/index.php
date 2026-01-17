@@ -4,10 +4,13 @@
 <head>
     <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/head.php" ?>
     <title>Booking - Alma Aule</title>
-    <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/map.php" ?>
+    <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/map/map.php" ?>
 </head>
 
 <body>
+    <main>
+        <div id="map"></div>
+    </main>
 
 </body>
 
