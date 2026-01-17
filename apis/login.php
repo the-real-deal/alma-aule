@@ -1,5 +1,5 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php';
+require "{$_SERVER['DOCUMENT_ROOT']}/bootstrap.php";
 
 if(isUserLoggedIn()){
     header("Location: /components/home");
