@@ -1,9 +1,7 @@
 <?php
 $configs = include("config.php");
-$session_started = session_start();
-
-if (!$session_started) {
-    die("Cannot start session!");
+if(!isset($_SESSION)) {
+    session_start();
 }
 
 require "{$_SERVER['DOCUMENT_ROOT']}/db/database.php";

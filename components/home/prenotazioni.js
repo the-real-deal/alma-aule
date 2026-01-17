@@ -63,11 +63,11 @@ function mostraStatoVuoto() {
 // Funzione per mostrare errore
 function mostraErrore(messaggio = 'Errore nel caricamento delle prenotazioni') {
     return `
-       <div class="alert alert-danger text-center" role="alert">
-            <i class="bi bi-exclamation-triangle fs-3 d-block mb-2"></i>
+       <div class="alert alert-primary text-center" role="alert">
+            <strong class="bi bi-exclamation-triangle fs-3 d-block mb-2"></strong>
             <p class="mb-3">${messaggio}</p>
-            <button class="btn btn-outline-danger" onclick="caricaPrenotazioni()">
-                <i class="bi bi-arrow-clockwise me-2"></i>Riprova
+            <button class="btn btn-outline-primary" onclick="caricaPrenotazioni()">
+                <strong class="bi bi-arrow-clockwise me-2"></strong>Riprova
             </button>
         </div>
     `;

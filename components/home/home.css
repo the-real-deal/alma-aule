@@ -29,9 +29,10 @@
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
-.badge {
+.badge  {
     font-weight: 500;
     padding: 0.5rem 0.75rem;
+    background-color: #bb2e29;
 }
 
 .stat-value {
@@ -43,7 +44,6 @@
 svg {
     opacity: 0.3;
 }
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .card-body {
