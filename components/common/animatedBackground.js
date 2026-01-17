@@ -9,7 +9,7 @@ const iconCodes = [
 const numOfIcons = 30;
 
 function createIcon(code) {
-    const icon = $('<i>').addClass(`bi bi-${code}`);
+    const icon = $('<strong>').addClass(`bi bi-${code}`);
     
     const randomX = Math.random() * (window.innerWidth - 50);
     const randomY = Math.random() * (window.innerHeight - 50);
@@ -50,7 +50,7 @@ $(document).ready(function () {
     }
     
     $(window).on('resize', function() {
-        $('i.bi').each(function() {
+        $('strong.bi').each(function() {
             const randomX = Math.random() * (window.innerWidth - 50);
             $(this).css({
                 left: randomX + 'px'

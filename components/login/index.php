@@ -7,7 +7,7 @@
 <head>
     <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/head.php"?>
     <link href="./login.css" rel="stylesheet">
-    <script src="../../common/animatedBackground.js"></script>
+    <script src="../../components/common/animatedBackground.js"></script>
     <title>Alma Aule - Login</title>
 </head>
 
@@ -35,7 +35,7 @@
                         <input type="password" class="form-control" id="inputPassword">
                     </div>
                     <button type="submit" class="btn btn-primary">Accedi</button>
-                    <small class="pt-3 text-center">Non hai un account? <a class="fw-bolder text-primary text-decoration-underline">Registrati</a></small>
+                    <small class="pt-3 text-center">Non hai un account? <a class="fw-bolder text-primary text-decoration-underline" href="../signup/">Registrati</a></small>
                 </form>
             </div>
         </div>
