@@ -27,6 +27,7 @@ async function caricaSedi() {
                 
                 // Creiamo il marker
                 var marker = L.marker([sede.Latitudine, sede.Longitudine]).addTo(map);
+                marker.bindPopup(`<b>${sede.Via}</b>`);
             }
         });
 
