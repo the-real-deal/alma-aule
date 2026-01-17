@@ -1,11 +1,9 @@
-<?php 
-    require "{$_SERVER['DOCUMENT_ROOT']}/apis/login.php";        
-?>
+<?php require "{$_SERVER['DOCUMENT_ROOT']}/apis/login.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/head.php"?>
+    <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/head.php" ?>
     <link href="./login.css" rel="stylesheet">
     <script src="../../common/animatedBackground.js"></script>
     <title>Alma Aule - Login</title>
