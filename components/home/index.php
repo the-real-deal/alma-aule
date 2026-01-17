@@ -21,6 +21,7 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="map.js" defer></script>
+    <script src="prenotazioni.js"></script>
 
 </head>
 <body>
@@ -51,6 +52,30 @@
     <main>
         <div id=map></div>
     </main>
+
+    <div class="container">
+        <div class="header">
+            <h1>Le Tue Prenotazioni</h1>
+            <a href="#" class="vedi-tutte">Vedi tutte</a>
+        </div>
+
+        <div class="prenotazioni-card" id="prenotazioniContainer">
+            <div class="loading">Caricamento...</div>
+        </div>
+
+        <div class="statistiche">
+            <h2>Statistiche</h2>
+            <div class="stat-row">
+                <span class="stat-label">Totale Prenotazioni</span>
+                <span class="stat-value" id="totalePrenotazioni">0</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">Prenotazioni Future</span>
+                <span class="stat-value" id="prenotazioniFuture">0</span>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
 

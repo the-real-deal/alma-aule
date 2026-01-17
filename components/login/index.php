@@ -36,7 +36,7 @@
                         <div class="card-body">
                             <h2 class="card-title">Login</h2>
                             <!-- htmlspecialchars() used to avoid PHP_SELF exploit -->
-                            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                            <form method="post" action="<?php echo htmlspecialchars($_SERVER[" PHP_SELF "]); ?>">
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
                                     <input required id="email" type="email" name="email" class="form-control"
@@ -52,18 +52,18 @@
                     </div>
                 </div>
                 <div class="objects ">
-                    <i class="obj bi bi-backpack"></i>
-                    <i class="obj bi bi-mortarboard"></i>
-                    <i class="obj bi bi-backpack"></i>
-                    <i class="obj bi bi-book"></i>
-                    <i class="obj bi bi-backpack"></i>
-                    <i class="obj bi bi-backpack4"></i>
-                    <i class="obj bi bi-highlighter"></i>
-                    <i class="obj bi bi-backpack4"></i>
-                    <i class="obj bi bi-backpack"></i>
-                    <i class="obj bi bi-book"></i>
-                    <i class="obj bi bi-backpack"></i>
-                    <i class="obj bi bi-backpack4"></i>
+                    <strong class="obj bi bi-backpack"></strong>
+                    <strong class="obj bi bi-mortarboard"></strong>
+                    <strong class="obj bi bi-backpack"></strong>
+                    <strong class="obj bi bi-book"></strong>
+                    <strong class="obj bi bi-backpack"></strong>
+                    <strong class="obj bi bi-backpack4"></strong>
+                    <strong class="obj bi bi-highlighter"></strong>
+                    <strong class="obj bi bi-backpack4"></strong>
+                    <strong class="obj bi bi-backpack"></strong>
+                    <strong class="obj bi bi-book"></strong>
+                    <strong class="obj bi bi-backpack"></strong>
+                    <strong class="obj bi bi-backpack4"></strong>
                 </div>
             </div> 
         </main>
