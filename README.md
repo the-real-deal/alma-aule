@@ -36,9 +36,9 @@ git clone git@github.com:the-real-deal/alma-aule.git htdocs
 │   ├── login.php
 │   ├── ...
 ├── assets/
-│   ├── css
-│   ├── fonts
-│   └── imgs
+│   ├── css/
+│   ├── fonts/
+│   └── imgs/
 ├── bootstrap.php
 ├── components/
 │   ├── common/
