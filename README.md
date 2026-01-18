@@ -86,7 +86,10 @@ git clone git@github.com:the-real-deal/alma-aule.git htdocs
 ## Come progettare una pagina
 
 ### Template
-Tutte le pagine dell'applicazione hanno un minimo comune denominatore, che è un **template**. Un template determina il layout generale della pagina (dove è collocata la navbar, dove sta il contenuto principale e dove si trova il footer).
+Tutte le pagine dell'applicazione hanno un minimo comune denominatore, che è un **template**. 
+
+Un template determina il layout generale della pagina (dove è collocata la navbar, dove sta il contenuto principale e dove si trova il footer).
+
 È possibile osservare le varianti di template disponibili all'interno della cartella `template`.
 
 ### Impostazioni della pagina
@@ -177,7 +180,8 @@ Per creare una pagina occorre seguire i seguenti step:
 ## Importante!
 > [!IMPORTANT]
 > Quando è necessario referenziare la pagina all'interno dell'applicazione, si può optare per una delle seguenti possibilità:
-> -`/pages/<nome_pagina>/index.php`
-> -`/pages/<nome_pagina>`
-> -`/<nome_pagina>/`
+> * `/pages/<nome_pagina>/index.php`
+> * `/pages/<nome_pagina>`
+> * `/<nome_pagina>/`
+>
 > È preferibile l'ultima, e ricorda di evitare **sempre** di referenziare `content.php`!
