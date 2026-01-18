@@ -8,13 +8,19 @@ body {
 
 h1::after {
     content: '';
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
     position: absolute;
-    left: 58%;
-    top: 34%;
+    display: inline-block;
+    top: -50px;
     transform: rotate(30deg) scaleX(-1);
     mask: url("/assets/imgs/accent.svg") 100% 100% no-repeat;
     mask-size: cover;
     background: var(--bs-primary);
+}
+
+@media screen and (max-width: 768px) {
+    h1::after {
+        display: none;
+    }
 }
