@@ -22,7 +22,7 @@ function checkStoredAuth() {
     }
 }
 
-// Funzione per gestire il login
+// Funzione per aggiungere al localStorage al momento del login
 function setupLoginForm() {
     const loginForm = document.getElementById('loginForm');
     

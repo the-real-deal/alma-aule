@@ -1,7 +1,7 @@
 <?php
 require_once "{$_SERVER['DOCUMENT_ROOT']}/bootstrap.php";
 
-// Gestione richiesta JSON (dal localStorage check)
+//Recupero i dati dal json
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
@@ -30,10 +30,10 @@ if(isset($data['dati']) && !empty($data['dati'])) {
 $result = [];
 
 if(isset($_POST["submit"])) {
-    $login_result = $dbh->checkLogin($_POST["email"], $_POST["password"]);
+    $login_result = AuthManager::checkLogin($dbh, $_POST["email"], $_POST["password"]);
     if(!empty($login_result)) {
         $result["logineseguito"] = true;
-        $username = $login_result[0]["Username"];
+        $username = $login_result;
         $_SESSION["username"] = $username;
 
         AuthManager::registerLoggedIn($dbh, $username);

@@ -4,13 +4,18 @@ class AuthManager {
     public const SESSION_VALIDITY_SECS = 10*24*60*60;
     private const AUTH_KEY_COOKIE_ATTR = "session_auth_key";
 
+    public static function checkLogin($dbh, $mail, $password) {
+        $login_result = $dbh->checkLogin($mail, $password);
+        if(!empty($login_result)) {
+            return $login_result[0]["Username"];
+        }
+        return $login_result;
+    }
+
     public static function isUserLoggedIn($dbh, $username) {
         $result = $dbh->getLastSession($username);
         if(isset($result)) {
-           // Nota le parentesi extra attorno a (new DateTime())
             $current_time = strtotime((new DateTime())->format('Y-m-d H:i:s'));
-            error_log("Confronto: " . ($current_time) . " < " . strtotime($result[0]['ExpirationDate']));
-            error_log("Confronto: " . ($current_time < strtotime($result[0]['ExpirationDate']) ? 'VALIDO' : 'SCADUTO'));
             if($current_time < strtotime($result[0]['ExpirationDate'])) {
                 return true;
             } 
