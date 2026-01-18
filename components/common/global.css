@@ -64,3 +64,8 @@ button, [class*="btn"], a {
 html, body {
     min-height: 100dvh;
 }
+
+body {
+    display: flex;
+    flex-direction: column;
+}

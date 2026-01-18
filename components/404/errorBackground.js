@@ -1,9 +1,9 @@
 const iconCodes = [
-    "mortarboard-fill",
-    "book",
-    "backpack",
-    "backpack4",
-    "highlighter"
+    "robot",
+    "bug-fill",
+    "server",
+    "wifi-off",
+    "cloud-slash"
 ];
 
 const numOfIcons = 30;
@@ -21,7 +21,7 @@ function createIcon(code) {
         opacity: 1,
         fontSize: '2em',
         zIndex: -1,
-        color: "white"
+        color: "var(--bs-primary)"
     }).appendTo('body');
     
     function animateIcon() {
