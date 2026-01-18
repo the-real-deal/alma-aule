@@ -1,7 +1,7 @@
 <?php
 
 class AuthManager {
-    public const SESSION_VALIDITY_SECS = 120;
+    public const SESSION_VALIDITY_SECS = 10*24*60*60;
     private const AUTH_KEY_COOKIE_ATTR = "session_auth_key";
 
     public static function isUserLoggedIn($dbh, $username) {

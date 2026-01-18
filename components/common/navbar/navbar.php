@@ -30,6 +30,10 @@
                         </a>";
                     }
                 ?>
+                <button class='nav-link text-white d-flex flex-row flex-md-column align-items-start align-items-md-center'>
+                    <strong class='fs-3 bi bi-box-arrow-left'></strong>
+                    <span class='d-inline-block my-auto ps-2 ps-md-0 font-merriweather'>Logout</span>
+                </button>
             </div>
         </div> 
     </div>
