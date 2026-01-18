@@ -31,69 +31,53 @@ git clone git@github.com:the-real-deal/alma-aule.git htdocs
 ## Struttura del progetto
 ```
 .
-├── apis
+├── apis/
 │   ├── aule.php
 │   ├── login.php
 │   ├── ...
-├── assets
+├── assets/
 │   ├── css
-│   │   └── global.css
 │   ├── fonts
-│   │   ├── Cinzel-VariableFont_wght.ttf
-│   │   └── MerriweatherSans-VariableFont_wght.ttf
 │   └── imgs
-│       ├── accent.svg
-│       ├── ...
 ├── bootstrap.php
-├── components
-│   ├── common
+├── components/
+│   ├── common/
 │   │   ├── head.php
-│   │   └── navbar
+│   │   └── navbar/
 │   │       ├── navbar.css
 │   │       ├── navbar.js
 │   │       └── navbar.php
-│   ├── map
+│   ├── map/
 │   │   ├── map.css
 │   │   ├── map.include
 │   │   └── map.js
-│   └── profile
-│       ├── index.php
-│       └── profile.js
 ├── config.php
-├── db
-│   ├── almaule.sql
-│   ├── almaule.zip
-│   └── database.php
+├── db/
 ├── index.php
-├── lib
-│   ├── js
+├── lib/
+│   ├── js/
 │   │   ├── animatedBackground.js
 │   │   ├── auth.js
 │   │   ├── jquery-3.7.1-min.js
 │   │   └── logout.js
-│   └── php
+│   └── php/
 │       ├── auth.php
 │       ├── fileutils.php
 │       └── links.php
-├── pages
-│   ├── 404
+├── pages/
+│   ├── 404/
 │   │   ├── content.php
 │   │   ├── index.php
 │   │   ├── main.js
 │   │   └── style.css
-│   ├── booking
-│   │   ├── ...
-│   ├── home
-│   │   ├── ...
-│   ├── landing
-│   │   ├── ...
-│   ├── login
-│   │   ├── ...
-│   └── profile
-│   │   ├── ...
+│   ├── booking/
+│   ├── home/
+│   ├── landing/
+│   ├── login/
+│   └── profile/
 │   └── ...
 ├── README.md
-├── template
+├── template/
 │   ├── base.php
 │   └── fullpage.php
 └── TODO.md
