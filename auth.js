@@ -1,25 +1,32 @@
+
 // Funzione per controllare il localStorage
 function checkStoredAuth() {
     const keyName = 'username';
     const dati = localStorage.getItem(keyName);
-    if (dati) {
-        fetch('/apis/login.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ dati: dati })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if(data.success && data.username !== "") { 
-                window.location.href = '/home/';
-            }
-        })
-        .catch(error => {
-            console.error('ERRORE nella fetch:', error);
-        });
-    }
+    const currentPath = window.location.pathname;
+    
+    fetch('/apis/login.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ dati: dati })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.success && data.username !== "" && (currentPath.includes('/login'))) { 
+            window.location.href = '/home/';
+        }
+        else if (data.success && data.username !== "") { 
+            // Utente autenticato, rimane nella pagina corrente
+        }
+        else if (!currentPath.includes('/login') && !currentPath.includes('/landing')) {
+            window.location.href = '/landing/';
+        }
+    })
+    .catch(error => {
+        console.error('ERRORE nella fetch:', error);
+    });
 }
 
 // Funzione per aggiungere al localStorage al momento del login
@@ -57,9 +64,6 @@ function setupLoginForm() {
     }
 }
 
+checkStoredAuth();
+setupLoginForm();
 
-// Esegui entrambe le funzioni quando il DOM è pronto
-document.addEventListener('DOMContentLoaded', function() {
-    checkStoredAuth();
-    setupLoginForm();
-});

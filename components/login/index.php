@@ -7,7 +7,7 @@
     <script src="../../components/common/animatedBackground.js"></script>
     <title>Alma Aule - Login</title>
 </head>
-
+<script src="/auth.js"></script>
 <body class="d-flex justify-content-center align-items-center">
     <main>
         <div class="card border-0 rounded-2 shadow-lg" style="min-width: 18rem; max-width: 22rem;">

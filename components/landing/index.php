@@ -6,6 +6,8 @@
     <script src="../common/animatedBackground.js"></script>
     <title>Alma Aule — Landing page</title>
 </head>
+<?php require_once "{$_SERVER['DOCUMENT_ROOT']}/bootstrap.php" ?>
+<script src="/auth.js"></script>
 <body class="d-flex justify-content-center align-items-center overflow-y-hidden">
     <main class="text-center text-white">
         <img src="../../assets/imgs/logo-unibo.png">

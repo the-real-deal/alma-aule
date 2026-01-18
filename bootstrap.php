@@ -7,6 +7,7 @@ if(!isset($_SESSION)) {
 require "{$_SERVER['DOCUMENT_ROOT']}/db/database.php";
 require "{$_SERVER['DOCUMENT_ROOT']}/lib/auth.php";
 
+if (!isset($dbh))
 $dbh = new DatabaseHelper(
     $configs["SERVER"], 
     $configs["DB"]["USERNAME"], 
@@ -14,3 +15,4 @@ $dbh = new DatabaseHelper(
     $configs["DB"]["NAME"],
     $configs["DB"]["PORT"]
     );
+?>

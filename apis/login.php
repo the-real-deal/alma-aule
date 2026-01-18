@@ -7,10 +7,11 @@ $data = json_decode($json, true);
 
 if(isset($data['dati']) && !empty($data['dati'])) {
     $datiRicevuti = $data['dati'];
-    
+    error_log("Dati ricevuti: " . $datiRicevuti);
     header('Content-Type: application/json');
     
     if(AuthManager::isUserLoggedIn($dbh, $datiRicevuti)) {
+        error_log("Utente loggato per: " . $datiRicevuti);
         $_SESSION["username"] = $datiRicevuti;
         echo json_encode([
             'success' => true,
@@ -24,12 +25,7 @@ if(isset($data['dati']) && !empty($data['dati'])) {
         ]);
         exit;
     }
-}
-
-// Gestione login da form HTML
-$result = [];
-
-if(isset($_POST["submit"])) {
+} else if(isset($_POST["submit"])) {
     $login_result = AuthManager::checkLogin($dbh, $_POST["email"], $_POST["password"]);
     if(!empty($login_result)) {
         $result["logineseguito"] = true;
@@ -52,5 +48,11 @@ if(isset($_POST["submit"])) {
         ]);
         exit;
     }
+} else {
+echo json_encode([
+    'success' => false,
+    'username' => ''
+    ]);
+exit;
 }
 ?>

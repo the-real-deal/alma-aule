@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <script src="/auth.js"></script>
     <header>
         <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/navbar/navbar.php"?>
     </header>

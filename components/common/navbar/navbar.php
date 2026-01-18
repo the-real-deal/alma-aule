@@ -37,4 +37,5 @@
             </div>
         </div> 
     </div>
+    <script src="/logout.js"></script>
 </nav>
