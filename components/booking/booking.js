@@ -1,31 +1,49 @@
 
-async function loadAule(params) {
-    const container = document.getElementsByClassName("card-body")
-    try {
-        const response = await fetch('/apis/aule.php');
-        if (!response.ok) {
-            throw new Error(`Errore HTTP: ${response.status}`);
-        }
-        const header = response.headers.get('content-type');
-        const text = await response.text;
+async function loadAule() {
+    const container = document.getElementById("aule")
+    fetch('/apis/aule.php')
+        .then(res => res.json())
+        .then(data => {
+            let html = ``;
 
-        let data;
-        try {
-            data = JSON.parse(text);
-        } catch (error) {
-            throw new Error('Risposta non valida dal server');
-        }
-        // if (data.error) {
-        //     container.innerHTML = mostraErrore(data.message);
-        //     return;
-        // }
-
-
-    } catch (error) {
-
-    }
-}
-
-function aule(sede) {
+            new Set(data.map(x => x.sede["citta"])).forEach(citta => {
+                html += `
+            <div class="list-group list-group-flush mb-3">
+                <h3>${citta}</h3>
+                <hr class="border border-primary border-2 opacity-75 my-1 mx-1">
+                ${aule(data.filter(y => y.sede["citta"] === citta))}
+            </div>
+            `
+            })
+            container.innerHTML = html;
+        })
+        .catch(err => console.error(err))
 
 }
+
+function aule(aule) {
+    let html = '';
+    aule.forEach(a => {
+        html += `
+        <a class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h4>${a.nomeAula}</h4>
+                <small>${a.numeroPiano}</small>
+            </div>
+            <div class="container d-flex ">
+                <strong>Posti:</strong>
+                <span class="ps-1">${a.numeroPosti}</span>
+            </div>
+            <div class="container d-flex ">
+                <strong>Indirizzo:</strong>
+                <span class="ps-1">${a.sede["via"]}</span>
+            </div>
+        </a>
+            `
+    });
+    return html;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadAule();
+});

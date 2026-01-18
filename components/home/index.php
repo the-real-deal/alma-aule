@@ -6,7 +6,6 @@
 
     <title>Home - Alma Aule</title>
 
-
     <script src="prenotazioni.js"></script>
     <link href="./home.css" rel="stylesheet">
     <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/map/map.php" ?>
