@@ -13,3 +13,5 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{DOCUMENT_ROOT}/components%{REQUEST_URI} -f [OR]
 RewriteCond %{DOCUMENT_ROOT}/components%{REQUEST_URI} -d
 RewriteRule ^(.*)$ /components/$1 [L]
+
+ErrorDocument 404 /components/404/
