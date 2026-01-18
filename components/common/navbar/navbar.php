@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-md bg-primary">
-    <div class="container-fluid px-5">
+    <div class="container-fluid px-4 px-md-5">
         <button class="navbar-toggler border-1 border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a target="_blank" href="https://www.unibo.it/it" class="navbar-brand text-white d-flex align-items-center order-md-last" href="#">
+        <a target="_blank" href="https://www.unibo.it/it" class="navbar-brand text-white d-flex align-items-center order-md-last m-0" href="#">
             <img class="navbar-brand-logo" src="/assets/imgs/logo-unibo.png" alt="Alma Mater Studiorum Logo">
             <div class="vr my-3 text-white"></div>
             <h3 class="ps-3 m-0 text-uppercase">

@@ -32,7 +32,10 @@
                         <input name="password" type="password" class="form-control" id="inputPassword">
                     </div>
                     <button name="submit" type="submit" class="btn btn-primary">Accedi</button>
-                    <small class="pt-3 text-center">Non hai un account? <a class="fw-bolder text-primary text-decoration-underline" href="../signup/">Registrati</a></small>
+                    <small class="pt-3 text-center d-flex flex-column">
+                        <span>Hai dimenticato la password?</span>
+                        <a class="fw-bolder text-primary text-decoration-underline" href="https://dsa.unibo.it/Recovery.aspx">Recupera la password</a>
+                    </small>
                 </form>
             </div>
         </div>
