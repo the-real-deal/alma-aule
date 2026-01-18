@@ -20,3 +20,17 @@ body {
         hsl(from var(--bs-primary) h s l / .65)
     );
 }
+
+a[href="/landing"] {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+a[href="/landing"]:hover {
+    background-color: hsl(from var(--bs-white) h s 85%) !important;
+}
+
+main {
+    height: 100dvh;
+}

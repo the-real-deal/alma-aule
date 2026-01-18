@@ -1,10 +1,8 @@
 <?php
+    $uri = 'http://';
     if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
         $uri = 'https://';
-    } else {
-        $uri = 'http://';
     }
     $uri .= $_SERVER['HTTP_HOST'];
-    header('Location: ' . $uri . '/components/landing/');
+    header('Location: ' . $uri . '/pages/landing/index.php');
     exit;
-?>

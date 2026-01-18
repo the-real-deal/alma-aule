@@ -14,13 +14,13 @@
         <div class="collapse navbar-collapse text-white" id="navbarNav">
             <div class="navbar-nav gap-1 gap-md-4">
                 <?php
-                    require_once "{$_SERVER['DOCUMENT_ROOT']}/lib/links.php";
+                    require_once "{$_SERVER['DOCUMENT_ROOT']}/lib/php/links.php";
                     
                     $links = [
-                        new Link("../home", "Home", "bi-house-fill"),
-                        new Link("../rooms", "Aule", "bi-door-closed-fill"),
-                        new Link("../booking", "Prenotazioni", "bi-bookmark-plus-fill"),
-                        new Link("../profile", "Profilo", "bi-person-fill"),
+                        new Link("/home", "Home", "bi-house-fill"),
+                        new Link("/rooms", "Aule", "bi-door-closed-fill"),
+                        new Link("/booking", "Prenotazioni", "bi-bookmark-plus-fill"),
+                        new Link("/profile", "Profilo", "bi-person-fill"),
                     ];
 
                     foreach ($links as $link) {
@@ -30,12 +30,11 @@
                         </a>";
                     }
                 ?>
-                <button class='nav-link text-white d-flex flex-row flex-md-column align-items-start align-items-md-center'>
+                <button id="logoutBtn" class='nav-link text-white d-flex flex-row flex-md-column align-items-start align-items-md-center'>
                     <strong class='fs-3 bi bi-box-arrow-left'></strong>
                     <span class='d-inline-block my-auto ps-2 ps-md-0 font-merriweather'>Logout</span>
                 </button>
             </div>
         </div> 
     </div>
-    <script src="/logout.js"></script>
 </nav>

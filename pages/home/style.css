@@ -1,11 +1,3 @@
-#map {
-    height: 600px;
-    width: 100%;
-    border-radius: 1em;
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-
 /* Stili aggiuntivi per integrare con Bootstrap */
 
 .card {

@@ -1,9 +1,13 @@
 body {
     background-image: linear-gradient(
         180deg, 
-        hsl(from #fff h s l),
+        hsl(from var(--bs-white) h s l),
         hsl(from var(--bs-primary) h s l / .17)
     );
+}
+
+main {
+    height: 100dvh;
 }
 
 h1::after {
