@@ -15,7 +15,8 @@
 <body>
     <script src="/logout.js" defer></script>
     <header>
-        <nav class="navbar navbar-expand-md bg-primary">
+        <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/navbar/navbar.php"?>
+        <!-- <nav class="navbar navbar-expand-md bg-primary">
             <div class="container-fluid px-5">
                 <button class="navbar-toggler border-1 border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
@@ -53,7 +54,7 @@
                     </div>
                 </div>
             </div>
-        </nav>
+        </nav> -->
     </header>
     <main class="p-4">
         <div id="map"></div>

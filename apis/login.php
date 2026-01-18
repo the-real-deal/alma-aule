@@ -1,5 +1,5 @@
 <?php
-require "{$_SERVER['DOCUMENT_ROOT']}/bootstrap.php";
+require_once "{$_SERVER['DOCUMENT_ROOT']}/bootstrap.php";
 
 // Gestione richiesta JSON (dal localStorage check)
 $json = file_get_contents('php://input');
