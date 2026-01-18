@@ -34,34 +34,31 @@ git clone git@github.com:the-real-deal/alma-aule.git htdocs
 ├── apis
 │   ├── aule.php
 │   ├── login.php
-│   ├── map.php
-│   └── prenotazioni.php
+│   ├── ...
 ├── assets
+│   ├── css
+│   │   └── global.css
 │   ├── fonts
 │   │   ├── Cinzel-VariableFont_wght.ttf
 │   │   └── MerriweatherSans-VariableFont_wght.ttf
-│   ├── imgs
-│   │   ├── accent.svg
-│   │   ├── circle.svg
-│   │   ├── logo-unibo.png
-│   │   ├── quote.svg
-│   │   ├── shapeDx.svg
-│   │   └── shapeTop.svg
-│   └── js
-│       └── jquery-3.7.1-min.js
+│   └── imgs
+│       ├── accent.svg
+│       ├── ...
 ├── bootstrap.php
 ├── components
 │   ├── common
-│   │   ├── global.css
 │   │   ├── head.php
 │   │   └── navbar
 │   │       ├── navbar.css
 │   │       ├── navbar.js
 │   │       └── navbar.php
-│   └── map
-│       ├── map.css
-│       ├── map.include
-│       └── map.js
+│   ├── map
+│   │   ├── map.css
+│   │   ├── map.include
+│   │   └── map.js
+│   └── profile
+│       ├── index.php
+│       └── profile.js
 ├── config.php
 ├── db
 │   ├── almaule.sql
@@ -72,6 +69,7 @@ git clone git@github.com:the-real-deal/alma-aule.git htdocs
 │   ├── js
 │   │   ├── animatedBackground.js
 │   │   ├── auth.js
+│   │   ├── jquery-3.7.1-min.js
 │   │   └── logout.js
 │   └── php
 │       ├── auth.php
@@ -84,25 +82,16 @@ git clone git@github.com:the-real-deal/alma-aule.git htdocs
 │   │   ├── main.js
 │   │   └── style.css
 │   ├── booking
-│   │   ├── content.php
-│   │   ├── index.php
-│   │   └── main.js
+│   │   ├── ...
 │   ├── home
-│   │   ├── content.php
-│   │   ├── index.php
-│   │   ├── main.js
-│   │   └── style.css
+│   │   ├── ...
 │   ├── landing
-│   │   ├── content.php
-│   │   ├── index.php
-│   │   └── style.css
+│   │   ├── ...
 │   ├── login
-│   │   ├── content.php
-│   │   ├── index.php
-│   │   └── style.css
+│   │   ├── ...
 │   └── profile
-│       ├── content.php
-│       └── index.php
+│   │   ├── ...
+│   └── ...
 ├── README.md
 ├── template
 │   ├── base.php
@@ -202,7 +191,7 @@ Per creare una pagina occorre seguire i seguenti step:
 ```
 
 ## Importante!
-> [!IMPORTANT] Ricorda!
+> [!IMPORTANT]
 > Quando è necessario referenziare la pagina all'interno dell'applicazione, si può optare per una delle seguenti possibilità:
 > -`/pages/<nome_pagina>/index.php`
 > -`/pages/<nome_pagina>`
