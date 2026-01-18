@@ -78,4 +78,47 @@ class DatabaseHelper
         }
         $stmt->execute();
     }
+
+    private function isAStudent($username)
+    {
+        $query = "SELECT p.Matricola, p.Nome, p.Cognome, a.Mail, p.DataNascita FROM account a JOIN studenti p ON a.Username = p.CodiceAccount WHERE a.Username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $data = $result->fetch_assoc();
+
+        return $data;
+    }
+
+    private function isAProfessor($username)
+    {
+        $query = "SELECT p.Matricola, p.Nome, p.Cognome, a.Mail, p.DataNascita, p.DataAssunzione FROM account a JOIN professori p ON a.Username = p.CodiceAccount WHERE a.Username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $data = $result->fetch_assoc();
+
+        return $data;
+    }
+
+   public function getProfileData($username)
+    {
+        $result = $this->isAStudent($username);
+        
+        if(!empty($result)) {
+            $result['tipo'] = 'studente';
+            return $result;
+        }
+        
+        $result = $this->isAProfessor($username);
+        
+        if(!empty($result)) {
+            $result['tipo'] = 'professore';
+            return $result;
+        }
+        
+        return null;
+    }
 }
