@@ -1,4 +1,3 @@
-<?php require "{$_SERVER['DOCUMENT_ROOT']}/apis/login.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +16,7 @@
                 <h3 class="text-dark">ESEGUI L'ACCESSO</h3>
             </div>
             <div class="card-body px-3 px-md-5 my-3">
-                <form class="d-flex flex-column justify-content-center" action="" method="POST">
+                <form id="loginForm" class="d-flex flex-column justify-content-center" action="" method="POST">
                     <div class="mb-3">
                         <label for="inputEmail" class="form-label text-dark">
                             <i class="bi bi-person-circle"></i>    
@@ -33,11 +32,15 @@
                         <input name="password" type="password" class="form-control" id="inputPassword">
                     </div>
                     <button name="submit" type="submit" class="btn btn-primary">Accedi</button>
-                    <small class="pt-3 text-center">Non hai un account? <a class="fw-bolder text-primary text-decoration-underline" href="../signup/">Registrati</a></small>
+                    <small class="pt-3 text-center d-flex flex-column">
+                        <span>Hai dimenticato la password?</span>
+                        <a class="fw-bolder text-primary text-decoration-underline" href="https://dsa.unibo.it/Recovery.aspx">Recupera la password</a>
+                    </small>
                 </form>
             </div>
         </div>
     </main>
+    <script src="/auth.js"></script>
 </body>
 
 </html>

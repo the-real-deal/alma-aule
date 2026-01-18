@@ -9,6 +9,9 @@
 </head>
 
 <body>
+    <header>
+        <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/navbar/navbar.php"?>
+    </header>
     <main>
         <div class="container-fluid d-flex">
 

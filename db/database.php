@@ -52,4 +52,30 @@ class DatabaseHelper
         $result = $stmt->get_result();
         return $result;
     }
+
+    public function getLastSession($username)
+    {
+        $query = "SELECT ExpirationDate FROM authsessions WHERE CodiceAccount = ? ORDER BY ExpirationDate DESC LIMIT 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function insertAuthSession($username, $expiry_time)
+    {
+        $lastSession = $this->getLastSession($username);
+        if(!empty($lastSession)) { 
+            $query = "UPDATE authsessions SET ExpirationDate = ? WHERE CodiceAccount = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ss', $expiry_time, $username);
+        } else { 
+            $query = "INSERT INTO authsessions (CodiceAccount, ExpirationDate) VALUES (?, ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ss', $username, $expiry_time);
+        }
+        $stmt->execute();
+    }
 }
