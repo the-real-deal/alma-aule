@@ -10,10 +10,10 @@
 
 <body>
     <header>
-        <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/navbar/navbar.php"?>
+        <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/navbar/navbar.php" ?>
     </header>
     <main>
-        <div class="container-fluid d-flex">
+        <div class="container-fluid d-flex gap-2">
 
             <div class="col card">
                 <h2 class="card-header bg-primary text-light">Aule</h2>
