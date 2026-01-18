@@ -1,4 +1,3 @@
-<?php require "{$_SERVER['DOCUMENT_ROOT']}/apis/login.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +16,7 @@
                 <h3 class="text-dark">ESEGUI L'ACCESSO</h3>
             </div>
             <div class="card-body px-3 px-md-5 my-3">
-                <form class="d-flex flex-column justify-content-center" action="" method="POST">
+                <form id="loginForm" class="d-flex flex-column justify-content-center" action="" method="POST">
                     <div class="mb-3">
                         <label for="inputEmail" class="form-label text-dark">
                             <i class="bi bi-person-circle"></i>    
@@ -38,6 +37,7 @@
             </div>
         </div>
     </main>
+    <script src="/auth.js"></script>
 </body>
 
 </html>
