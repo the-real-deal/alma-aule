@@ -57,6 +57,7 @@ function setupLoginForm() {
     }
 }
 
+
 // Esegui entrambe le funzioni quando il DOM è pronto
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
