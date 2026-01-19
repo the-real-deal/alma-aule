@@ -5,34 +5,17 @@
         <a class="text-primary text-decoration-none fw-semibold" href="#">Vedi tutte</a>
     </div>
 
-    <div class="card shadow-sm mb-4">
-        <div class="card-body p-4" id="prenotazioniContainer">
-            <div class="text-center py-5">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Caricamento...</span>
-                </div>
-                <p class="mt-3 text-muted">Caricamento prenotazioni...</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="card shadow-sm">
-        <div class="card-body p-4">
-            <h3 class="card-title mb-4">Statistiche</h3>
-            <div class="row g-3">
-                <div class="col-12">
-                    <div class="d-flex justify-content-between align-items-center py-3 border-bottom">
-                        <span class="text-muted">Totale Prenotazioni</span>
-                        <span class="badge bg-primary fs-6" id="totalePrenotazioni">0</span>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="d-flex justify-content-between align-items-center py-3">
-                        <span class="text-muted">Prenotazioni Future</span>
-                        <span class="badge bg-primary fs-6" id="prenotazioniFuture">0</span>
-                    </div>
-                </div>
-            </div>
+    <div class="card shadow-sm mb-4 position-relative">
+        <div id="prenotazioniCarousel" class="carousel slide">
+            <!-- Controlli del carosello -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#prenotazioniCarousel" data-bs-slide="prev" style="width: 5%;">
+                <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+                <span class="visually-hidden">Precedente</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#prenotazioniCarousel" data-bs-slide="next" style="width: 5%;">
+                <span class="carousel-control-next-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+                <span class="visually-hidden">Successivo</span>
+            </button>
         </div>
     </div>
 </section>
