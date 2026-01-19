@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 19, 2026 alle 16:17
+-- Creato il: Gen 19, 2026 alle 18:15
 -- Versione del server: 10.4.20-MariaDB
 -- Versione PHP: 8.0.9
 
@@ -20,6 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `almaule`
 --
+
 
 DROP DATABASE IF EXISTS almaule;
 CREATE DATABASE almaule;
@@ -319,8 +320,8 @@ CREATE TABLE `authsessions` (
 --
 
 INSERT INTO `authsessions` (`CodiceSessione`, `CodiceAccount`, `ExpirationDate`, `ForceExpired`) VALUES
-(1, 'beagre003', '2026-01-29 16:15:48', 0),
-(2, 'marmar001', '2026-01-29 12:57:50', 0);
+(1, 'beagre003', '2026-01-29 18:00:04', 0),
+(2, 'marmar001', '2026-01-29 18:12:27', 0);
 
 -- --------------------------------------------------------
 
@@ -535,6 +536,14 @@ CREATE TABLE `segnalazioni` (
   `Descrizione` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dump dei dati per la tabella `segnalazioni`
+--
+
+INSERT INTO `segnalazioni` (`CodiceSegnalazione`, `CodicePrenotazione`, `CodiceAccount`, `Descrizione`) VALUES
+(1, 1, 'beagre003', 'La classe era sporca, non si capisce per quale motivo ci fosse una fetta di salame attaccata al muro'),
+(2, 4, 'beagre003', 'Se le luci non si accendono più non è colpa della sottoscritta, la matricola Matteo Tonelli è responsabile, ha svitato tutto');
+
 -- --------------------------------------------------------
 
 --
@@ -682,7 +691,7 @@ ALTER TABLE `sedi`
 -- AUTO_INCREMENT per la tabella `segnalazioni`
 --
 ALTER TABLE `segnalazioni`
-  MODIFY `CodiceSegnalazione` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `CodiceSegnalazione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `tipi_account`
