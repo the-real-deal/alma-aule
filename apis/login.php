@@ -5,13 +5,11 @@ require_once "{$_SERVER['DOCUMENT_ROOT']}/bootstrap.php";
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
-if(isset($data['dati']) && !empty($data['dati'])) {
+if (isset($data['dati']) && !empty($data['dati'])) {
     $datiRicevuti = $data['dati'];
-    error_log("Dati ricevuti: " . $datiRicevuti);
     header('Content-Type: application/json');
-    
-    if(AuthManager::isUserLoggedIn($dbh, $datiRicevuti)) {
-        error_log("Utente loggato per: " . $datiRicevuti);
+
+    if (AuthManager::isUserLoggedIn($dbh, $datiRicevuti)) {
         $_SESSION["username"] = $datiRicevuti;
         echo json_encode([
             'success' => true,
@@ -25,9 +23,9 @@ if(isset($data['dati']) && !empty($data['dati'])) {
         ]);
         exit;
     }
-} else if(isset($_POST["submit"])) {
+} else if (isset($_POST["submit"])) {
     $login_result = AuthManager::checkLogin($dbh, $_POST["email"], $_POST["password"]);
-    if(!empty($login_result)) {
+    if (!empty($login_result)) {
         $result["logineseguito"] = true;
         $username = $login_result;
         $_SESSION["username"] = $username;
@@ -49,10 +47,9 @@ if(isset($data['dati']) && !empty($data['dati'])) {
         exit;
     }
 } else {
-echo json_encode([
-    'success' => false,
-    'username' => ''
+    echo json_encode([
+        'success' => false,
+        'username' => ''
     ]);
-exit;
+    exit;
 }
-?>

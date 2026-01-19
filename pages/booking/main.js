@@ -1,4 +1,27 @@
+async function loadCitta() {
+    const container = document.getElementById("citta");
+    fetch('/apis/citta.php')
+        .then(res => res.json)
+        .then(data => {
+            console.log(data);
+            const fragment = document.createDocumentFragment();
+            data.array.forEach(citta => {
+                const a = document.createElement('a');
+                a.className = "list-group-item";
+                a.className = "list-group-item-action";
+                a.href = "#".citta;
+                const h3 = document.createElement('h3');
+                h3.textContent = citta;
+                const hr = document.createElement('hr');
+                hr.className = 'border border-primary border-2 opacity-75 my-1 mx-1';
 
+                a.appendChild(h3);
+                a.appendChild(hr);
+                fragment.appendChild(a);
+            })
+            container.appendChild(fragment);
+        }).catch(err => console.error(err))
+}
 async function loadAule() {
     const container = document.getElementById("aule")
     fetch('/apis/aule.php')
@@ -10,6 +33,7 @@ async function loadAule() {
                 divGroup.className = 'list-group list-group-flush mb-3';
 
                 const h3 = document.createElement('h3');
+                h3.id = citta;
                 h3.textContent = citta;
 
                 const hr = document.createElement('hr');
@@ -29,7 +53,6 @@ async function loadAule() {
 }
 
 function aule(aule) {
-    console.log(aule);
     const fragment = document.createDocumentFragment();
 
     aule.forEach(a => {
@@ -85,5 +108,6 @@ function aule(aule) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    loadCitta();
     loadAule();
 });

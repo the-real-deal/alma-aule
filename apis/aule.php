@@ -65,5 +65,5 @@ foreach ($sedi as $s) {
         array_push($aule, $tmp);
     }
 }
-error_log(json_encode($aule));
+
 echo json_encode($aule);

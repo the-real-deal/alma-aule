@@ -67,11 +67,11 @@ class DatabaseHelper
     public function insertAuthSession($username, $expiry_time)
     {
         $lastSession = $this->getLastSession($username);
-        if(!empty($lastSession)) { 
+        if (!empty($lastSession)) {
             $query = "UPDATE authsessions SET ExpirationDate = ? WHERE CodiceAccount = ?";
             $stmt = $this->db->prepare($query);
             $stmt->bind_param('ss', $expiry_time, $username);
-        } else { 
+        } else {
             $query = "INSERT INTO authsessions (CodiceAccount, ExpirationDate) VALUES (?, ?)";
             $stmt = $this->db->prepare($query);
             $stmt->bind_param('ss', $username, $expiry_time);
@@ -103,22 +103,31 @@ class DatabaseHelper
         return $data;
     }
 
-   public function getProfileData($username)
+    public function getProfileData($username)
     {
         $result = $this->isAStudent($username);
-        
-        if(!empty($result)) {
+
+        if (!empty($result)) {
             $result['tipo'] = 'studente';
             return $result;
         }
-        
+
         $result = $this->isAProfessor($username);
-        
-        if(!empty($result)) {
+
+        if (!empty($result)) {
             $result['tipo'] = 'professore';
             return $result;
         }
-        
+
         return null;
+    }
+    public function getCitta()
+    {
+        $query = "SELECT DISTINCT s.Citta FROM sedi s";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result;
     }
 }
