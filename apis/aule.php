@@ -1,57 +1,57 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php';
-class Sede
+class Site
 {
-    public $codiceSede;
-    public $via;
-    public $latitudine;
-    public $longitudine;
-    public $citta;
-    public function __construct($sede)
+    public $siteId;
+    public $street;
+    public $lat;
+    public $lon;
+    public $city;
+    public function __construct($site)
     {
-        $this->codiceSede = $sede[0];
-        $this->via = $sede[1];
-        $this->latitudine = $sede[2];
-        $this->longitudine = $sede[3];
-        $this->citta = $sede[4];
+        $this->siteId = $site[0];
+        $this->street = $site[1];
+        $this->lat = $site[2];
+        $this->lon = $site[3];
+        $this->city = $site[4];
     }
 
-    public function getCodice()
+    public function getId()
     {
-        return $this->codiceSede;
+        return $this->siteId;
     }
 }
-class Aula
+class Room
 {
-    public $sede;
-    public $codiceAula;
-    public $nomeAula;
-    public $numeroPiano;
-    public $numeroPosti;
-    public $accessibilita;
-    public $proiettore;
-    public $prese;
-    public $laboratorio;
-    public function __construct($sede, $codiceAula, $nomeAula, $numeroPiano, $numeroPosti, $accessibilita, $proiettore, $prese, $laboratorio)
+    public $site;
+    public $roomId;
+    public $roomName;
+    public $floorNumber;
+    public $seatsNumber;
+    public $accessibility;
+    public $projector;
+    public $plugs;
+    public $laboratory;
+    public function __construct($site, $roomId, $roomName, $floorNumber, $seatsNumber, $accessibilita, $projector, $plugs, $laboratory)
     {
-        $this->sede = new Sede($sede); //must insert $sede as class Sede
-        $this->codiceAula = $codiceAula;
-        $this->nomeAula = $nomeAula;
-        $this->numeroPiano = $numeroPiano;
-        $this->numeroPosti = $numeroPosti;
+        $this->site = new Site($site); //must insert $site as class site
+        $this->roomId = $roomId;
+        $this->roomName = $roomName;
+        $this->floorNumber = $floorNumber;
+        $this->seatsNumber = $seatsNumber;
         $this->accessibilita = $accessibilita;
-        $this->proiettore = $proiettore;
-        $this->prese = $prese;
-        $this->laboratorio = $laboratorio;
+        $this->projector = $projector;
+        $this->plugs = $plugs;
+        $this->laboratory = $laboratory;
     }
 }
 
-$aule = array();
-$sedi = $dbh->getSedi()->fetch_all();
+$rooms = array();
+$sedi = $dbh->getSites()->fetch_all();
 foreach ($sedi as $s) {
 
-    foreach ($dbh->getAulePerSede($s[0])->fetch_all() as $a) {
-        $tmp = new Aula(
+    foreach ($dbh->getSiteRooms($s[0])->fetch_all() as $a) {
+        $tmp = new Room(
             $s,
             $a[0],
             $a[1],
@@ -62,8 +62,8 @@ foreach ($sedi as $s) {
             $a[7],
             $a[8]
         );
-        array_push($aule, $tmp);
+        array_push($rooms, $tmp);
     }
 }
-error_log(json_encode($aule));
-echo json_encode($aule);
+error_log(json_encode($rooms));
+echo json_encode($rooms);

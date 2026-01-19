@@ -6,7 +6,7 @@ try {
     $profileData = $dbh->getProfileData($username); 
     
     if ($profileData) {
-        $tipoLabel = ($profileData['tipo'] === 'studente') ? 'Studente' : 'Professore';
+        $labelType = ($profileData['tipo'] === 'studente') ? 'Studente' : 'Professore';
         ?>
         
         <div class="row">
@@ -15,7 +15,7 @@ try {
                     <img class="rounded" src="https://ui-avatars.com/api/?name=<?= urlencode($profileData['Nome']) ?>" alt="<?= $profileData['Nome'] ?>">
                 </div>
                 <h3 class="mb-1"><?= $profileData['Nome'] . ' ' . $profileData['Cognome'] ?></h3>
-                <p class="text-muted mb-0"><?= $tipoLabel ?></p>
+                <p class="text-muted mb-0"><?= $labelType ?></p>
             </div>
 
             <div class="col-lg-8">

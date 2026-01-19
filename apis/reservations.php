@@ -1,11 +1,11 @@
 <?php 
 require $_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php';
 
-$result = $dbh->getPrenotazioni($_SESSION['username']);
+$result = $dbh->getReservations($_SESSION['username']);
 
-$prenotazioni = 0;
-$prenotazioniFuture = 0;
-$oggi = date('Y-m-d H:i:s');
+$reservations = 0;
+$futureReservations = 0;
+$today = date('Y-m-d H:i:s');
 $response = [];
 ?>
 <?php
@@ -14,21 +14,20 @@ ob_start();
     <div class="carousel-inner">
 <?php
 if ($result->num_rows > 0) {
-    $isFirst = true; // Per la classe active
+    $isFirst = true; 
     while($row = $result->fetch_assoc()) {
-        $isFutura = $row['DataPrenotazione'] >= $oggi;
-        $badgeClass = $isFutura ? 'bg-success' : 'bg-secondary';
-        $badgeText = $isFutura ? 'Futura' : 'Passata';
+        $isFuture = $row['DataPrenotazione'] >= $today;
+        $badgeClass = $isFuture ? 'bg-success' : 'bg-secondary';
+        $badgeText = $isFuture ? 'Futura' : 'Passata';
         
-        // Formattazione data in italiano
         $timestamp = strtotime($row['DataPrenotazione']);
-        $dataFormattata = date('d/m/Y', $timestamp);
+        $formattedDate = date('d/m/Y', $timestamp);
         
         $activeClass = $isFirst ? ' active' : '';
         
-        $prenotazioni++;
-        if ($isFutura) {
-            $prenotazioniFuture++;
+        $reservations++;
+        if ($isFuture) {
+            $futureReservations++;
         }
     ?>
         <div class="carousel-item<?= $activeClass ?>">
@@ -40,7 +39,7 @@ if ($result->num_rows > 0) {
                 <div class="row g-3">
                     <div class="col-md-6 col-lg-3">
                         <small class="text-muted text-uppercase d-block mb-1">Data Prenotazione</small>
-                        <strong><?= $dataFormattata ?></strong>
+                        <strong><?= $formattedDate ?></strong>
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <small class="text-muted text-uppercase d-block mb-1">Via Sede</small>
@@ -80,13 +79,13 @@ if ($result->num_rows > 0) {
                     <div class="col-12">
                         <div class="d-flex justify-content-between align-items-center py-3 border-bottom">
                             <span class="text-muted">Totale Prenotazioni</span>
-                            <span class="badge bg-primary fs-6" id="totalePrenotazioni"><?= $prenotazioni ?></span>
+                            <span class="badge bg-primary fs-6" id="totalePrenotazioni"><?= $reservations ?></span>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="d-flex justify-content-between align-items-center py-3">
                             <span class="text-muted">Prenotazioni Future</span>
-                            <span class="badge bg-primary fs-6" id="prenotazioniFuture"><?= $prenotazioniFuture ?></span>
+                            <span class="badge bg-primary fs-6" id="prenotazioniFuture"><?= $futureReservations ?></span>
                         </div>
                     </div>
                 </div>
