@@ -23,7 +23,7 @@
                     require_once "{$_SERVER['DOCUMENT_ROOT']}/lib/php/links.php";
                     
                     $links = [
-                        new Link("/admin", "Dashboard", "bi-person-gear"),
+                        new Link("/admin", "Dashboard", "bi-terminal-dash"),
                         new Link("/admin/rooms", "Gestione aule", "bi-door-closed-fill"),
                         new Link("/admin/booking", "Gestione prenotazioni", "bi-bookmark-plus-fill"),
                         new Link("/admin/users", "Gestione utenti", "bi-person-fill"),
