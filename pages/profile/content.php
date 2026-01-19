@@ -1,5 +1,7 @@
-<div class="card shadow-sm mb-4">
-    <div class="card-body p-4" id="profileContainer">
-        <!-- Il contenuto verrà caricato da JavaScript -->
+<div class="container d-flex justify-content-center align-items-start my-5"> 
+    <div class="card border-primary shadow-sm d-flex w-50">
+        <div class="card-body justify-content-center px-3 px-md-5 my-3" id="profileContainer">
+            <!-- Il contenuto verrà caricato da JavaScript -->
+        </div>
     </div>
 </div>
