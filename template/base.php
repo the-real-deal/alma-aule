@@ -9,17 +9,22 @@
             }
         }
     ?>
-    <title>
-        Alma Aule <?php 
-            if (isset($page["title"])) {
-                echo "— " . $page["title"];
-            }
-        ?>
-    </title>
+    <?php
+        if (isset($page["title"])) {
+            echo "<title>Alma Aule — {$page['title']}</title>";
+        } else {
+            echo "<title>Alma Aule</title>";
+        }
+    ?>
 </head>
 <body>
     <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/navbar/navbar.php" ?>
-    <main>
+    <?php
+        $main_classes = $page["container-classes"] ?? "";
+        $main_id = $page["container-id"] ?? "";
+
+        echo "<main class='{$main_classes}' id='{$main_id}'>"; 
+    ?>
         <?php
             if (isset($page["content"])) {
                 require($page["content"]);
