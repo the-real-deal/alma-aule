@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Creato il: Gen 18, 2026 alle 15:54
--- Versione del server: 10.4.32-MariaDB
--- Versione PHP: 8.2.12
+-- Host: 127.0.0.1
+-- Creato il: Gen 19, 2026 alle 13:17
+-- Versione del server: 10.4.20-MariaDB
+-- Versione PHP: 8.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,6 +25,7 @@ DROP DATABASE IF EXISTS almaule;
 CREATE DATABASE almaule;
 USE almaule;
 
+
 -- --------------------------------------------------------
 
 --
@@ -37,7 +38,7 @@ CREATE TABLE `account` (
   `Attivo` tinyint(1) NOT NULL DEFAULT 1,
   `Mail` varchar(70) NOT NULL,
   `Password` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dump dei dati per la tabella `account`
@@ -48,7 +49,7 @@ INSERT INTO `account` (`Username`, `codiceRuolo`, `Attivo`, `Mail`, `Password`) 
 ('clarom001', 3, 1, 'clarom001@studio.unibo.it', 'StudPass003'),
 ('fedrus001', 2, 1, 'fedrus001@studio.unibo.it', 'ProfPass002'),
 ('ilabru001', 3, 1, 'ilabru001@studio.unibo.it', 'StudPass001'),
-('marmar001', 2, 1, 'marmar001@studio.unibo.it', 'ProfPass001'),
+('marmar001', 2, 1, 'marmar001@studio.unibo.it', '456'),
 ('matrus001', 3, 1, 'matrus001@studio.unibo.it', 'StudPass002'),
 ('vinesp001', 1, 1, 'vinesp001@studio.unibo.it', 'ProfPass003');
 
@@ -68,7 +69,7 @@ CREATE TABLE `aule` (
   `Proiettore` tinyint(1) NOT NULL,
   `Prese` tinyint(1) NOT NULL,
   `Laboratorio` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dump dei dati per la tabella `aule`
@@ -311,7 +312,15 @@ CREATE TABLE `authsessions` (
   `CodiceAccount` varchar(20) NOT NULL,
   `ExpirationDate` datetime NOT NULL,
   `ForceExpired` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `authsessions`
+--
+
+INSERT INTO `authsessions` (`CodiceSessione`, `CodiceAccount`, `ExpirationDate`, `ForceExpired`) VALUES
+(1, 'beagre003', '2026-01-29 10:33:30', 0),
+(2, 'marmar001', '2026-01-29 12:57:50', 0);
 
 -- --------------------------------------------------------
 
@@ -325,14 +334,17 @@ CREATE TABLE `prenotazioni` (
   `CodiceAccount` varchar(20) NOT NULL,
   `NumeroPersone` int(11) NOT NULL,
   `DataPrenotazione` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dump dei dati per la tabella `prenotazioni`
 --
 
 INSERT INTO `prenotazioni` (`CodicePrenotazione`, `CodiceAula`, `CodiceAccount`, `NumeroPersone`, `DataPrenotazione`) VALUES
-(1, 138, 'beagre003', 5, '2026-01-17 00:00:00');
+(1, 138, 'beagre003', 5, '2026-01-17 00:00:00'),
+(2, 4, 'beagre003', 15, '2026-01-19 11:09:27'),
+(3, 57, 'beagre003', 18, '2026-01-19 12:56:41'),
+(4, 109, 'beagre003', 20, '2026-01-22 12:56:56');
 
 -- --------------------------------------------------------
 
@@ -348,7 +360,7 @@ CREATE TABLE `professori` (
   `Data_Assunzione` date NOT NULL,
   `CodiceAccount` varchar(20) NOT NULL,
   `Ordinario` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dump dei dati per la tabella `professori`
@@ -371,7 +383,7 @@ CREATE TABLE `sedi` (
   `Latitudine` float NOT NULL,
   `Longitudine` float NOT NULL,
   `Citta` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dump dei dati per la tabella `sedi`
@@ -521,7 +533,7 @@ CREATE TABLE `segnalazioni` (
   `CodicePrenotazione` int(11) NOT NULL,
   `CodiceAccount` varchar(20) NOT NULL,
   `Descrizione` varchar(250) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -535,7 +547,7 @@ CREATE TABLE `studenti` (
   `Cognome` varchar(50) NOT NULL,
   `Data_Di_Nascita` date NOT NULL,
   `CodiceAccount` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dump dei dati per la tabella `studenti`
@@ -556,7 +568,7 @@ INSERT INTO `studenti` (`Matricola`, `Nome`, `Cognome`, `Data_Di_Nascita`, `Codi
 CREATE TABLE `tipi_account` (
   `ID` int(11) NOT NULL,
   `Tipo` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dump dei dati per la tabella `tipi_account`
@@ -652,13 +664,13 @@ ALTER TABLE `aule`
 -- AUTO_INCREMENT per la tabella `authsessions`
 --
 ALTER TABLE `authsessions`
-  MODIFY `CodiceSessione` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `CodiceSessione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `prenotazioni`
 --
 ALTER TABLE `prenotazioni`
-  MODIFY `CodicePrenotazione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `CodicePrenotazione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT per la tabella `sedi`
