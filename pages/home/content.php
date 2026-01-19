@@ -6,18 +6,14 @@
     </div>
 
     <div class="card shadow-sm mb-4 position-relative">
-        <div id="prenotazioniCarousel" class="carousel slide">
+        <div id="reservationsCarousel" class="carousel slide">
             <!-- Controlli del carosello -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#prenotazioniCarousel" data-bs-slide="prev" style="width: 5%;">
-                <span class="rounded-circle bg-dark fs-5 p-2" aria-hidden="true">
-                    <strong class="bi bi-chevron-left text-white"></strong>
-                </span>
+            <button class="carousel-control-prev" type="button" data-bs-target="#reservationsCarousel" data-bs-slide="prev" style="width: 5%;">
+                <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
                 <span class="visually-hidden">Precedente</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#prenotazioniCarousel" data-bs-slide="next" style="width: 5%;">
-                <span class="rounded-circle bg-dark fs-5 p-2" aria-hidden="true">
-                    <strong class="bi bi-chevron-right text-white"></strong>
-                </span>
+            <button class="carousel-control-next" type="button" data-bs-target="#reservationsCarousel" data-bs-slide="next" style="width: 5%;">
+                <span class="carousel-control-next-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
                 <span class="visually-hidden">Successivo</span>
             </button>
         </div>

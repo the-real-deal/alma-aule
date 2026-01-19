@@ -47,7 +47,7 @@ try {
     } else {
         ?>
         <div class="alert alert-warning" role="alert">
-            <?= htmlspecialchars($_SESSION['username']) ?> : Non hai fatto nessuna segnalazione;
+            <?= htmlspecialchars($_SESSION['username']) ?> : Non hai fatto nessuna segnalazione
         </div>
     
 <?php

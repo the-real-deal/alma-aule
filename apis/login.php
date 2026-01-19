@@ -6,16 +6,15 @@ $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
 if(isset($data['dati']) && !empty($data['dati'])) {
-    $datiRicevuti = $data['dati'];
-    error_log("Dati ricevuti: " . $datiRicevuti);
+    $receivedData = $data['dati'];
     header('Content-Type: application/json');
     
-    if(AuthManager::isUserLoggedIn($dbh, $datiRicevuti)) {
-        error_log("Utente loggato per: " . $datiRicevuti);
-        $_SESSION["username"] = $datiRicevuti;
+    if(AuthManager::isUserLoggedIn($dbh, $receivedData)) {
+        error_log("Utente loggato per: " . $receivedData);
+        $_SESSION["username"] = $receivedData;
         echo json_encode([
             'success' => true,
-            'username' => $datiRicevuti
+            'username' => $receivedData
         ]);
         exit;
     } else {
