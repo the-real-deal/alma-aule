@@ -21,6 +21,7 @@
                         new Link("/rooms", "Aule", "bi-door-closed-fill"),
                         new Link("/booking", "Prenotazioni", "bi-bookmark-plus-fill"),
                         new Link("/profile", "Profilo", "bi-person-fill"),
+                        new link("/reports", "Segnalazioni", "bi-flag-fill")
                     ];
 
                     foreach ($links as $link) {
