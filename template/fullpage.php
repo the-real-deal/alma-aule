@@ -13,9 +13,9 @@
     ?>
     <title>Alma Aule<?= isset($page["title"]) ? " - {$page["title"]}" : ""; ?></title>
 </head>
-<body class="d-flex flex-column">
+<body>
     <main
-        <?= isset($page["container-classes"]) ? 'class="' . $page["container-classes"] . '"' : ""; ?>
+        class="flex-grow-1 <?= isset($page["container-classes"]) ? $page["container-classes"] : ""; ?>"
         <?= isset($page["container-id"]) ? 'id="' . $page["container-id"] . '"' : ""; ?>
     >
         <?php
@@ -24,8 +24,7 @@
             }
         ?>
     </main>
-    <!-- Eventualmente un footer -->
-    <?php # require './components/navbar.php' ?>   
+    <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/footer/footer.php" ?>   
     <?php
         if (isset($page["js"])) {
             foreach ($page["js"] as $script_src) {
