@@ -121,4 +121,18 @@ class DatabaseHelper
         
         return null;
     }
+
+    public function getReports($username) {
+        $query = "SELECT au.NomeAula, s.Via, au.Piano, p.DataPrenotazione, s.Descrizione 
+                    FROM segnalazioni s JOIN account a ON s.CodiceAccount = a.Username JOIN prenotazioni p ON s.CodicePrenotazione = p.CodicePrenotazione 
+                    JOIN aule au ON p.CodiceAula = au.CodiceAula
+                    WHERE a.Username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+
+        return $data;
+    }
 }
