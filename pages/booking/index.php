@@ -5,7 +5,8 @@
     $page["content"] = "{$_SERVER['DOCUMENT_ROOT']}/pages/{$page_name}/content.php";
     $page["css"] = [ 
         "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
-        "/components/map/map.css" 
+        "/components/map/map.css",
+        "/pages/{$page_name}/style.css",
     ];
     $page["js"] = [ 
         "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js", 

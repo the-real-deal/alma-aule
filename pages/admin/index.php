@@ -4,4 +4,4 @@
     $page["title"] = "Admin Dashboard";
     $page["container-classes"] = "p-5";
     $page["content"] = "{$_SERVER['DOCUMENT_ROOT']}/pages/{$page_name}/content.php";
-    include "{$_SERVER['DOCUMENT_ROOT']}/template/base.php";
+    include "{$_SERVER['DOCUMENT_ROOT']}/template/admin.php";
