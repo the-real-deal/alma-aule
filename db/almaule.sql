@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 19, 2026 alle 13:17
+-- Creato il: Gen 19, 2026 alle 16:17
 -- Versione del server: 10.4.20-MariaDB
 -- Versione PHP: 8.0.9
 
@@ -319,7 +319,7 @@ CREATE TABLE `authsessions` (
 --
 
 INSERT INTO `authsessions` (`CodiceSessione`, `CodiceAccount`, `ExpirationDate`, `ForceExpired`) VALUES
-(1, 'beagre003', '2026-01-29 10:33:30', 0),
+(1, 'beagre003', '2026-01-29 16:15:48', 0),
 (2, 'marmar001', '2026-01-29 12:57:50', 0);
 
 -- --------------------------------------------------------
@@ -356,8 +356,8 @@ CREATE TABLE `professori` (
   `Matricola` bigint(20) UNSIGNED NOT NULL,
   `Nome` varchar(50) NOT NULL,
   `Cognome` varchar(50) NOT NULL,
-  `Data_Di_Nascita` date NOT NULL,
-  `Data_Assunzione` date NOT NULL,
+  `DataNascita` date NOT NULL,
+  `DataAssunzione` date NOT NULL,
   `CodiceAccount` varchar(20) NOT NULL,
   `Ordinario` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -366,7 +366,7 @@ CREATE TABLE `professori` (
 -- Dump dei dati per la tabella `professori`
 --
 
-INSERT INTO `professori` (`Matricola`, `Nome`, `Cognome`, `Data_Di_Nascita`, `Data_Assunzione`, `CodiceAccount`, `Ordinario`) VALUES
+INSERT INTO `professori` (`Matricola`, `Nome`, `Cognome`, `DataNascita`, `DataAssunzione`, `CodiceAccount`, `Ordinario`) VALUES
 (1, 'Marco', 'Marino', '1967-06-24', '2002-03-21', 'marmar001', 1),
 (2, 'Federica', 'Russo', '1986-10-10', '2020-05-22', 'fedrus001', 0),
 (3, 'Vincenzo', 'Esposito', '1969-12-02', '2004-06-10', 'vinesp001', 1);
@@ -545,7 +545,7 @@ CREATE TABLE `studenti` (
   `Matricola` bigint(20) UNSIGNED NOT NULL,
   `Nome` varchar(50) NOT NULL,
   `Cognome` varchar(50) NOT NULL,
-  `Data_Di_Nascita` date NOT NULL,
+  `DataNascita` date NOT NULL,
   `CodiceAccount` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -553,7 +553,7 @@ CREATE TABLE `studenti` (
 -- Dump dei dati per la tabella `studenti`
 --
 
-INSERT INTO `studenti` (`Matricola`, `Nome`, `Cognome`, `Data_Di_Nascita`, `CodiceAccount`) VALUES
+INSERT INTO `studenti` (`Matricola`, `Nome`, `Cognome`, `DataNascita`, `CodiceAccount`) VALUES
 (4, 'Ilaria', 'Bruno', '2006-03-19', 'ilabru001'),
 (5, 'Matteo', 'Russo', '2004-04-20', 'matrus001'),
 (6, 'Claudia', 'Romano', '2005-05-21', 'clarom001'),
