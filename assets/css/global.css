@@ -1,11 +1,16 @@
 @font-face {
     font-family: 'Cinzel';
-    src: url("../../assets/fonts/Cinzel-VariableFont_wght.ttf");
+    src: url("/assets/fonts/Cinzel-VariableFont_wght.ttf");
 }
 
 @font-face {
     font-family: 'Merriweather Sans';
-    src: url("../../assets/fonts/MerriweatherSans-VariableFont_wght.ttf");
+    src: url("/assets/fonts/MerriweatherSans-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: 'SourceSans';
+    src: url("/assets/fonts/SourceSans3-Regular.woff");
 }
 
 :root {
@@ -22,7 +27,7 @@
 }
 
 * {
-    font-family: source-sans-pro, sans-serif;
+    font-family: "SourceSans";
 }
 
 /*

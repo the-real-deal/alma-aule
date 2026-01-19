@@ -5,27 +5,20 @@
     <?php
         if (isset($page["css"])) {
             foreach ($page["css"] as $stylesheet_src) {
-                echo "<link rel='stylesheet' href={$stylesheet_src}>";
+            ?>
+                <link rel='stylesheet' href="<?= $stylesheet_src ?>">
+            <?php
             }
         }
     ?>
-    <?php
-        if (isset($page["title"])) {
-            echo "<title>Alma Aule — {$page['title']}</title>";
-        } else {
-            echo "<title>Alma Aule</title>";
-        }
-    ?>
-</head>
+    <title>Alma Aule<?= isset($page["title"]) ? " - {$page["title"]}" : ""; ?></title>
 <body>
     <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/navbar/navbar.php" ?>
-    <?php
-        $main_classes = $page["container-classes"] ?? "";
-        $main_id = $page["container-id"] ?? "";
-
-        echo "<main class='{$main_classes}' id='{$main_id}'>"; 
-    ?>
-        <?php
+    <main
+        <?= isset($page["container-classes"]) ? '"class="' . $page["container-classes"] . '"' : ""; ?>
+        <?= isset($page["container-id"]) ? '"id="' . $page["container-id"] . '"' : ""; ?>
+    >
+                <?php
             if (isset($page["content"])) {
                 require($page["content"]);
             }
@@ -36,7 +29,9 @@
     <?php
         if (isset($page["js"])) {
             foreach ($page["js"] as $script_src) {
-                echo "<script src={$script_src} defer></script>";
+            ?>
+                <script src="<?= "{$script_src}"; ?>" defer></script>
+            <?php
             }
         }
     ?>
