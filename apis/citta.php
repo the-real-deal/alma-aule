@@ -1,7 +1,11 @@
 <?php
 require_once "{$_SERVER['DOCUMENT_ROOT']}/bootstrap.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . '/lib/php/citta.php';
 $out = $dbh->getCitta()->fetch_all();
-foreach ($out as $s) {
-    error_log(print_r($s));
+
+$cities=array();
+foreach ($out as $c) {
+    array_push($cities, new City($c));
 }
-echo json_encode($out);
+echo json_encode($cities);
+?>

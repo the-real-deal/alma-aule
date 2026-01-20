@@ -1,25 +1,28 @@
-async function loadCitta() {
-    const container = document.getElementById("citta");
+let cities;
+
+function loadCitta() {
+    const container = document.getElementById("citta-nav");
     fetch('/apis/citta.php')
-        .then(res => res.json)
+        .then(res => res.json())
         .then(data => {
-            console.log(data);
-            const fragment = document.createDocumentFragment();
-            data.array.forEach(citta => {
+            cities=data;
+            cities.sort();
+            cities.forEach(citta => {
+                
                 const a = document.createElement('a');
-                a.className = "list-group-item";
-                a.className = "list-group-item-action";
-                a.href = "#".citta;
+                a.className = "list-group-item list-group-item-action";
+                
+                a.href = `#${citta["id"]}`;
                 const h3 = document.createElement('h3');
-                h3.textContent = citta;
+                h3.textContent = citta["name"];
                 const hr = document.createElement('hr');
                 hr.className = 'border border-primary border-2 opacity-75 my-1 mx-1';
 
                 a.appendChild(h3);
                 a.appendChild(hr);
-                fragment.appendChild(a);
+                container.appendChild(a);
             })
-            container.appendChild(fragment);
+                
         }).catch(err => console.error(err))
 }
 async function loadAule() {
@@ -28,23 +31,23 @@ async function loadAule() {
         .then(res => res.json())
         .then(data => {
             const fragment = document.createDocumentFragment();
-            new Set(data.map(x => x.site["city"])).forEach(city => {
-                const divGroup = document.createElement('div');
-                divGroup.className = 'list-group list-group-flush mb-3';
-
+            cities.forEach(city => {
+                const a = document.createElement('a');
+                a.className = 'list-group list-group-item list-group-flush mb-3';
+                a.id = city["id"];
                 const h3 = document.createElement('h3');
-                h3.id = city;
-                h3.textContent = city;
+                h3.textContent = city["name"];
 
                 const hr = document.createElement('hr');
                 hr.className = 'border border-primary border-2 opacity-75 my-1 mx-1';
 
-                divGroup.appendChild(h3);
-                divGroup.appendChild(hr);
+                a.appendChild(h3);
+                a.appendChild(hr);
                 // Aggiungi le aule filtrate
-                const auleFiltrate = data.filter(y => y.site["city"] === city);
-                divGroup.appendChild(aule(auleFiltrate));
-                fragment.appendChild(divGroup);
+                console.log(city["name"][0]);
+                const auleFiltrate = data.filter(y => y.site["city"].name === city["name"][0]);
+                a.appendChild(aule(auleFiltrate));
+                fragment.appendChild(a);
             })
             container.appendChild(fragment);
         })
@@ -65,10 +68,10 @@ function aule(aule) {
         topDiv.className = 'd-flex w-100 justify-content-between';
 
         const h4 = document.createElement('h4');
-        h4.textContent = a.nomeAula;
+        h4.textContent = a.roomName;
 
         const small = document.createElement('small');
-        small.textContent = a.numeroPiano;
+        small.textContent = a.floorNumber;
 
         topDiv.appendChild(h4);
         topDiv.appendChild(small);
@@ -81,7 +84,7 @@ function aule(aule) {
 
         const postiSpan = document.createElement('span');
         postiSpan.className = 'ps-1';
-        postiSpan.textContent = a.numeroPosti;
+        postiSpan.textContent = a.seatsNumber;
 
         postiDiv.appendChild(postiStrong);
         postiDiv.appendChild(postiSpan);
