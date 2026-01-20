@@ -135,9 +135,33 @@ class DatabaseHelper
 
         return $result;
     }
-    public function getCitta()
+    public function getCitta(): bool|mysqli_result
     {
         $query = "SELECT DISTINCT s.Citta FROM sedi s";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result;
+    }
+
+    public function getAllUsers(): bool|mysqli_result {
+        $query = "SELECT 
+                    a.Username, 
+                    t.Tipo AS Ruolo, 
+                    a.Attivo, 
+                    a.Mail,
+                    COALESCE(s.Nome, p.Nome) AS Nome,
+                    COALESCE(s.Cognome, p.Cognome) AS Cognome,
+                    COALESCE(s.DataNascita, p.DataNascita) AS DataNascita,
+                    s.Matricola AS MatricolaStudente,
+                    p.Matricola AS MatricolaProfessore,
+                    p.Ordinario,
+                    p.DataAssunzione
+              FROM account a 
+              INNER JOIN tipi_account t ON a.codiceRuolo = t.ID
+              LEFT JOIN studenti s ON a.Username = s.CodiceAccount
+              LEFT JOIN professori p ON a.Username = p.CodiceAccount";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();

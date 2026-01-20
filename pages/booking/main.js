@@ -12,7 +12,6 @@ async function loadCitta() {
                 const a = $('<a>')
                     .addClass("list-group-item list-group-item-action")
                     .attr('href', `#${citta["id"]}`);
-                
                 const h3 = $('<h5>').text(citta["name"]);
                 const hr = $('<hr>').addClass('border border-primary border-2 opacity-75 my-1 mx-1');
 
