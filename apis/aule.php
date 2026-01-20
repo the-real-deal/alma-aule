@@ -1,5 +1,6 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/lib/php/citta.php';
 class Site
 {
     public $siteId;
@@ -13,7 +14,7 @@ class Site
         $this->street = $site[1];
         $this->lat = $site[2];
         $this->lon = $site[3];
-        $this->city = $site[4];
+        $this->city = new City($site[4]);
     }
 
     public function getId()
@@ -65,5 +66,5 @@ foreach ($sedi as $s) {
         array_push($rooms, $tmp);
     }
 }
-error_log(json_encode($rooms));
+
 echo json_encode($rooms);
