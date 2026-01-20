@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 19, 2026 alle 18:15
--- Versione del server: 10.4.20-MariaDB
--- Versione PHP: 8.0.9
+-- Creato il: Gen 20, 2026 alle 16:07
+-- Versione del server: 10.4.32-MariaDB
+-- Versione PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -21,11 +21,9 @@ SET time_zone = "+00:00";
 -- Database: `almaule`
 --
 
-
 DROP DATABASE IF EXISTS almaule;
 CREATE DATABASE almaule;
 USE almaule;
-
 
 -- --------------------------------------------------------
 
@@ -39,7 +37,7 @@ CREATE TABLE `account` (
   `Attivo` tinyint(1) NOT NULL DEFAULT 1,
   `Mail` varchar(70) NOT NULL,
   `Password` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dump dei dati per la tabella `account`
@@ -70,7 +68,7 @@ CREATE TABLE `aule` (
   `Proiettore` tinyint(1) NOT NULL,
   `Prese` tinyint(1) NOT NULL,
   `Laboratorio` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dump dei dati per la tabella `aule`
@@ -313,7 +311,7 @@ CREATE TABLE `authsessions` (
   `CodiceAccount` varchar(20) NOT NULL,
   `ExpirationDate` datetime NOT NULL,
   `ForceExpired` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dump dei dati per la tabella `authsessions`
@@ -322,6 +320,34 @@ CREATE TABLE `authsessions` (
 INSERT INTO `authsessions` (`CodiceSessione`, `CodiceAccount`, `ExpirationDate`, `ForceExpired`) VALUES
 (1, 'beagre003', '2026-01-29 18:00:04', 0),
 (2, 'marmar001', '2026-01-29 18:12:27', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `citta`
+--
+
+CREATE TABLE `citta` (
+  `CodiceCitta` int(11) NOT NULL,
+  `Nome` varchar(92) NOT NULL,
+  `Latitudine` float NOT NULL,
+  `Longitudine` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `citta`
+--
+
+INSERT INTO `citta` (`CodiceCitta`, `Nome`, `Latitudine`, `Longitudine`) VALUES
+(1, 'Bologna', 44.4949, 11.3426),
+(2, 'Faenza', 44.2854, 11.883),
+(3, 'Forlì', 44.2227, 12.0407),
+(4, 'Cesena', 44.1398, 12.2434),
+(5, 'Ozzano dell\'Emilia', 44.4419, 11.4722),
+(6, 'Cesenatico', 44.2008, 12.4),
+(7, 'Ravenna', 44.4184, 12.2035),
+(8, 'Rimini', 44.0678, 12.5695),
+(9, 'Imola', 44.3593, 11.7119);
 
 -- --------------------------------------------------------
 
@@ -335,7 +361,7 @@ CREATE TABLE `prenotazioni` (
   `CodiceAccount` varchar(20) NOT NULL,
   `NumeroPersone` int(11) NOT NULL,
   `DataPrenotazione` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dump dei dati per la tabella `prenotazioni`
@@ -361,7 +387,7 @@ CREATE TABLE `professori` (
   `DataAssunzione` date NOT NULL,
   `CodiceAccount` varchar(20) NOT NULL,
   `Ordinario` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dump dei dati per la tabella `professori`
@@ -383,145 +409,145 @@ CREATE TABLE `sedi` (
   `Via` varchar(120) NOT NULL,
   `Latitudine` float NOT NULL,
   `Longitudine` float NOT NULL,
-  `Citta` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `CodiceCitta` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dump dei dati per la tabella `sedi`
 --
 
-INSERT INTO `sedi` (`CodiceSede`, `Via`, `Latitudine`, `Longitudine`, `Citta`) VALUES
-(1, 'Via della beverara 123 - Bologna', 44.5229, 11.3345, 'Bologna'),
-(2, 'Via Selmi, 3 - Bologna', 44.496, 11.3545, 'Bologna'),
-(3, 'Via Francesco Selmi, 2 - Bologna', 44.4963, 11.3541, 'Bologna'),
-(4, 'Via Piero Gobetti, 87 - Bologna', 44.5207, 11.3378, 'Bologna'),
-(5, 'Piazza Antonino Scaravilli, 1-2 - Bologna', 44.497, 11.3523, 'Bologna'),
-(6, 'Via Camillo Ranzani, 14 - Bologna', 44.5012, 11.3588, 'Bologna'),
-(7, 'Viale Quirico Filopanti, 5 - Bologna', 44.4956, 11.3565, 'Bologna'),
-(8, 'Viale Carlo Berti Pichat, 6-6/2 - Bologna', 44.5001, 11.3579, 'Bologna'),
-(9, 'Via Beniamino Andreatta, 8 - Bologna', 44.4958, 11.3556, 'Bologna'),
-(10, 'Via Zamboni, 38 - Bologna', 44.497, 11.3524, 'Bologna'),
-(11, 'Viale del Risorgimento, 2 - Bologna', 44.4904, 11.3289, 'Bologna'),
-(12, 'Via Saragozza, 8-10 - Bologna', 44.4902, 11.3363, 'Bologna'),
-(13, 'Piazza di Porta San Donato, 5 - Bologna', 44.4983, 11.3558, 'Bologna'),
-(14, 'Via Umberto Terracini, 28 - Bologna', 44.5136, 11.3184, 'Bologna'),
-(15, 'Viale del Risorgimento, 4 - Bologna', 44.4878, 11.3289, 'Bologna'),
-(16, 'Via Umberto Terracini, 34 - Bologna', 44.5137, 11.3186, 'Bologna'),
-(17, 'Piazzetta Pier Paolo Pasolini, 5/b - Bologna', 44.5177, 11.2792, 'Bologna'),
-(18, 'Via Barberia, 4-4/2 - Bologna', 44.4912, 11.3388, 'Bologna'),
-(19, 'Piazzetta Giorgio Morandi, 2 - Bologna', 44.4889, 11.3552, 'Bologna'),
-(20, 'Via Zamboni, 34 - Bologna', 44.4967, 11.3514, 'Bologna'),
-(21, 'Via Centotrecento, 18 - Bologna', 44.4987, 11.3508, 'Bologna'),
-(22, 'Via Ludovico Berti, 2/7 - Bologna', 44.5024, 11.33, 'Bologna'),
-(23, 'Via Azzo Gardino, 19-23-25-27-29 - Bologna', 44.5008, 11.3373, 'Bologna'),
-(24, 'Piazza S.Giovanni in Monte, 2 - Bologna', 44.4912, 11.3485, 'Bologna'),
-(25, 'Via Zamboni, 33 - Bologna', 44.4962, 11.352, 'Bologna'),
-(26, 'Via Zamboni, 32 - Bologna', 44.4969, 11.3509, 'Bologna'),
-(27, 'Via Guerrazzi, 20 - Bologna', 44.4908, 11.351, 'Bologna'),
-(28, 'Via Giuseppe Pasolini, 23 - Ravenna', 44.4184, 12.197, 'Ravenna'),
-(29, 'Via San Petronio vecchio, 32 - Bologna', 44.4899, 11.3529, 'Bologna'),
-(30, 'Strada Maggiore, 45 - Bologna', 44.4911, 11.3536, 'Bologna'),
-(31, 'Via Cartoleria, 5 - Bologna', 44.4902, 11.3478, 'Bologna'),
-(32, 'Via delle Belle Arti, 41 - Bologna', 44.4978, 11.352, 'Bologna'),
-(33, 'Via Filippo Re, 8 - Bologna', 44.5002, 11.3549, 'Bologna'),
-(34, 'Viale Europa, 115 - Cesena', 44.1448, 12.2412, 'Cesena'),
-(35, 'Piazza Aldo Moro, 90 - Cesena', 44.0504, 12.1776, 'Cesena'),
-(36, 'Via Angelo Mariani, 5 - Ravenna', 44.4173, 12.2019, 'Ravenna'),
-(37, 'Viale Carlo Berti Pichat, 5 - Bologna', 44.4995, 11.3562, 'Bologna'),
-(38, 'Via Filippo Re, 10 - Bologna', 44.5004, 11.355, 'Bologna'),
-(39, 'Via Giacomo della Torre, 5 - Forlì', 44.2195, 12.0427, 'Forlì'),
-(40, 'Viale Filippo Corridoni, 20 - Forlì', 44.2175, 12.0443, 'Forlì'),
-(41, 'Via Irnerio, 42 - Bologna', 44.4991, 11.3528, 'Bologna'),
-(42, 'Piazza di Porta San Donato, 1 - Bologna', 44.4981, 11.3557, 'Bologna'),
-(43, 'Via Filippo Re, 6 - Bologna', 44.4999, 11.3548, 'Bologna'),
-(44, 'Viale Giuseppe Fanin, 40-50 - Bologna', 44.514, 11.4022, 'Bologna'),
-(45, 'Via Alberto Missiroli, 8 - Ravenna', 44.4113, 12.1919, 'Ravenna'),
-(46, 'VIA Fiume Abbandonato 132 - Ravenna', 44.4113, 12.1919, 'Ravenna'),
-(47, 'Via Luciano Montaspro, 97 - Forlì', 44.2007, 12.0637, 'Forlì'),
-(48, 'Via Tolara di Sopra, 54 - Ozzano dell\'Emilia', 44.4357, 11.4877, 'Ozzano dell\'Emilia'),
-(49, 'Piazza Goidanich, 60 - Cesena', 44.1565, 12.2428, 'Cesena'),
-(50, 'Via Irnerio, 46 - Bologna', 44.499, 11.3536, 'Bologna'),
-(51, 'Via San Giacomo, 3 - Bologna', 44.497, 11.3537, 'Bologna'),
-(52, 'Via Quintino Sella, 13 - Rimini', 44.0608, 12.5696, 'Rimini'),
-(53, 'Via Clodia, 43 - Rimini', 44.064, 12.5673, 'Rimini'),
-(54, 'Via dei Mille, 39 - Rimini', 44.0649, 12.568, 'Rimini'),
-(55, 'Via Roma, 47 - Rimini', 44.0627, 12.5729, 'Rimini'),
-(56, 'Piazzetta Teatini, 10 - Rimini', 44.0604, 12.5699, 'Rimini'),
-(57, 'Via dell\'Università, 50 - Cesena', 44.1477, 12.2353, 'Cesena'),
-(58, 'Piazzale della Vittoria, 15 - Forlì', 44.2181, 12.0508, 'Forlì'),
-(59, 'VIA Emilia 25 - Imola', 44.3707, 11.6704, 'Imola'),
-(60, 'Via Giuseppe Garibaldi, 24 - Imola', 44.3528, 11.7109, 'Imola'),
-(61, 'Via Giuseppe Garibaldi, 37 - Imola', 44.3531, 11.7113, 'Imola'),
-(62, 'Via Zamboni, 67 - Bologna', 44.4978, 11.3552, 'Bologna'),
-(63, 'Via della beverara 123 - Bologna', 44.5221, 11.3315, 'Bologna'),
-(64, 'Via San Donato, 13-19/2 - Bologna', 44.4991, 11.3579, 'Bologna'),
-(65, 'Viale Quirico Filopanti, 1-3 - Bologna', 44.4972, 11.3564, 'Bologna'),
-(66, 'Via Piero Gobetti, 93/2 - Bologna', 44.5219, 11.3381, 'Bologna'),
-(67, 'Via Antonio Ascari 17 - Imola', 44.341, 11.7201, 'Imola'),
-(68, 'Via Antonio Ascari 15 - Imola', 44.341, 11.7201, 'Imola'),
-(69, 'Piazzale Giovanni dalle Bande Nere, 11 - Imola', 44.3533, 11.7078, 'Imola'),
-(70, 'Via San Vitale, 114-116-118 - Bologna', 44.4941, 11.3558, 'Bologna'),
-(71, 'Via Tombesi dall\'Ova, 55 - Ravenna', 44.4149, 12.203, 'Ravenna'),
-(72, 'Via Guaccimanni, 42 - Ravenna', 44.4157, 12.2026, 'Ravenna'),
-(73, 'Piazzetta Teatini, 13 - Rimini', 44.0616, 12.5697, 'Rimini'),
-(74, 'Via Zamboni, 22 - Bologna', 44.4958, 11.349, 'Bologna'),
-(75, 'Via Guglielmo Oberdan, 1 - Ravenna', 44.4162, 12.1961, 'Ravenna'),
-(76, 'Via Irnerio, 48 - Bologna', 44.4984, 11.3555, 'Bologna'),
-(77, 'Via Giuseppe Massarenti, 1 - Bologna', 44.494, 11.3573, 'Bologna'),
-(78, 'Via San Giacomo, 14 - Bologna', 44.4966, 11.3559, 'Bologna'),
-(79, 'Via Giuseppe Massarenti, 9 - Bologna', 44.4931, 11.3604, 'Bologna'),
-(80, 'Via Carlo Forlanini, 34 - Forlì', 44.2042, 12.0198, 'Forlì'),
-(81, 'Via Sant\'Isaia, 90 - Bologna', 44.4942, 11.3305, 'Bologna'),
-(82, 'Viale Gian Battista Ercolani, 6 - Bologna', 44.4925, 11.3573, 'Bologna'),
-(83, 'Piazzale Giovanni dalle Bande Nere, 11 - Imola', 44.3543, 11.708, 'Imola'),
-(84, 'Via Francesco Balilla Pratella, 10 - Forlì', 44.2142, 12.0631, 'Forlì'),
-(85, 'Via San Giovanni Bosco, 1 - Faenza', 44.2837, 11.883, 'Faenza'),
-(86, 'Via San Giacomo, 12 - Bologna', 44.4967, 11.3553, 'Bologna'),
-(87, 'Via Irnerio, 49 - Bologna', 44.4989, 11.3538, 'Bologna'),
-(88, 'Via Giuseppe Massarenti, 13 - Bologna', 44.4922, 11.3649, 'Bologna'),
-(89, 'Piazza di Porta San Donato, 2 - Bologna', 44.4983, 11.3561, 'Bologna'),
-(90, 'Via Giulio Cesare Pupilli, 1 - Bologna', 44.4753, 11.3405, 'Bologna'),
-(91, 'Via Giulio Cesare Pupilli, 1 - Bologna', 44.4805, 11.3439, 'Bologna'),
-(92, 'Via Belmeloro, 10-12 - Bologna', 44.4954, 11.3548, 'Bologna'),
-(93, 'Via Piero Gobetti, 85 - Bologna', 44.5207, 11.3378, 'Bologna'),
-(94, 'Via dell\'Agricoltura, 5 - Ravenna', 44.4352, 12.1982, 'Ravenna'),
-(95, 'Via Belmeloro, 4-6 - Bologna', 44.4957, 11.3532, 'Bologna'),
-(96, 'Via Bartolomeo Lombardini, 5 - Forlì', 44.219, 12.0421, 'Forlì'),
-(97, 'Corso della Repubblica - Forlì', 44.219, 12.0421, 'Forlì'),
-(98, 'Corso della Repubblica, 136-138 - Forlì', 44.2193, 12.0472, 'Forlì'),
-(99, 'Via Giovanni Fronticelli Baldelli, 16 - Forlì', 44.2206, 12.0463, 'Forlì'),
-(100, 'Piazza Giovan Battista Morgagni, 2 - Forlì', 44.2204, 12.0422, 'Forlì'),
-(101, 'Via Ugo Foscolo, 7 - Bologna', 44.4922, 11.3304, 'Bologna'),
-(102, 'Via San Vitale, 59-61-61/2 - Bologna', 44.4944, 11.3505, 'Bologna'),
-(103, 'Via Giuseppe Massarenti, 11 - Bologna', 44.4922, 11.3648, 'Bologna'),
-(104, 'Policlinico S. Orsola-Malpighi, Pad. 5, Bologna', 44.4984, 11.3555, 'Bologna'),
-(105, 'Via Altura, 3 - Bologna', 44.4641, 11.3904, 'Bologna'),
-(106, 'Via Giuseppe Massarenti, 1 - Bologna', 44.4938, 11.3581, 'Bologna'),
-(107, 'Via Pietro Albertoni, 15 - Bologna', 44.4906, 11.364, 'Bologna'),
-(108, 'Via Flaminia - Rimini', 44.2837, 11.883, 'Faenza'),
-(109, 'Via San Lorenzino, 23 - Cesena', 44.1413, 12.2453, 'Cesena'),
-(110, 'Via Giuseppe Massarenti, vari - Bologna', 44.4921, 11.3875, 'Bologna'),
-(111, 'Centro protesi INAIL - Via Rabuina, 14 - 40054 Vigorso - Budrio', 44.4966, 11.3559, 'Bologna'),
-(112, 'Via del Terrapieno, 27 - Bologna', 44.5045, 11.3925, 'Bologna'),
-(113, 'Via del Pilastro, 8 - Bologna', 44.5102, 11.3832, 'Bologna'),
-(114, 'Via Bastioni Settentrionali, 45 - Rimini', 44.0641, 12.568, 'Rimini'),
-(115, 'Via Domenico Angherà, 22 - Rimini', 44.062, 12.57, 'Rimini'),
-(116, 'Via Granarolo, 62 - Faenza', 44.3088, 11.8967, 'Faenza'),
-(117, 'Via Tolara di Sopra, snc - Ozzano dell\'Emilia', 44.4357, 11.4877, 'Ozzano dell\'Emilia'),
-(118, 'Via Tebano, 54 - Faenza', 44.2925, 11.7827, 'Faenza'),
-(119, 'Piazzetta Teatini, 13 - Rimini', 44.0608, 12.5696, 'Rimini'),
-(120, 'Scuola per il Restauro del Mosaico, Via San Vitale 17, Ravenna', 44.1477, 12.2353, 'Ravenna'),
-(121, 'Via San Vitale, 28 e 30 - Ravenna', 44.4197, 12.1971, 'Ravenna'),
-(122, 'Via Fiandrini - Ravenna', 44.4211, 12.1954, 'Ravenna'),
-(123, 'Via Euterpe n. 7 Rimini', 44.064, 12.5673, 'Rimini'),
-(124, 'Via del Bidente - Rimini', 44.064, 12.5673, 'Rimini'),
-(125, 'Via Monte Rosa, 60,  Riccione', 44.064, 12.5673, 'Rimini'),
-(126, 'Viale Magrini, 31 - Cesenatico', 44.2038, 12.3964, 'Cesenatico'),
-(127, 'Viale Quirico Filopanti, 9 - Bologna', 44.4949, 11.3569, 'Bologna'),
-(128, 'Corso d\'Augusto, 237 - Rimini', 44.0627, 12.5647, 'Rimini'),
-(129, 'Via Giuseppe Massarenti, 9 - Bologna', 44.4929, 11.3604, 'Bologna'),
-(131, 'Via Galliera, 3 - Bologna', 44.4972, 11.3418, 'Bologna'),
-(132, 'Via Irnerio, 42 - Bologna', 44.4992, 11.3525, 'Bologna');
+INSERT INTO `sedi` (`CodiceSede`, `Via`, `Latitudine`, `Longitudine`, `CodiceCitta`) VALUES
+(111, 'Centro protesi INAIL - Via Rabuina, 14 - 40054 Vigorso - Budrio', 44.4966, 11.3559, 1),
+(128, 'Corso d\'Augusto, 237 - Rimini', 44.0627, 12.5647, 8),
+(97, 'Corso della Repubblica - Forlì', 44.219, 12.0421, 3),
+(98, 'Corso della Repubblica, 136-138 - Forlì', 44.2193, 12.0472, 3),
+(35, 'Piazza Aldo Moro, 90 - Cesena', 44.0504, 12.1776, 4),
+(5, 'Piazza Antonino Scaravilli, 1-2 - Bologna', 44.497, 11.3523, 1),
+(42, 'Piazza di Porta San Donato, 1 - Bologna', 44.4981, 11.3557, 1),
+(89, 'Piazza di Porta San Donato, 2 - Bologna', 44.4983, 11.3561, 1),
+(13, 'Piazza di Porta San Donato, 5 - Bologna', 44.4983, 11.3558, 1),
+(100, 'Piazza Giovan Battista Morgagni, 2 - Forlì', 44.2204, 12.0422, 3),
+(49, 'Piazza Goidanich, 60 - Cesena', 44.1565, 12.2428, 4),
+(24, 'Piazza S.Giovanni in Monte, 2 - Bologna', 44.4912, 11.3485, 1),
+(58, 'Piazzale della Vittoria, 15 - Forlì', 44.2181, 12.0508, 3),
+(69, 'Piazzale Giovanni dalle Bande Nere, 11 - Imola', 44.3533, 11.7078, 9),
+(83, 'Piazzale Giovanni dalle Bande Nere, 11 - Imola', 44.3543, 11.708, 9),
+(19, 'Piazzetta Giorgio Morandi, 2 - Bologna', 44.4889, 11.3552, 1),
+(17, 'Piazzetta Pier Paolo Pasolini, 5/b - Bologna', 44.5177, 11.2792, 1),
+(56, 'Piazzetta Teatini, 10 - Rimini', 44.0604, 12.5699, 8),
+(119, 'Piazzetta Teatini, 13 - Rimini', 44.0608, 12.5696, 8),
+(73, 'Piazzetta Teatini, 13 - Rimini', 44.0616, 12.5697, 8),
+(104, 'Policlinico S. Orsola-Malpighi, Pad. 5, Bologna', 44.4984, 11.3555, 1),
+(120, 'Scuola per il Restauro del Mosaico, Via San Vitale 17, Ravenna', 44.1477, 12.2353, 7),
+(30, 'Strada Maggiore, 45 - Bologna', 44.4911, 11.3536, 1),
+(45, 'Via Alberto Missiroli, 8 - Ravenna', 44.4113, 12.1919, 7),
+(105, 'Via Altura, 3 - Bologna', 44.4641, 11.3904, 1),
+(36, 'Via Angelo Mariani, 5 - Ravenna', 44.4173, 12.2019, 7),
+(68, 'Via Antonio Ascari 15 - Imola', 44.341, 11.7201, 9),
+(67, 'Via Antonio Ascari 17 - Imola', 44.341, 11.7201, 9),
+(23, 'Via Azzo Gardino, 19-23-25-27-29 - Bologna', 44.5008, 11.3373, 1),
+(18, 'Via Barberia, 4-4/2 - Bologna', 44.4912, 11.3388, 1),
+(96, 'Via Bartolomeo Lombardini, 5 - Forlì', 44.219, 12.0421, 3),
+(114, 'Via Bastioni Settentrionali, 45 - Rimini', 44.0641, 12.568, 8),
+(92, 'Via Belmeloro, 10-12 - Bologna', 44.4954, 11.3548, 1),
+(95, 'Via Belmeloro, 4-6 - Bologna', 44.4957, 11.3532, 1),
+(9, 'Via Beniamino Andreatta, 8 - Bologna', 44.4958, 11.3556, 1),
+(6, 'Via Camillo Ranzani, 14 - Bologna', 44.5012, 11.3588, 1),
+(80, 'Via Carlo Forlanini, 34 - Forlì', 44.2042, 12.0198, 3),
+(31, 'Via Cartoleria, 5 - Bologna', 44.4902, 11.3478, 1),
+(21, 'Via Centotrecento, 18 - Bologna', 44.4987, 11.3508, 1),
+(53, 'Via Clodia, 43 - Rimini', 44.064, 12.5673, 8),
+(54, 'Via dei Mille, 39 - Rimini', 44.0649, 12.568, 8),
+(124, 'Via del Bidente - Rimini', 44.064, 12.5673, 8),
+(113, 'Via del Pilastro, 8 - Bologna', 44.5102, 11.3832, 1),
+(112, 'Via del Terrapieno, 27 - Bologna', 44.5045, 11.3925, 1),
+(94, 'Via dell\'Agricoltura, 5 - Ravenna', 44.4352, 12.1982, 7),
+(57, 'Via dell\'Università, 50 - Cesena', 44.1477, 12.2353, 4),
+(63, 'Via della beverara 123 - Bologna', 44.5221, 11.3315, 1),
+(1, 'Via della beverara 123 - Bologna', 44.5229, 11.3345, 1),
+(32, 'Via delle Belle Arti, 41 - Bologna', 44.4978, 11.352, 1),
+(115, 'Via Domenico Angherà, 22 - Rimini', 44.062, 12.57, 8),
+(59, 'VIA Emilia 25 - Imola', 44.3707, 11.6704, 9),
+(123, 'Via Euterpe n. 7 Rimini', 44.064, 12.5673, 8),
+(122, 'Via Fiandrini - Ravenna', 44.4211, 12.1954, 7),
+(38, 'Via Filippo Re, 10 - Bologna', 44.5004, 11.355, 1),
+(43, 'Via Filippo Re, 6 - Bologna', 44.4999, 11.3548, 1),
+(33, 'Via Filippo Re, 8 - Bologna', 44.5002, 11.3549, 1),
+(46, 'VIA Fiume Abbandonato 132 - Ravenna', 44.4113, 12.1919, 7),
+(108, 'Via Flaminia - Rimini', 44.2837, 11.883, 2),
+(84, 'Via Francesco Balilla Pratella, 10 - Forlì', 44.2142, 12.0631, 3),
+(3, 'Via Francesco Selmi, 2 - Bologna', 44.4963, 11.3541, 1),
+(131, 'Via Galliera, 3 - Bologna', 44.4972, 11.3418, 1),
+(39, 'Via Giacomo della Torre, 5 - Forlì', 44.2195, 12.0427, 3),
+(99, 'Via Giovanni Fronticelli Baldelli, 16 - Forlì', 44.2206, 12.0463, 3),
+(90, 'Via Giulio Cesare Pupilli, 1 - Bologna', 44.4753, 11.3405, 1),
+(91, 'Via Giulio Cesare Pupilli, 1 - Bologna', 44.4805, 11.3439, 1),
+(60, 'Via Giuseppe Garibaldi, 24 - Imola', 44.3528, 11.7109, 9),
+(61, 'Via Giuseppe Garibaldi, 37 - Imola', 44.3531, 11.7113, 9),
+(106, 'Via Giuseppe Massarenti, 1 - Bologna', 44.4938, 11.3581, 1),
+(77, 'Via Giuseppe Massarenti, 1 - Bologna', 44.494, 11.3573, 1),
+(103, 'Via Giuseppe Massarenti, 11 - Bologna', 44.4922, 11.3648, 1),
+(88, 'Via Giuseppe Massarenti, 13 - Bologna', 44.4922, 11.3649, 1),
+(129, 'Via Giuseppe Massarenti, 9 - Bologna', 44.4929, 11.3604, 1),
+(79, 'Via Giuseppe Massarenti, 9 - Bologna', 44.4931, 11.3604, 1),
+(110, 'Via Giuseppe Massarenti, vari - Bologna', 44.4921, 11.3875, 1),
+(28, 'Via Giuseppe Pasolini, 23 - Ravenna', 44.4184, 12.197, 7),
+(116, 'Via Granarolo, 62 - Faenza', 44.3088, 11.8967, 2),
+(72, 'Via Guaccimanni, 42 - Ravenna', 44.4157, 12.2026, 7),
+(27, 'Via Guerrazzi, 20 - Bologna', 44.4908, 11.351, 1),
+(75, 'Via Guglielmo Oberdan, 1 - Ravenna', 44.4162, 12.1961, 7),
+(41, 'Via Irnerio, 42 - Bologna', 44.4991, 11.3528, 1),
+(132, 'Via Irnerio, 42 - Bologna', 44.4992, 11.3525, 1),
+(50, 'Via Irnerio, 46 - Bologna', 44.499, 11.3536, 1),
+(76, 'Via Irnerio, 48 - Bologna', 44.4984, 11.3555, 1),
+(87, 'Via Irnerio, 49 - Bologna', 44.4989, 11.3538, 1),
+(47, 'Via Luciano Montaspro, 97 - Forlì', 44.2007, 12.0637, 3),
+(22, 'Via Ludovico Berti, 2/7 - Bologna', 44.5024, 11.33, 1),
+(125, 'Via Monte Rosa, 60,  Riccione', 44.064, 12.5673, 8),
+(93, 'Via Piero Gobetti, 85 - Bologna', 44.5207, 11.3378, 1),
+(4, 'Via Piero Gobetti, 87 - Bologna', 44.5207, 11.3378, 1),
+(66, 'Via Piero Gobetti, 93/2 - Bologna', 44.5219, 11.3381, 1),
+(107, 'Via Pietro Albertoni, 15 - Bologna', 44.4906, 11.364, 1),
+(52, 'Via Quintino Sella, 13 - Rimini', 44.0608, 12.5696, 8),
+(55, 'Via Roma, 47 - Rimini', 44.0627, 12.5729, 8),
+(64, 'Via San Donato, 13-19/2 - Bologna', 44.4991, 11.3579, 1),
+(86, 'Via San Giacomo, 12 - Bologna', 44.4967, 11.3553, 1),
+(78, 'Via San Giacomo, 14 - Bologna', 44.4966, 11.3559, 1),
+(51, 'Via San Giacomo, 3 - Bologna', 44.497, 11.3537, 1),
+(85, 'Via San Giovanni Bosco, 1 - Faenza', 44.2837, 11.883, 2),
+(109, 'Via San Lorenzino, 23 - Cesena', 44.1413, 12.2453, 4),
+(29, 'Via San Petronio vecchio, 32 - Bologna', 44.4899, 11.3529, 1),
+(70, 'Via San Vitale, 114-116-118 - Bologna', 44.4941, 11.3558, 1),
+(121, 'Via San Vitale, 28 e 30 - Ravenna', 44.4197, 12.1971, 7),
+(102, 'Via San Vitale, 59-61-61/2 - Bologna', 44.4944, 11.3505, 1),
+(81, 'Via Sant\'Isaia, 90 - Bologna', 44.4942, 11.3305, 1),
+(12, 'Via Saragozza, 8-10 - Bologna', 44.4902, 11.3363, 1),
+(2, 'Via Selmi, 3 - Bologna', 44.496, 11.3545, 1),
+(118, 'Via Tebano, 54 - Faenza', 44.2925, 11.7827, 2),
+(48, 'Via Tolara di Sopra, 54 - Ozzano dell\'Emilia', 44.4357, 11.4877, 5),
+(117, 'Via Tolara di Sopra, snc - Ozzano dell\'Emilia', 44.4357, 11.4877, 5),
+(71, 'Via Tombesi dall\'Ova, 55 - Ravenna', 44.4149, 12.203, 7),
+(101, 'Via Ugo Foscolo, 7 - Bologna', 44.4922, 11.3304, 1),
+(14, 'Via Umberto Terracini, 28 - Bologna', 44.5136, 11.3184, 1),
+(16, 'Via Umberto Terracini, 34 - Bologna', 44.5137, 11.3186, 1),
+(74, 'Via Zamboni, 22 - Bologna', 44.4958, 11.349, 1),
+(26, 'Via Zamboni, 32 - Bologna', 44.4969, 11.3509, 1),
+(25, 'Via Zamboni, 33 - Bologna', 44.4962, 11.352, 1),
+(20, 'Via Zamboni, 34 - Bologna', 44.4967, 11.3514, 1),
+(10, 'Via Zamboni, 38 - Bologna', 44.497, 11.3524, 1),
+(62, 'Via Zamboni, 67 - Bologna', 44.4978, 11.3552, 1),
+(37, 'Viale Carlo Berti Pichat, 5 - Bologna', 44.4995, 11.3562, 1),
+(8, 'Viale Carlo Berti Pichat, 6-6/2 - Bologna', 44.5001, 11.3579, 1),
+(11, 'Viale del Risorgimento, 2 - Bologna', 44.4904, 11.3289, 1),
+(15, 'Viale del Risorgimento, 4 - Bologna', 44.4878, 11.3289, 1),
+(34, 'Viale Europa, 115 - Cesena', 44.1448, 12.2412, 4),
+(40, 'Viale Filippo Corridoni, 20 - Forlì', 44.2175, 12.0443, 3),
+(82, 'Viale Gian Battista Ercolani, 6 - Bologna', 44.4925, 11.3573, 1),
+(44, 'Viale Giuseppe Fanin, 40-50 - Bologna', 44.514, 11.4022, 1),
+(126, 'Viale Magrini, 31 - Cesenatico', 44.2038, 12.3964, 6),
+(65, 'Viale Quirico Filopanti, 1-3 - Bologna', 44.4972, 11.3564, 1),
+(7, 'Viale Quirico Filopanti, 5 - Bologna', 44.4956, 11.3565, 1),
+(127, 'Viale Quirico Filopanti, 9 - Bologna', 44.4949, 11.3569, 1);
 
 -- --------------------------------------------------------
 
@@ -534,7 +560,7 @@ CREATE TABLE `segnalazioni` (
   `CodicePrenotazione` int(11) NOT NULL,
   `CodiceAccount` varchar(20) NOT NULL,
   `Descrizione` varchar(250) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dump dei dati per la tabella `segnalazioni`
@@ -556,7 +582,7 @@ CREATE TABLE `studenti` (
   `Cognome` varchar(50) NOT NULL,
   `DataNascita` date NOT NULL,
   `CodiceAccount` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dump dei dati per la tabella `studenti`
@@ -577,7 +603,7 @@ INSERT INTO `studenti` (`Matricola`, `Nome`, `Cognome`, `DataNascita`, `CodiceAc
 CREATE TABLE `tipi_account` (
   `ID` int(11) NOT NULL,
   `Tipo` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dump dei dati per la tabella `tipi_account`
@@ -616,6 +642,12 @@ ALTER TABLE `authsessions`
   ADD KEY `CodiceAccount` (`CodiceAccount`);
 
 --
+-- Indici per le tabelle `citta`
+--
+ALTER TABLE `citta`
+  ADD PRIMARY KEY (`CodiceCitta`);
+
+--
 -- Indici per le tabelle `prenotazioni`
 --
 ALTER TABLE `prenotazioni`
@@ -635,7 +667,7 @@ ALTER TABLE `professori`
 --
 ALTER TABLE `sedi`
   ADD PRIMARY KEY (`CodiceSede`),
-  ADD UNIQUE KEY `Via` (`Via`,`Latitudine`,`Longitudine`);
+  ADD UNIQUE KEY `Via` (`Via`,`Latitudine`,`Longitudine`,`CodiceCitta`);
 
 --
 -- Indici per le tabelle `segnalazioni`
@@ -674,6 +706,12 @@ ALTER TABLE `aule`
 --
 ALTER TABLE `authsessions`
   MODIFY `CodiceSessione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT per la tabella `citta`
+--
+ALTER TABLE `citta`
+  MODIFY `CodiceCitta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT per la tabella `prenotazioni`
