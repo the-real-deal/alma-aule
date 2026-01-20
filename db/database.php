@@ -22,7 +22,7 @@ class DatabaseHelper
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getSedi()
+    public function getSites()
     {
         $query = "SELECT * FROM sedi";
         $stmt = $this->db->prepare($query);
@@ -32,7 +32,7 @@ class DatabaseHelper
         return $result;
     }
 
-    public function getPrenotazioni($username)
+    public function getReservations($username)
     {
         $query = "SELECT au.NomeAula, au.NumeroPiano, au.NumeroPosti,p.DataPrenotazione, p.NumeroPersone, s.Via FROM prenotazioni p JOIN aule au ON p.CodiceAula = au.CodiceAula JOIN account a ON p.CodiceAccount = a.Username JOIN sedi s ON au.CodiceSede = s.CodiceSede WHERE a.Username = ?";
         $stmt = $this->db->prepare($query);
@@ -43,7 +43,7 @@ class DatabaseHelper
         return $result;
     }
 
-    public function getAulePerSede($sede)
+    public function getSiteRooms($sede)
     {
         $query = "SELECT * FROM aule au WHERE au.CodiceSede = ?";
         $stmt = $this->db->prepare($query);
@@ -120,6 +120,19 @@ class DatabaseHelper
         }
 
         return null;
+    }
+
+    public function getReports($username) {
+        $query = "SELECT au.NomeAula, se.Via, au.NumeroPiano, p.DataPrenotazione, s.Descrizione 
+                    FROM segnalazioni s JOIN account a ON s.CodiceAccount = a.Username JOIN prenotazioni p ON s.CodicePrenotazione = p.CodicePrenotazione 
+                    JOIN aule au ON p.CodiceAula = au.CodiceAula JOIN sedi se ON au.CodiceSede = se.CodiceSede
+                    WHERE a.Username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result;
     }
     public function getCitta()
     {

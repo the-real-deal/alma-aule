@@ -5,15 +5,16 @@ require_once "{$_SERVER['DOCUMENT_ROOT']}/bootstrap.php";
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
-if (isset($data['dati']) && !empty($data['dati'])) {
-    $datiRicevuti = $data['dati'];
+if(isset($data['dati']) && !empty($data['dati'])) {
+    $receivedData = $data['dati'];
     header('Content-Type: application/json');
-
-    if (AuthManager::isUserLoggedIn($dbh, $datiRicevuti)) {
-        $_SESSION["username"] = $datiRicevuti;
+    
+    if(AuthManager::isUserLoggedIn($dbh, $receivedData)) {
+        error_log("Utente loggato per: " . $receivedData);
+        $_SESSION["username"] = $receivedData;
         echo json_encode([
             'success' => true,
-            'username' => $datiRicevuti
+            'username' => $receivedData
         ]);
         exit;
     } else {

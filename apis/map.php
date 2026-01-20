@@ -1,7 +1,7 @@
 <?php 
 require $_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php';
 
-$result = $dbh->getSedi();
+$result = $dbh->getSites();
 
 $sedi = array();
 
