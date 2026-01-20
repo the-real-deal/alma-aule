@@ -12,20 +12,20 @@
         }
     ?>
     <title>Alma Aule<?= isset($page["title"]) ? " - {$page["title"]}" : ""; ?></title>
+</head>
 <body>
     <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/navbar/navbar.php" ?>
     <main
-        <?= isset($page["container-classes"]) ? '"class="' . $page["container-classes"] . '"' : ""; ?>
+        class="flex-grow-1 <?= isset($page["container-classes"]) ? $page["container-classes"] : ""; ?>"
         <?= isset($page["container-id"]) ? '"id="' . $page["container-id"] . '"' : ""; ?>
     >
-                <?php
+        <?php
             if (isset($page["content"])) {
                 require($page["content"]);
             }
         ?>
     </main>
-    <!-- Eventualmente un footer -->
-    <?php # require './components/navbar.php' ?>   
+    <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/footer/footer.php" ?>   
     <?php
         if (isset($page["js"])) {
             foreach ($page["js"] as $script_src) {

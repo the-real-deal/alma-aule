@@ -79,8 +79,8 @@ function createReservationItem(reservation, isActive) {
         .addClass('d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2')
         .appendTo(content);
     
-    $('<h5>')
-        .addClass('card-title mb-0 text-primary')
+    $('<p>')
+        .addClass('h2 card-title mb-0 text-primary')
         .text(reservation.NomeAula)
         .appendTo(header);
     

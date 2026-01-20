@@ -58,7 +58,7 @@ function renderProfile(profileData) {
         .addClass('col-lg-8')
         .appendTo(row);
     
-    $('<h5>')
+    $('<h4>')
         .addClass('mb-3 text-primary')
         .append(
             $('<strong>').addClass('bi bi-person-badge')

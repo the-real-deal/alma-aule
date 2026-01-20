@@ -33,14 +33,14 @@ class Room
     public $projector;
     public $plugs;
     public $laboratory;
-    public function __construct($site, $roomId, $roomName, $floorNumber, $seatsNumber, $accessibilita, $projector, $plugs, $laboratory)
+    public function __construct($site, $roomId, $roomName, $floorNumber, $seatsNumber, $accessibility, $projector, $plugs, $laboratory)
     {
         $this->site = new Site($site); //must insert $site as class site
         $this->roomId = $roomId;
         $this->roomName = $roomName;
         $this->floorNumber = $floorNumber;
         $this->seatsNumber = $seatsNumber;
-        $this->accessibilita = $accessibilita;
+        $this->accessibility = $accessibility;
         $this->projector = $projector;
         $this->plugs = $plugs;
         $this->laboratory = $laboratory;
