@@ -28,13 +28,13 @@ async function loadAule() {
         .then(res => res.json())
         .then(data => {
             const fragment = document.createDocumentFragment();
-            new Set(data.map(x => x.sede["citta"])).forEach(citta => {
+            new Set(data.map(x => x.site["city"])).forEach(city => {
                 const divGroup = document.createElement('div');
                 divGroup.className = 'list-group list-group-flush mb-3';
 
                 const h3 = document.createElement('h3');
-                h3.id = citta;
-                h3.textContent = citta;
+                h3.id = city;
+                h3.textContent = city;
 
                 const hr = document.createElement('hr');
                 hr.className = 'border border-primary border-2 opacity-75 my-1 mx-1';
@@ -42,7 +42,7 @@ async function loadAule() {
                 divGroup.appendChild(h3);
                 divGroup.appendChild(hr);
                 // Aggiungi le aule filtrate
-                const auleFiltrate = data.filter(y => y.sede["citta"] === citta);
+                const auleFiltrate = data.filter(y => y.site["city"] === city);
                 divGroup.appendChild(aule(auleFiltrate));
                 fragment.appendChild(divGroup);
             })
@@ -94,7 +94,7 @@ function aule(aule) {
 
         const indirizzoSpan = document.createElement('span');
         indirizzoSpan.className = 'ps-1';
-        indirizzoSpan.textContent = a.sede["via"];
+        indirizzoSpan.textContent = a.site["street"];
 
         indirizzoDiv.appendChild(indirizzoStrong);
         indirizzoDiv.appendChild(indirizzoSpan);
