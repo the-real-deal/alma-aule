@@ -39,9 +39,19 @@ class DatabaseHelper
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();
-        $data = $result->fetch_all(MYSQLI_ASSOC);
 
-        return $data;
+        return $result;
+    }
+
+    public function getReservationsStats($username)
+    {
+        $query = "SELECT p.DataPrenotazione, (p.DataPrenotazione >= CURRENT_TIMESTAMP()) as isFuture FROM prenotazioni p JOIN account a ON p.CodiceAccount = a.Username WHERE a.Username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result;
     }
 
     public function getSiteRooms($sede)

@@ -10,7 +10,6 @@ if(isset($data['dati']) && !empty($data['dati'])) {
     header('Content-Type: application/json');
     
     if(AuthManager::isUserLoggedIn($dbh, $receivedData)) {
-        error_log("Utente loggato per: " . $receivedData);
         $_SESSION["username"] = $receivedData;
         echo json_encode([
             'success' => true,
