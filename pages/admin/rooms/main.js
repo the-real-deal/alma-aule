@@ -3,10 +3,10 @@ let rooms = [];
 function displayRooms(rooms) {
     const $container = $("#listAule");
     $container.empty(); // Pulisce il contenitore
-    const uniquesCity = [...new Set(rooms.map(x => x.site["city"]))];
+    const uniquesCity = [...new Set(rooms.map(x => x.site["city"].name))];
 
-    $.each(uniquesCity, function (i, city) {
-        const filteredRooms = rooms.filter(y => y.site["city"] === city);
+    $.each(uniquesCity, function (_, city) {
+        const filteredRooms = rooms.filter(y => y.site["city"].name === city);
 
         // Creiamo il gruppo per la città
         const $group = $('<div></div>')
@@ -37,7 +37,7 @@ function loadRooms() {
 }
 
 function renderAuleInto($target, roomList) {
-    $.each(roomList, function (i, a) {
+    $.each(roomList, function (_, a) {
         const $link = $('<a></a>').addClass("list-group-item list-group-item-action");
         const $header = $('<div></div>')
             .addClass('d-flex w-100 justify-content-between')
@@ -74,7 +74,7 @@ function lookForRoom(data) {
     const query = $("#searchRoomInput").val().toLowerCase();
     return data.filter(room =>
         room.roomName.toLowerCase().includes(query) ||
-        room.site["city"].toLowerCase().includes(query) ||
+        room.site["city"].name.toLowerCase().includes(query) ||
         room.site["street"].toLowerCase().includes(query)
     );
 }
