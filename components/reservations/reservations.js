@@ -1,5 +1,5 @@
 let currentPage = 1;
-const itemsPerPage = 5;
+const itemsPerPage = 2;
 let allReservations = [];
 let currentStats = {};
 
