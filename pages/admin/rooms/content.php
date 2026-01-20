@@ -10,7 +10,10 @@
         </form>
     </div>
     <div class="row">
-        <div id="listAule">
+        <div class="col-lg-8" id="listAule">
+
+        </div>
+        <div class="col-lg-4">
         
         </div>
     </div>
