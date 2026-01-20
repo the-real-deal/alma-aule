@@ -7,9 +7,9 @@
         <h3 class="text-dark">ESEGUI L'ACCESSO</h3>
     </div>
     <div class="card-body px-3 px-md-5 my-3">
-        <form id="loginForm" class="d-flex flex-column justify-content-center" action="" method="POST">
+        <form id="loginForm" class="d-flex flex-column justify-content-center" method="POST">
             <div class="mb-3">
-                <label for="inputEmail" class="form-label text-dark">
+                <label id="emailHelp" for="inputEmail" class="form-label text-dark">
                     <strong class="bi bi-person-circle"></strong>    
                     E-mail
                 </label>
