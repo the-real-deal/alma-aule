@@ -12,6 +12,7 @@
         }
     ?>
     <title>Alma Aule<?= isset($page["title"]) ? " - {$page["title"]}" : ""; ?></title>
+</head>
 <body>
     <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/navbar/navbar.php" ?>
     <main
