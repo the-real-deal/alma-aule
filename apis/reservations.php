@@ -1,108 +1,35 @@
 <?php 
 require $_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php';
 
-$result = $dbh->getReservations($_SESSION['username']);
+header('Content-Type: application/json');
 
-$reservations = 0;
-$futureReservations = 0;
-$today = date('Y-m-d H:i:s');
-$response = [];
-?>
-<?php
-ob_start();
-?>
-    <div class="carousel-inner">
-<?php
-if ($result->num_rows > 0) {
-    $isFirst = true; 
-    while($row = $result->fetch_assoc()) {
-        $isFuture = $row['DataPrenotazione'] >= $today;
-        $badgeClass = $isFuture ? 'bg-success' : 'bg-secondary';
-        $badgeText = $isFuture ? 'Futura' : 'Passata';
-        
-        $timestamp = strtotime($row['DataPrenotazione']);
-        $formattedDate = date('d/m/Y', $timestamp);
-        
-        $activeClass = $isFirst ? ' active' : '';
-        
-        $reservations++;
-        if ($isFuture) {
+try {
+    $result = $dbh->getReservations($_SESSION['username']);
+    
+    $totalReservations = count($result);
+    $futureReservations = 0;
+
+    for ($i = 0; $i < $totalReservations; $i++) {
+        if ($result[$i]['isFuture']) {
             $futureReservations++;
         }
-    ?>
-        <div class="carousel-item<?= $activeClass ?>">
-            <div class="p-4">
-                <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
-                    <h5 class="card-title mb-0 text-primary"><?= htmlspecialchars($row['NomeAula']) ?></h5>
-                    <span class="badge <?= $badgeClass ?>"><?= $badgeText ?></span>
-                </div>
-                <div class="row g-3">
-                    <div class="col-md-6 col-lg-3">
-                        <small class="text-muted text-uppercase d-block mb-1">Data Prenotazione</small>
-                        <strong><?= $formattedDate ?></strong>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <small class="text-muted text-uppercase d-block mb-1">Via Sede</small>
-                        <strong><?= htmlspecialchars($row['Via']) ?></strong>
-                    </div>
-                    <div class="col-md-6 col-lg-2">
-                        <small class="text-muted text-uppercase d-block mb-1">Piano</small>
-                        <strong>Piano <?= htmlspecialchars($row['NumeroPiano']) ?></strong>
-                    </div>
-                    <div class="col-md-6 col-lg-2">
-                        <small class="text-muted text-uppercase d-block mb-1">Posti Disponibili</small>
-                        <strong><?= htmlspecialchars($row['NumeroPosti']) ?> posti</strong>
-                    </div>
-                    <div class="col-md-6 col-lg-2">
-                        <small class="text-muted text-uppercase d-block mb-1">Persone Prenotate</small>
-                        <strong><?= htmlspecialchars($row['NumeroPersone']) ?> persone</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <?php
-        $isFirst = false; // Dopo il primo elemento
     }
-    ?>
-    </div>
-    <?php
-    $response['reservations'] = ob_get_clean();
-    ob_start();
-    ?>
 
-    <!-- Statistiche (fuori dal carosello) -->
-    <div class="p-4 pt-0">
-        <div class="card shadow-sm">
-            <div class="card-body p-4">
-                <h3 class="card-title mb-4">Statistiche</h3>
-                <div class="row g-3">
-                    <div class="col-12">
-                        <div class="d-flex justify-content-between align-items-center py-3 border-bottom">
-                            <span class="text-muted">Totale Prenotazioni</span>
-                            <span class="badge bg-primary fs-6" id="totalePrenotazioni"><?= $reservations ?></span>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="d-flex justify-content-between align-items-center py-3">
-                            <span class="text-muted">Prenotazioni Future</span>
-                            <span class="badge bg-primary fs-6" id="prenotazioniFuture"><?= $futureReservations ?></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<?php
-    $response['stats'] = ob_get_clean();
-} else { ?>
-        <div class="carousel-item active">
-            <div class="p-4">
-                <p class="text-danger text-center mb-0">Nessuna prenotazione trovata.</p>
-            </div>
-        </div>
-    </div>
-<?php
-$response['reservations'] = ob_get_clean();
+    echo json_encode([
+        'success' => true,
+        'data' => [
+            'reservations' => $result,
+            'stats' => [
+                'total' => $totalReservations,
+                'future' => $futureReservations
+            ]
+        ]
+    ]);
+    
+} catch (Exception $e) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Errore: ' . $e->getMessage()
+    ]);
 }
-echo json_encode($response);
 ?>
