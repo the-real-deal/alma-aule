@@ -24,9 +24,9 @@ if(isset($data['dati']) && !empty($data['dati'])) {
         ]);
         exit;
     }
-} else if(isset($_POST["submit"])) {
+} else if (isset($_POST["submit"])) {
     $login_result = AuthManager::checkLogin($dbh, $_POST["email"], $_POST["password"]);
-    if(!empty($login_result)) {
+    if (!empty($login_result)) {
         $result["logineseguito"] = true;
         $username = $login_result;
         $_SESSION["username"] = $username;
@@ -48,10 +48,9 @@ if(isset($data['dati']) && !empty($data['dati'])) {
         exit;
     }
 } else {
-echo json_encode([
-    'success' => false,
-    'username' => ''
+    echo json_encode([
+        'success' => false,
+        'username' => ''
     ]);
-exit;
+    exit;
 }
-?>
