@@ -1,19 +1,20 @@
 let cities;
 
-function loadCitta() {
+async function loadCitta() {
     const container = document.getElementById("citta-nav");
     fetch('/apis/citta.php')
         .then(res => res.json())
         .then(data => {
             cities=data;
             cities.sort();
+            loadAule();
             cities.forEach(citta => {
                 
                 const a = document.createElement('a');
                 a.className = "list-group-item list-group-item-action";
                 
                 a.href = `#${citta["id"]}`;
-                const h3 = document.createElement('h3');
+                const h3 = document.createElement('h5');
                 h3.textContent = citta["name"];
                 const hr = document.createElement('hr');
                 hr.className = 'border border-primary border-2 opacity-75 my-1 mx-1';
@@ -63,7 +64,7 @@ function aule(aule) {
         const link = document.createElement('a');
         link.href = '/booking/schedule/';
         link.className = 'list-group-item list-group-item-action';
-
+        link.id=a.roomId;
         const topDiv = document.createElement('div');
         topDiv.className = 'd-flex w-100 justify-content-between';
 
@@ -112,5 +113,5 @@ function aule(aule) {
 
 document.addEventListener('DOMContentLoaded', () => {
     loadCitta();
-    loadAule();
+    
 });
