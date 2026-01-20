@@ -3,10 +3,10 @@ let rooms = [];
 function displayRooms(rooms) {
     const $container = $("#listAule");
     $container.empty(); // Pulisce il contenitore
-    const cittaUnivoche = [...new Set(rooms.map(x => x.sede["citta"]))];
+    const uniquesCity = [...new Set(rooms.map(x => x.site["city"]))];
 
-    $.each(cittaUnivoche, function (i, city) {
-        const filteredRooms = rooms.filter(y => y.sede["citta"] === city);
+    $.each(uniquesCity, function (i, city) {
+        const filteredRooms = rooms.filter(y => y.site["city"] === city);
 
         // Creiamo il gruppo per la città
         const $group = $('<div></div>')
@@ -36,23 +36,34 @@ function loadRooms() {
         });
 }
 
-function renderAuleInto($target, auleList) {
-    $.each(auleList, function (i, a) {
+function renderAuleInto($target, roomList) {
+    $.each(roomList, function (i, a) {
         const $link = $('<a></a>').addClass("list-group-item list-group-item-action");
         const $header = $('<div></div>')
             .addClass('d-flex w-100 justify-content-between')
-            .append($('<h4></h4>').text(a.nomeAula))
-            .append($('<small></small>').text(a.numeroPiano));
+            .append($('<h4></h4>')
+                .text(a.roomName)
+                .addClass('pe-3 pe-lg-0'))
+            .append($('<small id="floorNumberPlaceholder"></small>')
+                .text(a.floorNumber)
+                .addClass("d-flex align-items-center badge mb-auto")
+            );
 
         const $posti = $('<div></div>')
             .addClass('container d-flex')
             .append($('<strong>Posti:</strong>'))
-            .append($('<span class="ps-1"></span>').text(a.numeroPosti));
-
+            .append($('<span></span>')
+                .text(a.seatsNumber)
+                .addClass("ps-1")
+            );
+            
         const $indirizzo = $('<div></div>')
             .addClass('container d-flex')
             .append($('<strong>Indirizzo:</strong>'))
-            .append($('<span class="ps-1"></span>').text(a.sede["via"]));
+            .append($('<span class="ps-1"></span>')
+                .text(a.site["street"])
+                .addClass("ps-1")
+            );
 
         $link.append($header, $posti, $indirizzo);
         $target.append($link);
@@ -61,10 +72,10 @@ function renderAuleInto($target, auleList) {
 
 function lookForRoom(data) {
     const query = $("#searchRoomInput").val().toLowerCase();
-    return data.filter(aula =>
-        aula.nomeAula.toLowerCase().includes(query) ||
-        aula.sede["citta"].toLowerCase().includes(query) ||
-        aula.sede["via"].toLowerCase().includes(query)
+    return data.filter(room =>
+        room.roomName.toLowerCase().includes(query) ||
+        room.site["city"].toLowerCase().includes(query) ||
+        room.site["street"].toLowerCase().includes(query)
     );
 }
 
