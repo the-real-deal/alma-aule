@@ -1,17 +1,108 @@
-async function caricaProfilo() {
-    var xhr = new XMLHttpRequest();
-
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            const container = document.getElementById('profileContainer');
-            container.innerHTML = xhr.responseText; 
-        } 
-    };
-
-    xhr.open("GET", "/apis/profile.php", true);
-    xhr.send();
+function caricaProfilo() {
+    $.ajax({
+        url: "/apis/profile.php",
+        type: "GET",
+        dataType: "json",
+        success: function(response) {
+            if (response.success) {
+                renderProfile(response.data);
+            } else {
+                $('#profileContainer').html(
+                    `<div class="alert alert-warning" role="alert">${response.message}</div>`
+                );
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Errore nel caricamento del profilo:', error);
+            $('#profileContainer').html(
+                '<div class="alert alert-danger">Errore nel caricamento del profilo</div>'
+            );
+        }
+    });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function renderProfile(profileData) {
+    const labelType = (profileData.tipo === 'studente') ? 'Studente' : 'Professore';
+    const container = $('#profileContainer');
+    
+    // Crea la riga principale
+    const row = $('<div>').addClass('row');
+    
+    // Colonna sinistra (avatar e nome)
+    const leftCol = $('<div>')
+        .addClass('col-lg-4 text-center mb-4')
+        .appendTo(row);
+    
+    $('<div>')
+        .addClass('avatar-circle mx-auto mb-3')
+        .append(
+            $('<img>')
+                .addClass('rounded')
+                .attr('src', `https://ui-avatars.com/api/?name=${encodeURIComponent(profileData.Nome)}`)
+                .attr('alt', profileData.Nome)
+        )
+        .appendTo(leftCol);
+    
+    $('<h3>')
+        .addClass('mb-1')
+        .text(`${profileData.Nome} ${profileData.Cognome}`)
+        .appendTo(leftCol);
+    
+    $('<p>')
+        .addClass('text-muted mb-0')
+        .text(labelType)
+        .appendTo(leftCol);
+    
+    // Colonna destra (informazioni)
+    const rightCol = $('<div>')
+        .addClass('col-lg-8')
+        .appendTo(row);
+    
+    $('<h5>')
+        .addClass('mb-3 text-primary')
+        .append(
+            $('<strong>').addClass('bi bi-person-badge')
+        )
+        .append(' Informazioni Personali')
+        .appendTo(rightCol);
+    
+    const infoRow = $('<div>')
+        .addClass('row g-3')
+        .appendTo(rightCol);
+    
+    createInfoItem(infoRow, 'col-lg-6', 'bi bi-envelope', 'Email', profileData.Mail);
+    createInfoItem(infoRow, 'col-lg-6', 'bi bi-calendar', 'Data di Nascita', profileData.DataNascita);
+    createInfoItem(infoRow, 'col-lg-6', 'bi bi-card-text', 'Matricola', profileData.Matricola);
+    
+    if (profileData.tipo === 'professore' && profileData.DataAssunzione) {
+        createInfoItem(infoRow, 'col-md-6', 'bi bi-briefcase', 'Data Assunzione', profileData.DataAssunzione);
+    }
+    
+    container.empty().append(row);
+}
+
+function createInfoItem(parent, colClass, iconClass, label, value) {
+    const col = $('<div>')
+        .addClass(colClass)
+        .appendTo(parent);
+    
+    const infoItem = $('<div>')
+        .addClass('info-item p-3 bg-light rounded')
+        .appendTo(col);
+    
+    $('<small>')
+        .addClass('text-muted d-block mb-1')
+        .append(
+            $('<strong>').addClass(iconClass)
+        )
+        .append(` ${label}`)
+        .appendTo(infoItem);
+    
+    $('<strong>')
+        .text(value)
+        .appendTo(infoItem);
+}
+
+$(document).ready(function() {
     caricaProfilo();
 });
