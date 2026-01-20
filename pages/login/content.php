@@ -3,14 +3,14 @@
 </a>
 <div class="card border-0 rounded-2 shadow-lg" style="min-width: 18rem; max-width: 22rem;">
     <div class="card-header text-center">
-        <img class="img-fluid" src="../../assets/imgs/logo-unibo.png">
+        <img class="img-fluid" src="../../assets/imgs/logo-unibo.png" alt="Logo Unibo">
         <h3 class="text-dark">ESEGUI L'ACCESSO</h3>
     </div>
     <div class="card-body px-3 px-md-5 my-3">
         <form id="loginForm" class="d-flex flex-column justify-content-center" action="" method="POST">
             <div class="mb-3">
                 <label for="inputEmail" class="form-label text-dark">
-                    <i class="bi bi-person-circle"></i>    
+                    <strong class="bi bi-person-circle"></strong>    
                     E-mail
                 </label>
                 <input name="email" placeholder="marco.rossi@unibo.it" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
