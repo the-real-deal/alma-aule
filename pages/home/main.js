@@ -25,7 +25,7 @@ function loadReservations() {
 function renderReservations() {
     const mainCard = $('#mainReservationsCard');
     mainCard.empty();
-    const item = createReservationCard(allReservations.filter(x => x['isFuture'] == true).sort());
+    const item = createReservationCard(allReservations.filter(x => x['isFuture'] == true).sort()[0]);
     mainCard.append(item);
     
 }
