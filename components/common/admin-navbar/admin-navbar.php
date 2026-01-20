@@ -11,6 +11,10 @@
                 <h3 class="ps-3 m-0 text-uppercase">
                     Alma<br />Aule
                 </h3>
+                <hr class="my-2">
+                <h6 class="ps-3 m-0 text-uppercase">
+                    ADMIN
+                </h6>
             </div>
         </a>     
         <div class="collapse navbar-collapse text-white" id="navbarNav">
@@ -19,11 +23,11 @@
                     require_once "{$_SERVER['DOCUMENT_ROOT']}/lib/php/links.php";
                     
                     $links = [
-                        new Link("/home", "Home", "bi-house-fill"),
-                        new Link("/rooms", "Aule", "bi-door-closed-fill"),
-                        new Link("/booking", "Prenotazioni", "bi-bookmark-plus-fill"),
-                        new Link("/profile", "Profilo", "bi-person-fill"),
-                        new link("/reports", "Segnalazioni", "bi-flag-fill")
+                        new Link("/admin", "Dashboard", "bi-terminal-dash"),
+                        new Link("/admin/rooms", "Gestione aule", "bi-door-closed-fill"),
+                        new Link("/admin/booking", "Gestione prenotazioni", "bi-bookmark-plus-fill"),
+                        new Link("/admin/users", "Gestione utenti", "bi-person-fill"),
+                        new Link("/admin/notifications", "Gestione segnalazioni", "bi-flag-fill"),
                     ];
                     
                     foreach ($links as $link) {

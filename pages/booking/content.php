@@ -2,7 +2,7 @@
     <div class="row py-lg-5 ">
         <div class="p-5 p-lg-0 pe-lg-2 col-12 col-lg card border-0 ">
             <h2 class="card-header bg-primary text-light">Città</h2>
-            <div class="card-body">
+            <div class="card-body w-100 p-0">
                 <div id="citta-nav" class="list-group">
 
                 </div>

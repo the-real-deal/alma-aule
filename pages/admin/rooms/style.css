@@ -1,0 +1,4 @@
+#floorNumberPlaceholder {
+    background-color: 
+        hsl(from var(--bs-primary) h s l / .90);
+}

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
-    <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/head.php"?>
+<?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/head.php"?>
     <?php
         if (isset($page["css"])) {
             foreach ($page["css"] as $stylesheet_src) {
             ?>
-                <link rel='stylesheet' href="<?= $stylesheet_src; ?>">
+                <link rel='stylesheet' href="<?= $stylesheet_src ?>">
             <?php
             }
         }
@@ -14,9 +14,10 @@
     <title>Alma Aule<?= isset($page["title"]) ? " - {$page["title"]}" : ""; ?></title>
 </head>
 <body>
+    <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/admin-navbar/admin-navbar.php" ?>
     <main
         class="flex-grow-1 <?= isset($page["container-classes"]) ? $page["container-classes"] : ""; ?>"
-        <?= isset($page["container-id"]) ? 'id="' . $page["container-id"] . '"' : ""; ?>
+        <?= isset($page["container-id"]) ? '"id="' . $page["container-id"] . '"' : ""; ?>
     >
         <?php
             if (isset($page["content"])) {
@@ -35,5 +36,4 @@
         }
     ?>
 </body>
-
 </html>
