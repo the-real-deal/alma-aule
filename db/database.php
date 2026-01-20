@@ -137,7 +137,7 @@ class DatabaseHelper
     }
     public function getCitta()
     {
-        $query = "SELECT DISTINCT s.Citta FROM sedi s";
+        $query = "SELECT * FROM citta";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();

@@ -14,13 +14,13 @@ class Site
         $this->street = $site[1];
         $this->lat = $site[2];
         $this->lon = $site[3];
-        $this->city = new City($site[4]);
+        $this->city = array_find(json_decode(require  $_SERVER['DOCUMENT_ROOT'] . '/apis/citta.php'),
+            function ($val){
+                return $site[4]==$val;
+            }
+        );
     }
 
-    public function getId()
-    {
-        return $this->siteId;
-    }
 }
 class Room
 {

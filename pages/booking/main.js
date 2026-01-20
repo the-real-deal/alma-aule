@@ -1,13 +1,13 @@
 let cities;
-
-async function loadCitta() {
-    const container = $("#citta-nav");
+function getCities(){
     return fetch('/apis/citta.php')
         .then(res => res.json())
-        .then(data => {
-            cities = data;
-            cities.sort();
-            loadAule();
+        .then(data => data)
+        .catch(err => console.error(err));
+}
+async function loadCitta() {
+    const container = $("#citta-nav");
+    const cities= await getCities();
             cities.forEach(citta => {
                 const a = $('<a>')
                     .addClass("list-group-item list-group-item-action")
@@ -19,12 +19,13 @@ async function loadCitta() {
                 a.append(h3).append(hr);
                 container.append(a);
             });
-        }).catch(err => console.error(err));
 }
 
 async function loadAule() {
     const container = $("#aule");
-    return fetch('/apis/aule.php')
+    const cities= await getCities();
+    console.log(cities);
+    fetch('/apis/aule.php')
         .then(res => res.json())
         .then(data => {
             cities.forEach(city => {
@@ -37,7 +38,7 @@ async function loadAule() {
 
                 a.append(h3).append(hr);
                 
-                const auleFiltrate = data.filter(y => y.site["city"].name === city["name"][0]);
+                const auleFiltrate = data.filter(y => y.site["city"].name === city.name);
                 a.append(aule(auleFiltrate));
                 container.append(a);
             });
@@ -75,4 +76,5 @@ function aule(auleList) {
 
 $(document).ready(() => {
     loadCitta();
+    loadAule();
 });
