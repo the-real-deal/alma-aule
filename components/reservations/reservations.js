@@ -80,11 +80,11 @@ function createReservationCard(reservation) {
         .addClass('row g-3')
         .appendTo(card);
     
-    createInfoCol(row, 'col-md-6 col-lg-3', 'Data Prenotazione', formattedDate);
-    createInfoCol(row, 'col-md-6 col-lg-3', 'Via Sede', reservation.Via);
-    createInfoCol(row, 'col-md-6 col-lg-2', 'Piano', `${reservation.NumeroPiano}`);
-    createInfoCol(row, 'col-md-6 col-lg-2', 'Posti Disponibili', `${reservation.NumeroPosti} posti`);
-    createInfoCol(row, 'col-md-6 col-lg-2', 'Persone Prenotate', `${reservation.NumeroPersone} persone`);
+    createInfoCol(row, 'col-lg-6 col-lg-3', 'Data Prenotazione', formattedDate);
+    createInfoCol(row, 'col-lg-6 col-lg-3', 'Via Sede', reservation.Via);
+    createInfoCol(row, 'col-lg-6 col-lg-2', 'Piano', `${reservation.NumeroPiano}`);
+    createInfoCol(row, 'col-lg-6 col-lg-2', 'Posti Disponibili', `${reservation.NumeroPosti} posti`);
+    createInfoCol(row, 'col-lg-6 col-lg-2', 'Persone Prenotate', `${reservation.NumeroPersone} persone`);
     
     return card;
 }

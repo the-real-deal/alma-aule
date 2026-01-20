@@ -25,10 +25,7 @@ function renderStats(stats) {
     const container = $('#statsContainer');
     container.empty();
     
-    // Totale Prenotazioni
     createStatRow(container, 'Totale Prenotazioni', stats.total, 'totalePrenotazioni', true);
-    
-    // Prenotazioni Future
     createStatRow(container, 'Prenotazioni Future', stats.future, 'prenotazioniFuture', false);
 }
 
