@@ -4,18 +4,14 @@ class AuthManager {
     public const SESSION_VALIDITY_SECS = 10*24*60*60;
     private const AUTH_KEY_COOKIE_ATTR = "session_auth_key";
 
+    
+
     public static function isAdmin($dbh, $username) { 
         return $dbh->isAdmin($username);
     }
 
     public static function checkLogin($dbh, $mail, $password) {
         $login_result = $dbh->checkLogin($mail, $password);
-        if(!empty($login_result)) {
-            if($login_result[0]['Username']) {
-                return $login_result[0]["Username"];
-            }
-            return $login_result[0]["Username"];
-        }
         return $login_result;
     }
 

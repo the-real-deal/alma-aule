@@ -13,12 +13,11 @@ class DatabaseHelper
 
     public function checkLogin($mail, $password)
     {
-        $query = "SELECT Username FROM account WHERE Attivo=1 AND Mail = ? AND Password = ?";
+        $query = "SELECT Username, Attivo FROM account WHERE Mail = ? AND Password = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('ss', $mail, $password);
         $stmt->execute();
         $result = $stmt->get_result();
-
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
@@ -34,7 +33,7 @@ class DatabaseHelper
 
     public function getReservations($username)
     {
-        $query = "SELECT au.NomeAula, au.NumeroPiano, au.NumeroPosti,p.DataPrenotazione, p.NumeroPersone, s.Via, (DataPrenotazione >= CURRENT_TIMESTAMP()) as isFuture FROM prenotazioni p JOIN aule au ON p.CodiceAula = au.CodiceAula JOIN account a ON p.CodiceAccount = a.Username JOIN sedi s ON au.CodiceSede = s.CodiceSede WHERE a.Username = ? ORDER BY p.DataPrenotazione ASC";
+        $query = "SELECT p.CodicePrenotazione, au.NomeAula, au.NumeroPiano, au.NumeroPosti,p.DataPrenotazione, p.NumeroPersone, s.Via, (DataPrenotazione >= CURRENT_TIMESTAMP()) as isFuture FROM prenotazioni p JOIN aule au ON p.CodiceAula = au.CodiceAula JOIN account a ON p.CodiceAccount = a.Username JOIN sedi s ON au.CodiceSede = s.CodiceSede WHERE a.Username = ? ORDER BY p.DataPrenotazione ASC";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s', $username);
         $stmt->execute();

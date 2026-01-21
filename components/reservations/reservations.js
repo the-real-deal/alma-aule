@@ -13,7 +13,8 @@ function loadReservations() {
                 allReservations = groupReservationsByRoomAndDate(response.reservations);
                 renderReservations();
             } else {
-                $('#mainReservationsCard').append($('<div>').append(($('<p>').addClass('text-danger text-center mb-0').text($response.message))));            
+                console.log("DJJDJDJD")
+                $('#mainReservationsCard').append($('<div>').append(($('<p>').addClass('text-danger text-center mb-0').text(response.message))));            
             }
         },
         error: function(error) {
@@ -40,19 +41,19 @@ function groupReservationsByRoomAndDate(reservations) {
                 NumeroPosti: reservation.NumeroPosti,
                 date: dateKey,
                 dateObj: new Date(date.getFullYear(), date.getMonth(), date.getDate()),
-                isFuture: false, // Inizialmente false
+                isFuture: false,
                 timeSlots: []
             };
         }
         
         const isThisSlotFuture = date >= now;
         
-        // Se anche solo un orario è futuro, il gruppo è futuro
         if (isThisSlotFuture) {
             grouped[key].isFuture = true;
         }
         
         grouped[key].timeSlots.push({
+            CodicePrenotazione: reservation.CodicePrenotazione,
             time: date.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }),
             NumeroPersone: reservation.NumeroPersone,
             fullDate: reservation.DataPrenotazione,
@@ -96,7 +97,7 @@ function createReservationCard(reservation, index) {
     const collapseId = `collapse-reservation-${index}`;
     
     const card = $('<div>')
-        .addClass('p-4 border-bottom');
+        .addClass('p-4 border-bottom')
 
     const header = $('<div>')
         .addClass('d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2')
@@ -125,7 +126,6 @@ function createReservationCard(reservation, index) {
     createInfoCol(row, 'col-lg-3', 'Piano', `${reservation.NumeroPiano}`);
     createInfoCol(row, 'col-lg-3', 'Posti Disponibili', `${reservation.NumeroPosti} posti`);
     
-    // Bottone per aprire il collapse
     const collapseButton = $('<button>')
         .addClass('btn btn-secondary btn-sm')
         .attr('type', 'button')
@@ -135,7 +135,6 @@ function createReservationCard(reservation, index) {
         })
         .appendTo(card);
     
-    // Collapse con gli orari
     const collapse = $('<div>')
         .addClass('collapse mt-3')
         .attr('id', collapseId)
@@ -158,16 +157,160 @@ function createReservationCard(reservation, index) {
     const headerRow = $('<tr>').appendTo(thead);
     $('<th>').text('Orario').appendTo(headerRow);
     $('<th>').text('Persone Prenotate').appendTo(headerRow);
+    $('<th>').text('Azioni').appendTo(headerRow);
     
     const tbody = $('<tbody>').appendTo(table);
     
-    reservation.timeSlots.forEach(slot => {
+    reservation.timeSlots.forEach((slot, slotIndex) => {
         const row = $('<tr>').appendTo(tbody);
         ($('<td>').append($("<strong>").text(slot.time))).appendTo(row);
         ($('<td>').text(`${slot.NumeroPersone} persone`)).appendTo(row);
+        
+        const actionsCell = $('<td>').appendTo(row);
+        
+        if (!slot.isFuture) {
+            const reportBtn = $('<button>')
+                .addClass('btn btn-warning btn-sm')
+                .append($("<strong>").addClass('bi bi-exclamation-triangle').text("Segnala")
+                .on('click', function() {
+                    showReportModal(reservation, slot, index, slotIndex);
+                }))
+                .appendTo(actionsCell);
+        } else {
+            actionsCell.text('-');
+        }
     });
     
     return card;
+}
+
+function showReportModal(reservation, slot, reservationIndex, slotIndex) {
+    const modalId = `reportModal-${reservationIndex}-${slotIndex}`;
+    
+    $(`#${modalId}`).remove();
+    
+    const modal = $('<div>')
+        .addClass('modal fade')
+        .attr('id', modalId)
+        .attr('tabindex', '-1')
+        .attr('aria-hidden', 'true');
+    
+    const modalDialog = $('<div>')
+        .addClass('modal-dialog')
+        .appendTo(modal);
+    
+    const modalContent = $('<div>')
+        .addClass('modal-content')
+        .appendTo(modalDialog);
+    
+    // Header
+    const modalHeader = $('<div>')
+        .addClass('modal-header')
+        .appendTo(modalContent);
+    
+    $('<h5>')
+        .addClass('modal-title')
+        .text('Segnalazione Orario')
+        .appendTo(modalHeader);
+    
+    $('<button>')
+        .addClass('btn-close')
+        .attr('type', 'button')
+        .attr('data-bs-dismiss', 'modal')
+        .attr('aria-label', 'Close')
+        .appendTo(modalHeader);
+    
+    // Body
+    const modalBody = $('<div>')
+        .addClass('modal-body')
+        .appendTo(modalContent);
+    
+    $('<p>')
+        .addClass('mb-3')
+        .html(`<strong>Aula:</strong> ${reservation.NomeAula}<br>
+               <strong>Data:</strong> ${reservation.date}<br>
+               <strong>Orario:</strong> ${slot.time}`)
+        .appendTo(modalBody);
+    
+    $('<label>')
+        .addClass('form-label')
+        .attr('for', `reportText-${reservationIndex}-${slotIndex}`)
+        .text('Descrizione segnalazione (opzionale):')
+        .appendTo(modalBody);
+    
+    const textarea = $('<textarea>')
+        .addClass('form-control')
+        .attr('id', `reportText-${reservationIndex}-${slotIndex}`)
+        .attr('rows', '4')
+        .attr('maxlength', '250')
+        .attr('placeholder', 'Inserisci qui la tua segnalazione...')
+        .appendTo(modalBody);
+    
+    const charCounter = $('<small>')
+        .addClass('form-text text-muted')
+        .text('0/250 caratteri')
+        .appendTo(modalBody);
+    
+    textarea.on('input', function() {
+        const length = $(this).val().length;
+        charCounter.text(`${length}/250 caratteri`);
+    });
+    
+
+    const modalFooter = $('<div>')
+        .addClass('modal-footer')
+        .appendTo(modalContent);
+    
+    $('<button>')
+        .addClass('btn btn-secondary')
+        .attr('type', 'button')
+        .attr('data-bs-dismiss', 'modal')
+        .text('Annulla')
+        .appendTo(modalFooter);
+    
+    $('<button>')
+        .addClass('btn btn-warning')
+        .attr('type', 'button')
+        .text('Invia Segnalazione')
+        .on('click', function() {
+            submitReport(slot, textarea.val());
+            const bsModal = bootstrap.Modal.getInstance(modal[0]);
+            bsModal.hide();
+        })
+        .appendTo(modalFooter);
+    
+    $('body').append(modal);
+    
+    const bsModal = new bootstrap.Modal(modal[0]);
+    bsModal.show();
+    
+    modal.on('hidden.bs.modal', function() {
+        $(this).remove();
+    });
+}
+
+function submitReport(slot, description) {
+    const reportData = {
+        reservationId: slot.CodicePrenotazione,
+        user : localStorage.getItem("username"),
+        description: description,
+    };
+    
+    console.log('Segnalazione inviata:', reportData);
+    
+    fetch('/apis/addReports.php', {
+        method: 'POST',
+        body: JSON.stringify(reportData)
+    })
+    .then(response => response.json())
+    .catch(error => {
+        console.error('Errore login:', error);
+        $('#loginErrorMessage').text("Errore di comunicazione con il server.");
+        $('#loginErrorModal').modal('show');
+    });
+    
+    window.location.reload();
+
 }
 
 function createInfoCol(parent, colClass, label, value) {
