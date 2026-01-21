@@ -5,7 +5,8 @@
     $page["js"] = [ 
         "/pages/{$page_name}/main.js",
         "/components/reservations/reservations.js",
-        "/components/reservationstats/reservationsStats.js"
+        "/components/reservationstats/reservationsStats.js",
+        "/components/reports/reports.js"
     ];
     $page["container-classes"] = "container mt-4";
     $page["content"] = "{$_SERVER['DOCUMENT_ROOT']}/pages/{$page_name}/content.php";

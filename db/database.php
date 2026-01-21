@@ -133,8 +133,9 @@ class DatabaseHelper
         return null;
     }
 
-    public function getReports($username) {
-        $query = "SELECT au.NomeAula, se.Via, au.NumeroPiano, p.DataPrenotazione, s.Descrizione 
+    public function getReports($username) 
+    {
+        $query = "SELECT s.CodiceSegnalazione, au.NomeAula, se.Via, au.NumeroPiano, p.DataPrenotazione, s.Descrizione, s.Stato 
                     FROM segnalazioni s JOIN account a ON s.CodiceAccount = a.Username JOIN prenotazioni p ON s.CodicePrenotazione = p.CodicePrenotazione 
                     JOIN aule au ON p.CodiceAula = au.CodiceAula JOIN sedi se ON au.CodiceSede = se.CodiceSede
                     WHERE a.Username = ?";
@@ -155,7 +156,8 @@ class DatabaseHelper
         return $result;
     }
 
-    public function getAllUsers(): bool|mysqli_result {
+    public function getAllUsers(): bool|mysqli_result 
+    {
         $query = "SELECT 
                     a.Username, 
                     t.Tipo AS Ruolo, 
@@ -179,12 +181,40 @@ class DatabaseHelper
         return $result;
     }
 
-    public function toggleAccountState($username) {
+    public function toggleAccountState($username) 
+    {
         $query = "UPDATE account SET Attivo = NOT Attivo WHERE Username = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s', $username);
         $stmt->execute();
         
         return $stmt->affected_rows > 0;
+    }
+
+    public function updateReports($reports) 
+    {
+        try {
+            $query = "UPDATE segnalazioni SET Stato = ? WHERE CodiceSegnalazione = ?";
+            $stmt = $this->db->prepare($query);
+            
+            foreach ($reports as $report) {
+                if (is_array($report) && count($report) >= 2) {
+                    $id = $report[0];
+                    $stato = $report[1] ? 1 : 0;
+                    
+                    $stmt->bind_param("ii", $stato, $id);
+                    $stmt->execute();
+                }
+            }
+            return true;
+
+        } catch (Exception $e) { 
+            return false;
+        }
+    }
+
+    public function isAdmin($username) 
+    {
+        
     }
 }
