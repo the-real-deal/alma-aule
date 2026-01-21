@@ -7,16 +7,12 @@ function loadStats() {
             if (response.success) {
                 renderStats(response.stats);
             } else {
-                $('#statsContainer').html(
-                    `<div class="col-12"><p class="text-danger text-center mb-0">${response.message}</p></div>`
-                );
+                $('#statsContainer').append($('<div>').addClass('col-12').append($('<p>').addClass('text-danger text-center mb-0').text(response.message)));
             }
         },
         error: function(error) {
             console.error('Errore nel caricamento delle statistiche:', error);
-            $('#statsContainer').html(
-                '<div class="col-12"><p class="text-danger text-center mb-0">Errore nel caricamento delle statistiche</p></div>'
-            );
+            $('#statsContainer').append($('<div>').addClass('col-12').append($('<p>').addClass('text-danger text-center mb-0').text('Errore nel caricamento delle statistiche')));
         }
     });
 }

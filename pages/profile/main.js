@@ -6,17 +6,11 @@ function caricaProfilo() {
         success: function(response) {
             if (response.success) {
                 renderProfile(response.data);
-            } else {
-                $('#profileContainer').html(
-                    `<div class="alert alert-warning" role="alert">${response.message}</div>`
-                );
             }
         },
-        error: function(xhr, status, error) {
+        error: function(error) {
             console.error('Errore nel caricamento del profilo:', error);
-            $('#profileContainer').html(
-                '<div class="alert alert-danger">Errore nel caricamento del profilo</div>'
-            );
+            $('#profileContainer').append($('<div>').addClass('alert alert-danger').text('Errore nel caricamento del profilo'));
         }
     });
 }
