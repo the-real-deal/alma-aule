@@ -13,20 +13,21 @@ if(isset($data['dati']) && !empty($data['dati'])) {
         $_SESSION["username"] = $receivedData;
         echo json_encode([
             'success' => true,
-            'username' => $receivedData
+            'username' => $receivedData,
+            'admin' => AuthManager::isAdmin($dbh, $receivedData)
         ]);
         exit;
     } else {
         echo json_encode([
             'success' => false,
-            'username' => ''
+            'username' => '',
+            'admin'=> false
         ]);
         exit;
     }
 } else if (isset($_POST["submit"])) {
     $login_result = AuthManager::checkLogin($dbh, $_POST["email"], $_POST["password"]);
     if (!empty($login_result)) {
-        $result["logineseguito"] = true;
         $username = $login_result;
         $_SESSION["username"] = $username;
 
@@ -34,22 +35,22 @@ if(isset($data['dati']) && !empty($data['dati'])) {
         header('Content-Type: application/json');
         echo json_encode([
             'success' => true,
-            'username' => $username
+            'username' => $username,
+            'admin'=> AuthManager::isAdmin($dbh, $login_result)
         ]);
         exit;
     } else {
-        $result["errorelogin"] = "Mail e/o password errati";
         header('Content-Type: application/json');
         echo json_encode([
             'success' => false,
-            'errore' => $result["errorelogin"]
+            'username' => '',
         ]);
         exit;
     }
 } else {
     echo json_encode([
         'success' => false,
-        'username' => ''
+        'username' => '',
     ]);
     exit;
 }
