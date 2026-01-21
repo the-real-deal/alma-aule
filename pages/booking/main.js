@@ -29,8 +29,8 @@ async function loadAule() {
         .then(res => res.json())
         .then(data => {
             cities.forEach(city => {
-                const a = $('<a>')
-                    .addClass('list-group list-group-item list-group-flush mb-3')
+                const a = $('<div>')
+                    .addClass(' mb-3')
                     .attr('id', 'citta-' + city["id"]);
 
                 const h3 = $('<h3>').text(city["name"]);
@@ -39,10 +39,20 @@ async function loadAule() {
                 a.append(h3).append(hr);
 
                 const auleFiltrate = data.filter(y => y.site["city"].name === city.name);
-                console.log(`${city.name} aulefiltrate: ${auleFiltrate.length}`);
                 a.append(aule(auleFiltrate));
-                console.log(auleFiltrate);
                 container.append(a);
+            });
+            // Distruggi e ricrea lo scrollspy
+            const scrollSpyElement = document.querySelector('[data-bs-spy="scroll"]');
+            const oldScrollSpy = bootstrap.ScrollSpy.getInstance(scrollSpyElement);
+            if (oldScrollSpy) {
+                oldScrollSpy.dispose();
+            }
+
+            // Ricrea lo scrollspy
+            new bootstrap.ScrollSpy(scrollSpyElement, {
+                target: '#citta-nav',
+                offset: 20
             });
         })
         .catch(err => console.error(err));
@@ -54,7 +64,7 @@ function aule(auleList) {
     auleList.forEach(a => {
         const link = $('<a>')
             .attr('href', '/booking/schedule/')
-            .addClass('list-group-item list-group-item-action')
+            .addClass('list-group-item list-group-item-action border-0 ')
             .attr('id', "aula-" + a.roomId);
 
         const topDiv = $('<div>').addClass('d-flex w-100 justify-content-between');
