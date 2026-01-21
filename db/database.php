@@ -233,11 +233,9 @@ class DatabaseHelper
     }
 
     public function addReport($reportId,$user,$description) {
-        error_log("MA SONO FICO");
         $query = "INSERT INTO segnalazioni (CodicePrenotazione,CodiceAccount,Descrizione) VALUES (?,?,?)";
-
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("i", $id);
+        $stmt->bind_param("iss", $reportId, $user, $description);
         $stmt->execute();
         return $stmt->get_result();
     }

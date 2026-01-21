@@ -4,7 +4,7 @@
 <div class="card border-0 rounded-2 shadow-lg" style="min-width: 18rem; max-width: 22rem;">
     <div class="card-header text-center">
         <img class="img-fluid" src="../../assets/imgs/logo-unibo.png" alt="Logo Unibo">
-        <p class="h3 text-dark fw-bold">UI L'ACCESSO</p>
+        <p class="h3 text-dark fw-bold">ESEGUI L'ACCESSO</p>
     </div>
     <div class="card-body px-3 px-md-5 my-3">
         <form id="loginForm" class="d-flex flex-column justify-content-center" method="POST">

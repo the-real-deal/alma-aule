@@ -8,19 +8,16 @@ $data = json_decode($json, true);
 if(isset($data['dati']) && !empty($data['dati'])) {
     $receivedData = $data['dati'];
     header('Content-Type: application/json');
-    
     if(AuthManager::isUserLoggedIn($dbh, $receivedData)) {
         $_SESSION["username"] = $receivedData;
         echo json_encode([
-            'success' => true,
             'username' => $receivedData,
             'admin' => AuthManager::isAdmin($dbh, $receivedData)
         ]);
         exit;
     } else {
         echo json_encode([
-            'success' => false,
-            'username' => '',
+            'username' => $receivedData,
             'admin'=> false
         ]);
         exit;
@@ -56,4 +53,10 @@ if(isset($data['dati']) && !empty($data['dati'])) {
         ]);
         exit;
     }
+} else {
+    echo json_encode([
+        'username' => '',
+        'admin' => false
+    ]);
+    exit;
 }

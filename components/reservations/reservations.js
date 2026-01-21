@@ -308,9 +308,8 @@ function submitReport(slot, description) {
         $('#loginErrorMessage').text("Errore di comunicazione con il server.");
         $('#loginErrorModal').modal('show');
     });
-    
+        
     window.location.reload();
-
 }
 
 function createInfoCol(parent, colClass, label, value) {
