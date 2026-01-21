@@ -212,7 +212,16 @@ class DatabaseHelper
         }
     }
 
-    public function isAdmin($username) {}
+    public function isAdmin($username) 
+    {
+        $query = "SELECT Username FROM account WHERE Username = ? AND codiceRuolo = 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        return isset($result[0]['Username']);
+    }
+
     public function getAula($id)
     {
         $query = "SELECT * FROM aule au JOIN sedi s ON au.CodiceSede=s.CodiceSede WHERE au.CodiceAula=?";
@@ -230,6 +239,7 @@ class DatabaseHelper
         $stmt->execute();
         return $stmt->get_result();
     }
+
     public function addReservation($idAula, $username, $nPersone, $date)
     {
         $query = "INSERT INTO `prenotazioni` (`CodicePrenotazione`, `CodiceAula`, `CodiceAccount`, `NumeroPersone`, `DataPrenotazione`) VALUES (null, ?, ?, ?, ?)";

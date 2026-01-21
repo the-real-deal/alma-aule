@@ -38,7 +38,7 @@ function renderProfile(profileData) {
         .appendTo(leftCol);
     
     $('<h3>')
-        .addClass('mb-1')
+        .addClass('mb-1 fs-2')
         .text(`${profileData.Nome} ${profileData.Cognome}`)
         .appendTo(leftCol);
     
@@ -53,7 +53,7 @@ function renderProfile(profileData) {
         .appendTo(row);
     
     $('<h5>')
-        .addClass('mb-3 text-primary')
+        .addClass('mb-3 text-primary text-uppercase')
         .append(
             $('<strong>').addClass('bi bi-person-badge')
         )
