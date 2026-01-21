@@ -13,7 +13,7 @@ async function loadCitta() {
             .addClass("list-group-item list-group-item-action")
             .attr('href', `#citta-${citta["id"]}`);
 
-        const h3 = $('<h5>').text(citta["name"]);
+        const h3 = $('<p>').addClass("h5 fw-bold").text(citta["name"]);
         const hr = $('<hr>').addClass('border border-primary border-2 opacity-75 my-1 mx-1');
 
         a.append(h3).append(hr);
@@ -73,7 +73,7 @@ function aule(auleList) {
 
 
         const topDiv = $('<div>').addClass('d-flex w-100 justify-content-between');
-        topDiv.append($('<h4>').text(a.roomName));
+        topDiv.append($('<p>').addClass("h4 fw-bold").text(a.roomName));
         topDiv.append($('<small>').text(a.floorNumber));
 
         const postiDiv = $('<div>').addClass('container d-flex');

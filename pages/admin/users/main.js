@@ -58,8 +58,8 @@ function createUserCard(user) {
 
     const $cardBody = $('<div></div>').addClass('card-body d-flex flex-column');
 
-    const $title = $('<h5></h5>')
-        .addClass('card-title')
+    const $title = $('<p></p>')
+        .addClass('h5 fw-bold card-title')
         .text(`${user.Nome} ${user.Cognome}`);
 
     const ruoloSpecifica = user.Ordinario ? ' (Ordinario)' : '';

@@ -207,6 +207,7 @@ class DatabaseHelper
                 }
             }
             return true;
+
         } catch (Exception $e) {
             return false;
         }
@@ -225,6 +226,16 @@ class DatabaseHelper
     public function getAula($id)
     {
         $query = "SELECT * FROM aule au JOIN sedi s ON au.CodiceSede=s.CodiceSede WHERE au.CodiceAula=?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    public function addReport($reportId,$user,$description) {
+        error_log("MA SONO FICO");
+        $query = "INSERT INTO segnalazioni (CodicePrenotazione,CodiceAccount,Descrizione) VALUES (?,?,?)";
+
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();

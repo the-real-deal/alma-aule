@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
 <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/common/head.php"?>
     <?php

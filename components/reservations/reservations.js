@@ -126,7 +126,7 @@ function createReservationCard(reservation, index) {
     createInfoCol(row, 'col-lg-3', 'Piano', `${reservation.NumeroPiano}`);
     createInfoCol(row, 'col-lg-3', 'Posti Disponibili', `${reservation.NumeroPosti} posti`);
     
-    const collapseButton = $('<button>')
+    $('<button>')
         .addClass('btn btn-secondary btn-sm')
         .attr('type', 'button')
         .text(`Mostra orari (${reservation.timeSlots.length})`)
@@ -209,7 +209,7 @@ function showReportModal(reservation, slot, reservationIndex, slotIndex) {
         .appendTo(modalContent);
     
     $('<h5>')
-        .addClass('modal-title text-uppercase')
+        .addClass('modal-title')
         .text('Segnalazione Orario')
         .appendTo(modalHeader);
     

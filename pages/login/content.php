@@ -4,7 +4,7 @@
 <div class="card border-0 rounded-2 shadow-lg" style="min-width: 18rem; max-width: 22rem;">
     <div class="card-header text-center">
         <img class="img-fluid" src="../../assets/imgs/logo-unibo.png" alt="Logo Unibo">
-        <h3 class="text-dark">ESEGUI L'ACCESSO</h3>
+        <p class="h3 text-dark fw-bold">UI L'ACCESSO</p>
     </div>
     <div class="card-body px-3 px-md-5 my-3">
         <form id="loginForm" class="d-flex flex-column justify-content-center" method="POST">
@@ -35,7 +35,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title"><strong class="bi bi-shield-fill-exclamation"></strong> Attenzione</h5>
+                <p class="h5 fw-bold modal-title"><strong class="bi bi-shield-fill-exclamation"></strong> Attenzione</p>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
