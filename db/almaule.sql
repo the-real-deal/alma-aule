@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 20, 2026 alle 16:07
+-- Creato il: Gen 21, 2026 alle 14:25
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -24,7 +24,6 @@ SET time_zone = "+00:00";
 DROP DATABASE IF EXISTS almaule;
 CREATE DATABASE almaule;
 USE almaule;
-
 -- --------------------------------------------------------
 
 --
@@ -50,7 +49,7 @@ INSERT INTO `account` (`Username`, `codiceRuolo`, `Attivo`, `Mail`, `Password`) 
 ('ilabru001', 3, 1, 'ilabru001@studio.unibo.it', 'StudPass001'),
 ('marmar001', 2, 1, 'marmar001@studio.unibo.it', '456'),
 ('matrus001', 3, 1, 'matrus001@studio.unibo.it', 'StudPass002'),
-('vinesp001', 1, 1, 'vinesp001@studio.unibo.it', 'ProfPass003');
+('vinesp001', 1, 1, 'vinesp001@studio.unibo.it', '789');
 
 -- --------------------------------------------------------
 
@@ -318,8 +317,9 @@ CREATE TABLE `authsessions` (
 --
 
 INSERT INTO `authsessions` (`CodiceSessione`, `CodiceAccount`, `ExpirationDate`, `ForceExpired`) VALUES
-(1, 'beagre003', '2026-01-29 18:00:04', 0),
-(2, 'marmar001', '2026-01-29 18:12:27', 0);
+(1, 'beagre003', '2026-01-31 12:37:40', 0),
+(2, 'vinesp001', '2026-01-31 12:26:06', 0),
+(3, 'marmar001', '2026-01-31 12:24:07', 0);
 
 -- --------------------------------------------------------
 
@@ -370,7 +370,7 @@ CREATE TABLE `prenotazioni` (
 INSERT INTO `prenotazioni` (`CodicePrenotazione`, `CodiceAula`, `CodiceAccount`, `NumeroPersone`, `DataPrenotazione`) VALUES
 (1, 138, 'beagre003', 5, '2026-01-17 00:00:00'),
 (2, 4, 'beagre003', 15, '2026-01-19 11:09:27'),
-(3, 57, 'beagre003', 18, '2026-01-19 12:56:41'),
+(3, 4, 'beagre003', 18, '2026-01-19 12:56:41'),
 (4, 109, 'beagre003', 20, '2026-01-22 12:56:56');
 
 -- --------------------------------------------------------
@@ -559,16 +559,17 @@ CREATE TABLE `segnalazioni` (
   `CodiceSegnalazione` int(11) NOT NULL,
   `CodicePrenotazione` int(11) NOT NULL,
   `CodiceAccount` varchar(20) NOT NULL,
-  `Descrizione` varchar(250) DEFAULT NULL
+  `Descrizione` varchar(250) DEFAULT NULL,
+  `Stato` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dump dei dati per la tabella `segnalazioni`
 --
 
-INSERT INTO `segnalazioni` (`CodiceSegnalazione`, `CodicePrenotazione`, `CodiceAccount`, `Descrizione`) VALUES
-(1, 1, 'beagre003', 'La classe era sporca, non si capisce per quale motivo ci fosse una fetta di salame attaccata al muro'),
-(2, 4, 'beagre003', 'Se le luci non si accendono più non è colpa della sottoscritta, la matricola Matteo Tonelli è responsabile, ha svitato tutto');
+INSERT INTO `segnalazioni` (`CodiceSegnalazione`, `CodicePrenotazione`, `CodiceAccount`, `Descrizione`, `Stato`) VALUES
+(1, 1, 'beagre003', 'La classe era sporca, non si capisce per quale motivo ci fosse una fetta di salame attaccata al muro', 1),
+(2, 4, 'beagre003', 'Se le luci non si accendono più non è colpa della sottoscritta, la matricola Matteo Tonelli è responsabile, ha svitato tutto', 0);
 
 -- --------------------------------------------------------
 
@@ -613,48 +614,6 @@ INSERT INTO `tipi_account` (`ID`, `Tipo`) VALUES
 (1, 'Admin'),
 (2, 'Professore'),
 (3, 'Studente');
-
--- --------------------------------------------------------
--- 1. Accounts for Professors (Ruolo 2)
--- --------------------------------------------------------
-INSERT INTO `account` (`Username`, `codiceRuolo`, `Attivo`, `Mail`, `Password`) VALUES
-('mrossi01', 2, 1, 'm.rossi@unibo.it', 'Prof2026!'),
-('lbianchi02', 2, 1, 'l.bianchi@unibo.it', 'Prof2026!'),
-('gverdi03', 2, 1, 'g.verdi@unibo.it', 'Prof2026!'),
-('arusso04', 2, 1, 'a.russo@unibo.it', 'Prof2026!'),
-('vferrari05', 2, 1, 'v.ferrari@unibo.it', 'Prof2026!');
-
--- --------------------------------------------------------
--- 2. Accounts for Students (Ruolo 3)
--- --------------------------------------------------------
--- Usernames like stud001, stud002, etc.
-INSERT INTO `account` (`Username`, `codiceRuolo`, `Attivo`, `Mail`, `Password`) VALUES
-('stud001', 3, 1, 'stud001@studio.unibo.it', 'StudentPass!'),
-('stud002', 3, 1, 'stud002@studio.unibo.it', 'StudentPass!'),
-('stud003', 3, 1, 'stud003@studio.unibo.it', 'StudentPass!'),
-('stud150', 3, 1, 'stud150@studio.unibo.it', 'StudentPass!');
-
--- --------------------------------------------------------
--- 3. Professori Data
--- --------------------------------------------------------
--- Starting from Matricola 4 (since 1-3 exist)
-INSERT INTO `professori` (`Matricola`, `Nome`, `Cognome`, `DataNascita`, `DataAssunzione`, `CodiceAccount`, `Ordinario`) VALUES
-(4, 'Marco', 'Rossi', '1975-03-12', '2005-09-01', 'mrossi01', 1),
-(5, 'Laura', 'Bianchi', '1980-11-23', '2010-02-15', 'lbianchi02', 0),
-(6, 'Giuseppe', 'Verdi', '1968-01-30', '1998-06-10', 'gverdi03', 1),
-(7, 'Anna', 'Russo', '1985-05-15', '2015-11-20', 'arusso04', 0),
-(8, 'Vincenzo', 'Ferrari', '1972-08-04', '2002-01-07', 'vferrari05', 1);
--- (Repeat logic for all 50)
-
--- --------------------------------------------------------
--- 4. Studenti Data
--- --------------------------------------------------------
--- Starting from Matricola 8 (since 4-7 exist)
-INSERT INTO `studenti` (`Matricola`, `Nome`, `Cognome`, `DataNascita`, `CodiceAccount`) VALUES
-(8, 'Luca', 'Fontana', '2004-01-15', 'stud001'),
-(9, 'Sara', 'Barbieri', '2005-03-22', 'stud002'),
-(10, 'Davide', 'Greco', '2003-07-10', 'stud003'),
-(12, 'Elena', 'Nelli', '2005-11-12', 'stud150');
 
 --
 -- Indici per le tabelle scaricate
@@ -747,7 +706,7 @@ ALTER TABLE `aule`
 -- AUTO_INCREMENT per la tabella `authsessions`
 --
 ALTER TABLE `authsessions`
-  MODIFY `CodiceSessione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `CodiceSessione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT per la tabella `citta`

@@ -23,13 +23,13 @@ function caricaReports() {
 
 function renderReports(data) {
     const container = $('#reportsContainer');
-    
+
     if (data.reports.length === 0) {
         container.html(
             $('<div>')
                 .addClass('alert alert-warning')
                 .attr('role', 'alert')
-                .text(`${data.username} : Non hai fatto nessuna segnalazione`)
+                .text(`${data.username}: Non hai fatto nessuna segnalazione`)
         );
         return;
     }
