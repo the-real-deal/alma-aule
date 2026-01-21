@@ -62,10 +62,15 @@ function aule(auleList) {
     const fragment = document.createDocumentFragment();
 
     auleList.forEach(a => {
+
         const link = $('<a>')
             .attr('href', '/booking/schedule/')
             .addClass('list-group-item list-group-item-action border-0 ')
-            .attr('id', "aula-" + a.roomId);
+            .attr('id', "aula-" + a.roomId)
+            .on("click", () => {
+                sessionStorage.setItem("idAula", a.roomId);
+            });
+
 
         const topDiv = $('<div>').addClass('d-flex w-100 justify-content-between');
         topDiv.append($('<h4>').text(a.roomName));

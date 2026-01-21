@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const idAula = sessionStorage.getItem("idAula");
+    getAula(idAula);
     const container = $("#grid");
     const timeStart = 8;
     let row = $("<div>").addClass("row"); // Inizializza la prima row
@@ -29,3 +31,20 @@ document.addEventListener("DOMContentLoaded", () => {
         container.append(row);
     }
 });
+
+function getAula(idAula) {
+
+    $.ajax({
+        url: "/apis/aula.php",
+        type: "get",
+        data: {
+            idAula: idAula,
+        },
+        success: function (response) {
+            const aula = JSON.parse(response);
+            $("#title").text(aula.NomeAula);
+            $("#address").text(aula.Indirizzo);
+        }
+
+    });
+}
