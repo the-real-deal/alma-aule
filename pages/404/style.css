@@ -6,10 +6,6 @@ body {
     );
 }
 
-main {
-    height: 100dvh;
-}
-
 h1::after {
     content: '';
     width: 70px;

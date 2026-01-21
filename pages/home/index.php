@@ -3,6 +3,7 @@
     $page_name = FileUtils::getFolderName($_SERVER['PHP_SELF']);
     $page["title"] = "Home";
     $page["content"] = "{$_SERVER['DOCUMENT_ROOT']}/pages/{$page_name}/content.php";
+    $page["container-classes"] = "pb-5";
     $page["css"] = [ 
         "/pages/{$page_name}/style.css",
         "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
