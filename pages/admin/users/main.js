@@ -54,7 +54,7 @@ function createUserCard(user) {
     }
     const $header = $('<div></div>')
         .addClass(`card-header ${headerColor}`)
-        .html(`<small>@${user.Username}</small>`);
+        .append($('<small>').text('@'+user.Username));
 
     const $cardBody = $('<div></div>').addClass('card-body d-flex flex-column');
 
@@ -69,13 +69,13 @@ function createUserCard(user) {
 
     const enrollmentNr = user.MatricolaProfessore ?? user.MatricolaStudente ?? 'N/D';
     const $details = $('<p></p>')
-        .addClass('card-text small')
-        .html(`
-            <strong>Email:</strong> ${user.Mail}<br>
-            <strong>Matricola:</strong> ${enrollmentNr}<br>
-            <strong>Data Nascita:</strong> ${new Date(user.DataNascita).toLocaleDateString('it-IT')}<br>
-            ${user.DataAssunzione ? `<strong>Assunto il:</strong> ${new Date(user.DataAssunzione).toLocaleDateString('it-IT')}` : ''}
-        `);
+        .addClass('card-text small');
+    
+    $details.append(($('<strong>').text('Email: ')).append(user.Mail+'<br>'));
+    $details.append(($('<strong>').text('Matricola: ')).append(enrollmentNr+'<br>'));
+    $details.append(($('<strong>').text('Data Nascita: ')).append(new Date(user.DataNascita).toLocaleDateString('it-IT')+'<br>')
+    .append(user.DataAssunzione ? `<strong>Assunto il:</strong> ${new Date(user.DataAssunzione).toLocaleDateString('it-IT')}` : ''));
+
 
     const $bottomRow = $('<footer></footer>')
         .addClass("d-flex justify-content-between mt-auto");

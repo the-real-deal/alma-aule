@@ -6,17 +6,11 @@ function caricaProfilo() {
         success: function(response) {
             if (response.success) {
                 renderProfile(response.data);
-            } else {
-                $('#profileContainer').html(
-                    `<div class="alert alert-warning" role="alert">${response.message}</div>`
-                );
             }
         },
-        error: function(xhr, status, error) {
+        error: function(error) {
             console.error('Errore nel caricamento del profilo:', error);
-            $('#profileContainer').html(
-                '<div class="alert alert-danger">Errore nel caricamento del profilo</div>'
-            );
+            $('#profileContainer').append($('<div>').addClass('alert alert-danger').text('Errore nel caricamento del profilo'));
         }
     });
 }
@@ -30,7 +24,7 @@ function renderProfile(profileData) {
     
     // Colonna sinistra (avatar e nome)
     const leftCol = $('<div>')
-        .addClass('col-lg-4 text-center mb-4')
+        .addClass('col-lg-4 text-center d-flex flex-column justify-content-center mb-5 mb-lg-0')
         .appendTo(row);
     
     $('<div>')
@@ -58,7 +52,7 @@ function renderProfile(profileData) {
         .addClass('col-lg-8')
         .appendTo(row);
     
-    $('<h4>')
+    $('<h5>')
         .addClass('mb-3 text-primary')
         .append(
             $('<strong>').addClass('bi bi-person-badge')
@@ -72,7 +66,7 @@ function renderProfile(profileData) {
     
     createInfoItem(infoRow, 'col-lg-6', 'bi bi-envelope', 'Email', profileData.Mail);
     createInfoItem(infoRow, 'col-lg-6', 'bi bi-calendar', 'Data di Nascita', profileData.DataNascita);
-    createInfoItem(infoRow, 'col-lg-6', 'bi bi-card-text', 'Matricola', profileData.Matricola);
+    createInfoItem(infoRow, 'col-lg-6', 'bi bi-card-text', 'Matricola', '#' + profileData.Matricola);
     
     if (profileData.tipo === 'professore' && profileData.DataAssunzione) {
         createInfoItem(infoRow, 'col-md-6', 'bi bi-briefcase', 'Data Assunzione', profileData.DataAssunzione);

@@ -13,7 +13,7 @@ class DatabaseHelper
 
     public function checkLogin($mail, $password)
     {
-        $query = "SELECT Username, Mail FROM account WHERE Attivo=1 AND Mail = ? AND Password = ?";
+        $query = "SELECT Username FROM account WHERE Attivo=1 AND Mail = ? AND Password = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('ss', $mail, $password);
         $stmt->execute();
@@ -66,7 +66,7 @@ class DatabaseHelper
 
     public function getLastSession($username)
     {
-        $query = "SELECT ExpirationDate FROM authsessions WHERE CodiceAccount = ? ORDER BY ExpirationDate DESC LIMIT 1";
+        $query = "SELECT ExpirationDate FROM authsessions at JOIN account a ON at.CodiceAccount = a.Username WHERE at.CodiceAccount = ? AND a.Attivo = 1 ORDER BY ExpirationDate DESC LIMIT 1";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s', $username);
         $stmt->execute();
@@ -195,10 +195,11 @@ class DatabaseHelper
     {
         try {
             $query = "UPDATE segnalazioni SET Stato = ? WHERE CodiceSegnalazione = ?";
+            #$query = "UPDATE segnalazioni SET Stato = NOT Stato WHERE CodiceSegnalazione = ?";
             $stmt = $this->db->prepare($query);
 
             foreach ($reports as $report) {
-                if (is_array($report) && count($report) >= 2) {
+                if (is_array($report) && count($report) >= 2) { #(is_array($report))
                     $id = $report[0];
                     $stato = $report[1] ? 1 : 0;
 

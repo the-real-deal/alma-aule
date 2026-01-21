@@ -7,17 +7,10 @@ try {
     $username = $_SESSION['username'];
     $profileData = $dbh->getProfileData($username); 
     
-    if ($profileData) {
-        echo json_encode([
-            'success' => true,
-            'data' => $profileData
-        ]);
-    } else {
-        echo json_encode([
-            'success' => false,
-            'message' => 'Profilo non trovato per l\'utente: ' . htmlspecialchars($username)
-        ]);
-    }
+    echo json_encode([
+        'success' => true,
+        'data' => $profileData
+    ]);
 } catch (Exception $e) {
     echo json_encode([
         'success' => false,

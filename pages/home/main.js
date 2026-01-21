@@ -5,19 +5,15 @@ function loadReservations() {
         dataType: "json",
         success: function(response) {
             if (response.success) {
-                allReservations = response.reservations;
+                allReservations = groupReservationsByRoomAndDate(response.reservations);
                 renderReservations();
             } else {
-                $('#mainReservationsCard').html(
-                    `<div class="p-4"><p class="text-danger text-center mb-0">${response.message}</p></div>`
-                );
+                $('#mainReservationsCard').append($('<div>').append(($('<p>').addClass('text-danger text-center mb-0').text($response.message))));            
             }
         },
         error: function(error) {
             console.error('Errore nel caricamento delle prenotazioni:', error);
-            $('#mainReservationsCard').html(
-                '<div class="p-4"><p class="text-danger text-center mb-0">Errore nel caricamento delle prenotazioni</p></div>'
-            );
+            $('#mainReservationsCard').append($('<div>').append(($('<p>')).addClass('text-danger text-center mb-0').text("Errore nel caricamento delle prenotazioni")));
         }
     });
 }
@@ -25,8 +21,12 @@ function loadReservations() {
 function renderReservations() {
     const mainCard = $('#mainReservationsCard');
     mainCard.empty();
-    const item = createReservationCard(allReservations.filter(x => x['isFuture'] == true).sort()[0]);
-    mainCard.append(item);
+    const futureReservations = allReservations.filter(x => x.isFuture === true);
+    
+    if (futureReservations.length > 0) {
+        const item = createReservationCard(futureReservations[0], 0);
+        mainCard.append(item);
+    }
     
 }
 
