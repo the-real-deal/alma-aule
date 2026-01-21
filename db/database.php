@@ -216,7 +216,7 @@ class DatabaseHelper
     public function isAdmin($username) {}
     public function getAula($id)
     {
-        $query = "SELECT * FROM aule au WHERE au.CodiceAula=?";
+        $query = "SELECT * FROM aule au JOIN sedi s ON au.CodiceSede=s.CodiceSede WHERE au.CodiceAula=?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();

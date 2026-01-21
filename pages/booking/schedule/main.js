@@ -42,8 +42,34 @@ function getAula(idAula) {
         },
         success: function (response) {
             const aula = JSON.parse(response);
+            console.log(aula);
             $("#title").text(aula.NomeAula);
             $("#address").text(aula.Indirizzo);
+            if(aula.Accessibilita){
+                $("#accessibility > * ").addClass("text-success");
+            }
+            else{
+                 $("#accessibility > * ").addClass("text-primary");
+            }
+
+            if(aula.Proiettore){
+                $("#projector > * ").addClass("text-success");
+            }
+            else{
+                $("#projector > * ").addClass("text-primary");
+            }
+            if(aula.Prese){
+                $("#plugs > * ").addClass("text-success");
+            }
+            else{
+                $("#plugs > * ").addClass("text-primary");
+            }
+            if(aula.Laboratorio){
+                $("#lab > * ").addClass("text-success");
+            }
+            else{
+                $("#lab > * ").addClass("text-primary");
+            }
         }
 
     });

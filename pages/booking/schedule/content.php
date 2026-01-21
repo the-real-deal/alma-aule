@@ -15,20 +15,20 @@
                     </div>
                     <div>
                         <strong>Dotazioni:</strong>
-                        <ol class="list-group">
-                            <li class="list-group-item">
+                        <ol class="list-group list-group-flush">
+                            <li id="accessibility" class="list-group-item">
                                 <i class="bi bi-person-wheelchair"></i>
                                 <label for="bi-person-wheelchair">Accessibilità</label>
                             </li>
-                            <li class="list-group-item">
+                            <li id="projector" class="list-group-item">
                                 <i class="bi bi-projector"></i>
                                 <label for="bi-projector">Proiettore</label>
                             </li>
-                            <li class="list-group-item">
+                            <li id="plugs" class="list-group-item">
                                 <i class="bi bi-plug-fill"></i>
                                 <label for="bi-plug-fill">Prese</label>
                             </li>
-                            <li class="list-group-item">
+                            <li id="lab" class="list-group-item">
                                 <i class="bi bi-pc-display"></i>
                                 <label for="bi-pc-display">Laboratorio</label>
                             </li>

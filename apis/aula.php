@@ -16,7 +16,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["idAula"])) {
         'Accessibilita' => $aula[0][5],
         'Proiettore' => $aula[0][6],
         'Prese' => $aula[0][7],
-        'Laboratorio' => $aula[0][8]
+        'Laboratorio' => $aula[0][8],
+        'CodiceSede' => $aula[0][9],
+        'Indirizzo' => $aula[0][10],
+        'Latitudine' =>$aula[0][11],
+        'Longitudine' => $aula[0][12]
+
+
     ]);
 } else {
     echo "No data received";
