@@ -5,6 +5,6 @@ return [
         "NAME" => "almaule",
         "USERNAME" => "root",
         "PASSWORD" => "",
-        "PORT" => 3307
+        "PORT" => 3306
     ],
 ];
