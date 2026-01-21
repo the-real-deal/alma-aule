@@ -227,7 +227,7 @@ class DatabaseHelper
     {
         $query = "SELECT * FROM prenotazioni p WHERE p.CodiceAula=? AND date(p.DataPrenotazione) = ? ";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("id", $idAula, $date);
+        $stmt->bind_param("is", $idAula, $date);
         $stmt->execute();
         return $stmt->get_result();
     }

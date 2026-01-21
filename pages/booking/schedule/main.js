@@ -9,12 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const col = $("<div>").addClass("col pb-1");
         const input = $('<input>')
             .addClass("btn-check")
-            .attr("id", `btn-${i}`)
+            .attr("id", `btn-${i+timeStart}`)
             .attr("type", "checkbox")
             .attr("autocomplete", "off");
         const label = $('<label>')
             .addClass("btn btn-outline-primary text-nowrap align-content-center p-1 w-100 h-100")
-            .attr("for", `btn-${i}`)
+            .attr("for", `btn-${i+timeStart}`)
             .text(`${i + timeStart}:00-${i + timeStart + 1}:00`);
 
         col.append(input).append(label);
@@ -30,7 +30,26 @@ document.addEventListener("DOMContentLoaded", () => {
     if (row.children().length > 0) {
         container.append(row);
     }
+
+    $("#calendar").on("input",()=>{
+        // console.log($(this).val());
+        $.ajax({
+            url:"/apis/getRoomReservations.php",
+            type:"get",
+            data:{
+                idAula:sessionStorage.getItem("idAula"),
+                day:$("#calendar").val(),
+            },
+            success:function(response){
+                const res= JSON.parse(response);
+                res.forEach(element => {
+                    $(`btn-${new Date(element.DataPrenotazione).getHours()}`).attr("disabled")
+                });
+            }
+        });
+    });
 });
+
 
 function getAula(idAula) {
 
@@ -41,8 +60,9 @@ function getAula(idAula) {
             idAula: idAula,
         },
         success: function (response) {
+
             const aula = JSON.parse(response);
-            console.log(aula);
+            $("#title").attr("value",response.CodiceAula);
             $("#title").text(aula.NomeAula);
             $("#address").text(aula.Indirizzo);
             if(aula.Accessibilita){
@@ -74,3 +94,4 @@ function getAula(idAula) {
 
     });
 }
+

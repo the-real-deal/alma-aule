@@ -1,20 +1,17 @@
 <div class="container-lg py-1 py-lg-2">
-    <div class="card">
-        <div class="card-header">
+    <div class="card border-2 border-primary">
+        <div class="card-header bg-primary text-white">
             <h1 id="title" class="m-0"></h1>
         </div>
         <div class="card-body gap-3 d-flex">
-            <div class="card">
-                <div class="card-header">
+            <div class="card border-2 p-0 border-primary">
+                <div class="card-header bg-primary text-white">
                     <h6>Informazioni</h6>
                 </div>
                 <div class="card-body">
-                    <div>
-                        <strong>Indirizzo:</strong>
-                        <span id="address"></span>
-                    </div>
-                    <div>
-                        <strong>Dotazioni:</strong>
+                   
+                    <div class="p-2 border border-2  rounded-2">
+                        <strong class="border-bottom border-2 border-primary">Dotazioni:</strong>
                         <ol class="list-group list-group-flush">
                             <li id="accessibility" class="list-group-item">
                                 <i class="bi bi-person-wheelchair"></i>
@@ -33,6 +30,12 @@
                                 <label for="bi-pc-display">Laboratorio</label>
                             </li>
                         </ol>
+                    </div>
+                     <div class="pt-2 gap-1">
+                        <strong>
+                            <i class="bi bi-geo-alt"></i>
+                        </strong>
+                        <span id="address"></span>
                     </div>
                 </div>
             </div>
