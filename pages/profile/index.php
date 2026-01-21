@@ -8,6 +8,6 @@
         "/components/reservationstats/reservationsStats.js",
         "/components/reports/reports.js"
     ];
-    $page["container-classes"] = "container mt-4";
+    $page["container-classes"] = "container py-5";
     $page["content"] = "{$_SERVER['DOCUMENT_ROOT']}/pages/{$page_name}/content.php";
     include "{$_SERVER['DOCUMENT_ROOT']}/template/base.php";
