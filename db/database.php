@@ -33,7 +33,7 @@ class DatabaseHelper
 
     public function getReservations($username)
     {
-        $query = "SELECT au.NomeAula, au.NumeroPiano, au.NumeroPosti,p.DataPrenotazione, p.NumeroPersone, s.Via, (DataPrenotazione >= CURRENT_TIMESTAMP()) as isFuture FROM prenotazioni p JOIN aule au ON p.CodiceAula = au.CodiceAula JOIN account a ON p.CodiceAccount = a.Username JOIN sedi s ON au.CodiceSede = s.CodiceSede WHERE a.Username = ? ORDER BY p.DataPrenotazione ASC";
+        $query = "SELECT p.CodicePrenotazione, au.NomeAula, au.NumeroPiano, au.NumeroPosti,p.DataPrenotazione, p.NumeroPersone, s.Via, (DataPrenotazione >= CURRENT_TIMESTAMP()) as isFuture FROM prenotazioni p JOIN aule au ON p.CodiceAula = au.CodiceAula JOIN account a ON p.CodiceAccount = a.Username JOIN sedi s ON au.CodiceSede = s.CodiceSede WHERE a.Username = ? ORDER BY p.DataPrenotazione ASC";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s', $username);
         $stmt->execute();
@@ -221,6 +221,14 @@ class DatabaseHelper
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         return isset($result[0]['Username']);
+    }
 
+    public function addReport($reportId,$user,$description) {
+        error_log("MA SONO FICO");
+        $query = "INSERT INTO segnalazioni (CodicePrenotazione,CodiceAccount,Descrizione) VALUES (?,?,?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('iss',$reportId, $user, $description);
+        $stmt->execute();
+        error_log("MA SONO FICO3333333333333");
     }
 }

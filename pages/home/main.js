@@ -28,7 +28,6 @@ function renderReservations() {
         const item = createReservationCard(futureReservations[0], 0);
         mainCard.append(item);
     }
-    
 }
 
 
