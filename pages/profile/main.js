@@ -30,7 +30,7 @@ function renderProfile(profileData) {
     
     // Colonna sinistra (avatar e nome)
     const leftCol = $('<div>')
-        .addClass('col-lg-4 text-center mb-4')
+        .addClass('col-lg-4 text-center d-flex flex-column justify-content-center mb-5 mb-lg-0')
         .appendTo(row);
     
     $('<div>')
