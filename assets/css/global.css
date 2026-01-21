@@ -15,6 +15,7 @@
 
 :root {
     --bs-primary: #bb2e29;
+    --bs-primary-bg-subtle: #bb2e2997; 
     --bs-primary-rgb: 187, 46, 41;
 }
 
@@ -38,9 +39,22 @@
     --bs-btn-border-color: var(--bs-primary);
 }
 
-.btn-primary:hover, .btn:focus-visible, :not(.btn-check) + .btn:active {
+.btn-primary:hover, .btn-primary:focus-visible, :not(.btn-check) + .btn-primary:active {
     background-color: hsl(from var(--bs-btn-bg) h s 35%);
     border-color: hsl(from var(--bs-btn-bg) h s 35%);
+    box-shadow: none;
+}
+
+.btn-secondary {
+    --bs-btn-color: var(--bs-primary);
+    --bs-btn-bg: var(--bs-white);
+    --bs-btn-border-color: var(--bs-primary);
+}
+
+.btn-secondary:hover, .btn-secondary:focus-visible, :not(.btn-check) + .btn-secondary:active {
+    color: var(--bs-btn-color);
+    background-color: hsl(from var(--bs-btn-bg) h s 90%);
+    border-color: hsl(from var(--bs-btn-bg) h s 90%);
     box-shadow: none;
 }
 

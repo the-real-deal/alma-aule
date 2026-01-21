@@ -168,4 +168,13 @@ class DatabaseHelper
 
         return $result;
     }
+
+    public function toggleAccountState($username) {
+        $query = "UPDATE account SET Attivo = NOT Attivo WHERE Username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        
+        return $stmt->affected_rows > 0;
+    }
 }

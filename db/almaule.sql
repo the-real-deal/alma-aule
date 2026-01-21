@@ -614,6 +614,48 @@ INSERT INTO `tipi_account` (`ID`, `Tipo`) VALUES
 (2, 'Professore'),
 (3, 'Studente');
 
+-- --------------------------------------------------------
+-- 1. Accounts for Professors (Ruolo 2)
+-- --------------------------------------------------------
+INSERT INTO `account` (`Username`, `codiceRuolo`, `Attivo`, `Mail`, `Password`) VALUES
+('mrossi01', 2, 1, 'm.rossi@unibo.it', 'Prof2026!'),
+('lbianchi02', 2, 1, 'l.bianchi@unibo.it', 'Prof2026!'),
+('gverdi03', 2, 1, 'g.verdi@unibo.it', 'Prof2026!'),
+('arusso04', 2, 1, 'a.russo@unibo.it', 'Prof2026!'),
+('vferrari05', 2, 1, 'v.ferrari@unibo.it', 'Prof2026!');
+
+-- --------------------------------------------------------
+-- 2. Accounts for Students (Ruolo 3)
+-- --------------------------------------------------------
+-- Usernames like stud001, stud002, etc.
+INSERT INTO `account` (`Username`, `codiceRuolo`, `Attivo`, `Mail`, `Password`) VALUES
+('stud001', 3, 1, 'stud001@studio.unibo.it', 'StudentPass!'),
+('stud002', 3, 1, 'stud002@studio.unibo.it', 'StudentPass!'),
+('stud003', 3, 1, 'stud003@studio.unibo.it', 'StudentPass!'),
+('stud150', 3, 1, 'stud150@studio.unibo.it', 'StudentPass!');
+
+-- --------------------------------------------------------
+-- 3. Professori Data
+-- --------------------------------------------------------
+-- Starting from Matricola 4 (since 1-3 exist)
+INSERT INTO `professori` (`Matricola`, `Nome`, `Cognome`, `DataNascita`, `DataAssunzione`, `CodiceAccount`, `Ordinario`) VALUES
+(4, 'Marco', 'Rossi', '1975-03-12', '2005-09-01', 'mrossi01', 1),
+(5, 'Laura', 'Bianchi', '1980-11-23', '2010-02-15', 'lbianchi02', 0),
+(6, 'Giuseppe', 'Verdi', '1968-01-30', '1998-06-10', 'gverdi03', 1),
+(7, 'Anna', 'Russo', '1985-05-15', '2015-11-20', 'arusso04', 0),
+(8, 'Vincenzo', 'Ferrari', '1972-08-04', '2002-01-07', 'vferrari05', 1);
+-- (Repeat logic for all 50)
+
+-- --------------------------------------------------------
+-- 4. Studenti Data
+-- --------------------------------------------------------
+-- Starting from Matricola 8 (since 4-7 exist)
+INSERT INTO `studenti` (`Matricola`, `Nome`, `Cognome`, `DataNascita`, `CodiceAccount`) VALUES
+(8, 'Luca', 'Fontana', '2004-01-15', 'stud001'),
+(9, 'Sara', 'Barbieri', '2005-03-22', 'stud002'),
+(10, 'Davide', 'Greco', '2003-07-10', 'stud003'),
+(12, 'Elena', 'Nelli', '2005-11-12', 'stud150');
+
 --
 -- Indici per le tabelle scaricate
 --

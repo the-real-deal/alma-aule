@@ -1,66 +1,135 @@
+let users;
+
+function handleAccountAction(username) {
+    fetch('/apis/toggleAccount.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username: username })
+    })
+    .then(response => response.json())
+    .then(res => {
+        if (!res.success) {
+            throw new Error(res.reason);
+        }
+        const user = users.find(u => u.Username === username);
+        if (user) user.Attivo = !user.Attivo;
+        displayUsers(users);
+    }).catch(e => {
+        throw new Error(e)
+    })
+}
+
 function createUserCard(user) {
-    // 1. Creazione del contenitore principale (colonna)
     const $col = $('<div></div>')
         .addClass('col-12 col-sm-6 col-md-4 col-lg-3 mb-4');
 
-    // 2. Creazione della Card
     const $card = $('<div></div>').addClass('card h-100 shadow-sm');
 
-    // 3. Header della card (opzionale, per dare colore in base al ruolo)
-    const headerClass = user.Ruolo === 'Professore' ? 'bg-primary' : 'bg-success';
+    let headerColor;
+    switch (user.Ruolo) {
+        case 'Professore':
+            headerColor = 'bg-primary-subtle text-white';
+            break;
+        case 'Studente':
+            headerColor = 'bg-success-subtle text-dark';
+            break;
+        default:
+            headerColor = 'bg-warning text-dark';
+            break;
+    }
     const $header = $('<div></div>')
-        .addClass(`card-header text-white ${headerClass}`)
-        .html(`<small>${user.Username}</small>`);
+        .addClass(`card-header ${headerColor}`)
+        .html(`<small>@${user.Username}</small>`);
 
-    // 4. Corpo della card
-    const $cardBody = $('<div></div>').addClass('card-body');
+    const $cardBody = $('<div></div>').addClass('card-body d-flex flex-column');
 
-    // Titolo (Nome e Cognome)
     const $title = $('<h5></h5>')
         .addClass('card-title')
         .text(`${user.Nome} ${user.Cognome}`);
 
-    // Sottotitolo (Ruolo + eventuale specifica Ordinario)
     const ruoloSpecifica = user.Ordinario ? ' (Ordinario)' : '';
     const $subtitle = $('<h6></h6>')
         .addClass('card-subtitle mb-2 text-muted')
         .text(`${user.Ruolo}${ruoloSpecifica}`);
 
-    // Dettagli (Lista)
-    const matricola = user.MatricolaProfessore ?? user.MatricolaStudente ?? 'N/D';
+    const enrollmentNr = user.MatricolaProfessore ?? user.MatricolaStudente ?? 'N/D';
     const $details = $('<p></p>')
         .addClass('card-text small')
         .html(`
             <strong>Email:</strong> ${user.Mail}<br>
-            <strong>Matricola:</strong> ${matricola}<br>
+            <strong>Matricola:</strong> ${enrollmentNr}<br>
             <strong>Data Nascita:</strong> ${new Date(user.DataNascita).toLocaleDateString('it-IT')}<br>
             ${user.DataAssunzione ? `<strong>Assunto il:</strong> ${new Date(user.DataAssunzione).toLocaleDateString('it-IT')}` : ''}
         `);
 
-    // Badge di stato (Attivo/Non Attivo)
-    const statusBadge = user.Attivo 
-        ? '<span class="badge bg-success">Attivo</span>' 
-        : '<span class="badge bg-danger">Inattivo</span>';
+    const $bottomRow = $('<footer></footer>')
+        .addClass("d-flex justify-content-between mt-auto");
 
-    // 5. Assemblaggio
-    $cardBody.append($title, $subtitle, $details, statusBadge);
+    const $statusBadge = $('<span class="card-footer"></span>')
+        .addClass(`my-auto badge ${user.Attivo ? "bg-success" : "bg-primary"}`)
+        .text(`${user.Attivo ? "Attivo" : "Disabilitato"}`);
+
+    const $actionButton = $('<form></form>')
+        .attr('method', 'POST')
+        .append($('<button></button>')
+            .addClass(`btn btn-${user.Attivo ? "primary" : "secondary"}`)
+            .text(`${user.Attivo ? "Disabilita" : "Abilita"}`)
+            .attr('type', 'submit')
+            .on('click', (e) => {
+                e.preventDefault();
+                handleAccountAction(user.Username);
+            }));
+            
+    $bottomRow
+        .append($statusBadge)
+        .append($actionButton);
+
+    $cardBody.append($title, $subtitle, $details);
+
+    if (user.Ruolo !== 'Admin') {
+        $cardBody.append($bottomRow);
+    }
+
     $card.append($header, $cardBody);
     $col.append($card);
 
     return $col;
 }
 
-$(document).ready(() => {
+function lookForUser(data) {
+    const query = $("#searchUserInput").val().toLowerCase();
+    return data.filter(user =>
+        user.Mail.toLowerCase().includes(query) ||
+        user.Nome.toLowerCase().includes(query) ||
+        user.Cognome.toLowerCase().includes(query) ||
+        user.Username.toLowerCase().includes(query)
+    );
+}
+
+function displayUsers(users) {
     const $container = $('#userList');
-    const url = '/apis/users.php'
+    $container.empty();
+    users.forEach(user => {
+        $container.append(createUserCard(user));
+    })
+}
+
+
+$(document).ready(() => {
+    const url = '/apis/users.php';
     fetch(url)
         .then(data => data.json())
-        .then(users => {
-            if (!users.success) {
+        .then(fetchedUsers => {
+            if (!fetchedUsers.success) {
                 throw new Error("Something went wrong!");
             }
-            JSON.parse(users.data).forEach(user => {
-                $container.append(createUserCard(user));
-            })
-        });
+            users = JSON.parse(fetchedUsers.data);
+            displayUsers(users);
+    });
+
+    $("#searchUserInput").on("input", function () {
+        displayUsers(lookForUser(users));
+    });
 });

@@ -1,1 +1,1 @@
-<h1>Ciao, <span class="fw-bold">Nome!</span></h1>
+<h1>Bentornato, <span class="fw-bold"><?= $_SESSION['username'] ?></span>!</h1>

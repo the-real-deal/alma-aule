@@ -2,7 +2,7 @@ let rooms = [];
 
 function displayRooms(rooms) {
     const $container = $("#listAule");
-    $container.empty(); // Pulisce il contenitore
+    $container.empty();
     const uniquesCity = [...new Set(rooms.map(x => x.site["city"].name))];
 
     $.each(uniquesCity, function (_, city) {
