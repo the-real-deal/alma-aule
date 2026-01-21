@@ -10,12 +10,25 @@ function handleAccountAction(username) {
     })
     .then(response => response.json())
     .then(res => {
+        const $displayStatus = $('#modalExitStatus');
+        const $messageDisplay = $('.modal-body');
+        $messageDisplay.empty();
         if (!res.success) {
-            throw new Error(res.reason);
+            $displayStatus.append($('<strong></strong>').addClass('bi bi-robot'));
+            $displayStatus.text("Qualcosa è andato storto!");
+            $messageDisplay.append($('<code></code>').text('@' + username));
+            $messageDisplay.append($('<span></span>')
+            .append($('<strong></strong>').text(':impossibile modificarne lo stato.')));
+            return;
         }
         const user = users.find(u => u.Username === username);
         if (user) user.Attivo = !user.Attivo;
         displayUsers(users);
+        $displayStatus.text("Operazione riuscita!");
+        $messageDisplay.append($('<code></code>').text('@' + username));
+        $messageDisplay.append($('<span></span>')
+        .append($('<strong></strong>').text((user.Attivo ? ' attivato' : ' disattivato')))
+            .append(' correttamente.'));
     }).catch(e => {
         throw new Error(e)
     })
@@ -76,7 +89,10 @@ function createUserCard(user) {
         .append($('<button></button>')
             .addClass(`btn btn-${user.Attivo ? "primary" : "secondary"}`)
             .text(`${user.Attivo ? "Disabilita" : "Abilita"}`)
-            .attr('type', 'submit')
+            .attr('type', 'button')
+            .attr('data-bs-toggle', 'modal')
+            .attr('data-bs-target', '#successModal')
+            .attr('data-bs-username', user.Username)
             .on('click', (e) => {
                 e.preventDefault();
                 handleAccountAction(user.Username);
