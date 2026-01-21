@@ -5,26 +5,18 @@ header('Content-Type: application/json');
 
 try {
     $result = $dbh->getReservations($_SESSION['username']);
-    
-    $totalReservations = count($result);
-    $futureReservations = 0;
-
-    for ($i = 0; $i < $totalReservations; $i++) {
-        if ($result[$i]['isFuture']) {
-            $futureReservations++;
-        }
-    }
-
-    echo json_encode([
-        'success' => true,
-        'data' => [
+    if ($result->num_rows > 0) {
+        $result = $result->fetch_all(MYSQLI_ASSOC);
+        echo json_encode([
+            'success' => true,
             'reservations' => $result,
-            'stats' => [
-                'total' => $totalReservations,
-                'future' => $futureReservations
-            ]
-        ]
-    ]);
+        ]);
+    } else {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Non sono presenti prenotazioni per ' . $_SESSION["username"],
+        ]);
+    }
     
 } catch (Exception $e) {
     echo json_encode([

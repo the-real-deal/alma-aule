@@ -17,6 +17,7 @@
     --bs-primary: #bb2e29;
     --bs-primary-bg-subtle: #bb2e2997; 
     --bs-primary-rgb: 187, 46, 41;
+    --bs-list-group-active-bg: var(--bs-primary) !important;
 }
 
 .font-cinzel {
@@ -69,18 +70,26 @@
 /*
 * Headers
 */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: "Merriweather Sans";
 }
 
-button, [class*="btn"], a {
+button,
+[class*="btn"],
+a {
     font-family: "Merriweather Sans";
 }
 
 /*
 * General layout
 */
-html, body {
+html,
+body {
     min-height: 100dvh;
 }
 
