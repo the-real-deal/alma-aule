@@ -13,12 +13,11 @@ class DatabaseHelper
 
     public function checkLogin($mail, $password)
     {
-        $query = "SELECT Username FROM account WHERE Attivo=1 AND Mail = ? AND Password = ?";
+        $query = "SELECT Username, Attivo FROM account WHERE Mail = ? AND Password = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('ss', $mail, $password);
         $stmt->execute();
         $result = $stmt->get_result();
-
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 

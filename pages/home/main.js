@@ -8,7 +8,8 @@ function loadReservations() {
                 allReservations = groupReservationsByRoomAndDate(response.reservations);
                 renderReservations();
             } else {
-                $('#mainReservationsCard').append($('<div>').append(($('<p>').addClass('text-danger text-center mb-0').text($response.message))));            
+                console.log(response.message)
+                $('#mainReservationsCard').empty().append($('<div>').append(($('<p>').addClass('text-danger text-center mb-0').text(response.message))));            
             }
         },
         error: function(error) {

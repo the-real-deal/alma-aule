@@ -26,31 +26,34 @@ if(isset($data['dati']) && !empty($data['dati'])) {
         exit;
     }
 } else if (isset($_POST["submit"])) {
+    header('Content-Type: application/json');
     $login_result = AuthManager::checkLogin($dbh, $_POST["email"], $_POST["password"]);
     if (!empty($login_result)) {
-        $username = $login_result;
-        $_SESSION["username"] = $username;
+        $username = $login_result[0]["Username"];
+        if($login_result[0]['Attivo']===1) {
+            $_SESSION["username"] = $username;
 
-        AuthManager::registerLoggedIn($dbh, $username);
-        header('Content-Type: application/json');
-        echo json_encode([
-            'success' => true,
-            'username' => $username,
-            'admin'=> AuthManager::isAdmin($dbh, $login_result)
-        ]);
-        exit;
+            AuthManager::registerLoggedIn($dbh, $username);
+            echo json_encode([
+
+                'success' => true,
+                'username' => $username,
+                'admin'=> AuthManager::isAdmin($dbh, $username)
+            ]);
+            exit;
+        } else {
+            echo json_encode([
+            'success' => false,
+            'username' => '',
+            'message' => 'Il tuo account è disabilitato, contatta l\' amministratore'
+            ]);
+        }
     } else {
-        header('Content-Type: application/json');
         echo json_encode([
             'success' => false,
             'username' => '',
+            'message' => 'Mail/Password errate!!'
         ]);
         exit;
     }
-} else {
-    echo json_encode([
-        'success' => false,
-        'username' => '',
-    ]);
-    exit;
 }
