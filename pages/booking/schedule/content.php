@@ -9,7 +9,7 @@
                     <h6>Informazioni</h6>
                 </div>
                 <div class="card-body">
-                   
+
                     <div class="p-2 border border-2  rounded-2">
                         <strong class="border-bottom border-2 border-primary">Dotazioni:</strong>
                         <ol class="list-group list-group-flush">
@@ -31,7 +31,7 @@
                             </li>
                         </ol>
                     </div>
-                     <div class="pt-2 gap-1">
+                    <div class="pt-2 gap-1">
                         <strong>
                             <i class="bi bi-geo-alt"></i>
                         </strong>
@@ -52,6 +52,9 @@
                     <div id="grid" class="container p-3">
 
                     </div>
+                </div>
+                <div class="card-footer w-100 d-flex justify-content-end ">
+                    <button id="book" class="btn btn-primary" type="button ">Prenota</button>
                 </div>
             </div>
 

@@ -231,4 +231,11 @@ class DatabaseHelper
         $stmt->execute();
         return $stmt->get_result();
     }
+    public function addReservation($idAula, $username, $nPersone, $date)
+    {
+        $query = "INSERT INTO `prenotazioni` (`CodicePrenotazione`, `CodiceAula`, `CodiceAccount`, `NumeroPersone`, `DataPrenotazione`) VALUES (null, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("isis", $idAula, $username, $nPersone, $date);
+        $stmt->execute();
+    }
 }

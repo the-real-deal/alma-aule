@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
     const idAula = sessionStorage.getItem("idAula");
     getAula(idAula);
+    const date = new Date().toJSON().slice(0, 10);
+
+    $("#calendar").val(date);
+    loadReservations();
     const container = $("#grid");
     const timeStart = 8;
     let row = $("<div>").addClass("row"); // Inizializza la prima row
@@ -9,12 +13,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const col = $("<div>").addClass("col pb-1");
         const input = $('<input>')
             .addClass("btn-check")
-            .attr("id", `btn-${i+timeStart}`)
+            .attr("id", `btn-${i + timeStart}`)
             .attr("type", "checkbox")
             .attr("autocomplete", "off");
         const label = $('<label>')
             .addClass("btn btn-outline-primary text-nowrap align-content-center p-1 w-100 h-100")
-            .attr("for", `btn-${i+timeStart}`)
+            .attr("for", `btn-${i + timeStart}`)
             .text(`${i + timeStart}:00-${i + timeStart + 1}:00`);
 
         col.append(input).append(label);
@@ -31,20 +35,26 @@ document.addEventListener("DOMContentLoaded", () => {
         container.append(row);
     }
 
-    $("#calendar").on("input",()=>{
+    $("#calendar").on("input", () => {
         // console.log($(this).val());
+        loadReservations();
+    });
+
+    $("#book").on("click", () => {
+        $(".btn-check:checked").each(btn => {
+            const hour = $(btn).id;//NON VA
+            hour.replace("btn-", "");
+            const date = new Date($("#calendar").val());
+            date.setHours(hour);
+            console.log(date);
+        });
+
         $.ajax({
-            url:"/apis/getRoomReservations.php",
-            type:"get",
-            data:{
-                idAula:sessionStorage.getItem("idAula"),
-                day:$("#calendar").val(),
-            },
-            success:function(response){
-                const res= JSON.parse(response);
-                res.forEach(element => {
-                    $(`btn-${new Date(element.DataPrenotazione).getHours()}`).attr("disabled")
-                });
+            url: "/apis/reserve.php",
+            type: "post",
+            data: {
+                idAula: idAula,
+                date: $("#calendar").val(),
             }
         });
     });
@@ -62,32 +72,32 @@ function getAula(idAula) {
         success: function (response) {
 
             const aula = JSON.parse(response);
-            $("#title").attr("value",response.CodiceAula);
+            $("#title").attr("value", response.CodiceAula);
             $("#title").text(aula.NomeAula);
             $("#address").text(aula.Indirizzo);
-            if(aula.Accessibilita){
+            if (aula.Accessibilita) {
                 $("#accessibility > * ").addClass("text-success");
             }
-            else{
-                 $("#accessibility > * ").addClass("text-primary");
+            else {
+                $("#accessibility > * ").addClass("text-primary");
             }
 
-            if(aula.Proiettore){
+            if (aula.Proiettore) {
                 $("#projector > * ").addClass("text-success");
             }
-            else{
+            else {
                 $("#projector > * ").addClass("text-primary");
             }
-            if(aula.Prese){
+            if (aula.Prese) {
                 $("#plugs > * ").addClass("text-success");
             }
-            else{
+            else {
                 $("#plugs > * ").addClass("text-primary");
             }
-            if(aula.Laboratorio){
+            if (aula.Laboratorio) {
                 $("#lab > * ").addClass("text-success");
             }
-            else{
+            else {
                 $("#lab > * ").addClass("text-primary");
             }
         }
@@ -95,3 +105,27 @@ function getAula(idAula) {
     });
 }
 
+function loadReservations() {
+    $.ajax({
+        url: "/apis/getRoomReservations.php",
+        type: "get",
+        data: {
+            idAula: sessionStorage.getItem("idAula"),
+            day: $("#calendar").val(),
+        },
+        success: function (response) {
+            $(".btn-outline-secondary").removeClass("btn-outline-secondary")
+                .addClass("btn-outline-primary")
+            $(".btn-check").prop('disabled', false);
+            console.log($("#calendar").val());
+            const res = JSON.parse(response);
+            res.forEach(element => {
+
+                $(`#btn-${new Date(element.DataPrenotazione).getHours()}`).prop('disabled', true);
+                $(`[for='btn-${new Date(element.DataPrenotazione).getHours()}']`)
+                    .removeClass("btn-outline-primary")
+                    .addClass("btn-outline-secondary");
+            });
+        }
+    });
+}
