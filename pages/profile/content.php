@@ -8,5 +8,6 @@
 
 <?php 
     require $_SERVER['DOCUMENT_ROOT'] . "/components/reservations/reservations.php";
-     require $_SERVER['DOCUMENT_ROOT']  . "/components/reservationstats/reservationsStats.php" ;
+    require $_SERVER['DOCUMENT_ROOT'] . "/components/reservationstats/reservationsStats.php";
+    require $_SERVER['DOCUMENT_ROOT'] . "/components/reports/reports.php";
 ?>
