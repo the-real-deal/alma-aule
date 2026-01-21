@@ -8,9 +8,9 @@
             <img class="navbar-brand-logo" src="/assets/imgs/logo-unibo.png" alt="Alma Mater Studiorum Logo">
             <div class="vr my-3 text-white"></div>
             <div>
-                <h3 class="ps-3 m-0 text-uppercase">
+                <p class="h3 ps-3 m-0 text-uppercase fw-bold">
                     Alma<br />Aule
-                </h3>
+                </p>
             </div>
         </a>     
         <div class="collapse navbar-collapse text-white" id="navbarNav">

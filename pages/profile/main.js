@@ -37,8 +37,8 @@ function renderProfile(profileData) {
         )
         .appendTo(leftCol);
     
-    $('<h3>')
-        .addClass('mb-1')
+    $('<p>')
+        .addClass('h3 fw-bold mb-1')
         .text(`${profileData.Nome} ${profileData.Cognome}`)
         .appendTo(leftCol);
     
@@ -52,8 +52,8 @@ function renderProfile(profileData) {
         .addClass('col-lg-8')
         .appendTo(row);
     
-    $('<h5>')
-        .addClass('mb-3 text-primary')
+    $('<p>')
+        .addClass('h5 fw-bold mb-3 text-primary')
         .append(
             $('<strong>').addClass('bi bi-person-badge')
         )
@@ -69,7 +69,7 @@ function renderProfile(profileData) {
     createInfoItem(infoRow, 'col-lg-6', 'bi bi-card-text', 'Matricola', '#' + profileData.Matricola);
     
     if (profileData.tipo === 'professore' && profileData.DataAssunzione) {
-        createInfoItem(infoRow, 'col-md-6', 'bi bi-briefcase', 'Data Assunzione', profileData.DataAssunzione);
+        createInfoItem(infoRow, 'col-lg-6', 'bi bi-briefcase', 'Data Assunzione', profileData.DataAssunzione);
     }
     
     container.empty().append(row);

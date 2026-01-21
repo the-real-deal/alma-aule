@@ -49,8 +49,8 @@ function renderReports(data) {
 function createReportItem(report, index) {
     const accordionItem = $('<div>').addClass('accordion-item');
     
-    const header = $('<h2>')
-        .addClass('accordion-header')
+    const header = $('<p>')
+        .addClass('h2 fw-bold accordion-header')
         .appendTo(accordionItem);
     
     const button = $('<button>')
@@ -64,11 +64,11 @@ function createReportItem(report, index) {
         })
         .appendTo(header);
     
-    const buttonContent = $('<div>')
+    const buttonContent = $('<span>')
         .addClass('w-100')
         .appendTo(button);
     
-    const row = $('<div>')
+    const row = $('<span>')
         .addClass('row g-3')
         .appendTo(buttonContent);
     
@@ -96,7 +96,7 @@ function createReportItem(report, index) {
 }
 
 function createReportInfoCol(parent, colClass, label, value) {
-    const col = $('<div>')
+    const col = $('<span>')
         .addClass(colClass)
         .appendTo(parent);
     

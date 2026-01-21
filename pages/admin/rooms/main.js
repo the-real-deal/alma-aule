@@ -12,7 +12,7 @@ function displayRooms(rooms) {
         const $group = $('<div></div>')
             .addClass("list-group list-group-flush mb-3");
 
-        const $title = $('<h3></h3>').text(city);
+        const $title = $('<p></p>').addClass("h3 fw-bold").text(city);
         const $hr = $('<hr>')
             .addClass("border border-primary border-2 opacity-75 my-1 mx-1");
 
@@ -41,10 +41,10 @@ function renderAuleInto($target, roomList) {
         const $link = $('<a></a>').addClass("list-group-item list-group-item-action");
         const $header = $('<div></div>')
             .addClass('d-flex w-100 justify-content-between')
-            .append($('<h4></h4>')
+            .append($('<p></p>')
                 .text(a.roomName)
-                .addClass('pe-3 pe-lg-0'))
-            .append($('<small id="floorNumberPlaceholder"></small>')
+                .addClass('h4 fw-bold pe-3 pe-lg-0'))
+            .append($('<small></small>')
                 .text(a.floorNumber)
                 .addClass("d-flex align-items-center badge mb-auto")
             );
