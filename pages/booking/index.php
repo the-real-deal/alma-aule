@@ -12,5 +12,6 @@ $page["js"] = [
     "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js",
     "/pages/{$page_name}/main.js",
     "/components/map/map.js",
+    "/pages/{$page_name}/map.js",
 ];
 require "{$_SERVER['DOCUMENT_ROOT']}/template/base.php";

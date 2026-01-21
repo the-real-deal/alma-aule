@@ -1,3 +1,12 @@
 .card {
     max-height: 500px !important;
 }
+
+.list-group {
+    --bs-list-group-active-bg: hsl(from var(--bs-primary) h s 35% / 75%);
+    --bs-list-group-active-border-color: hsl(from var(--bs-primary) h s 30%);
+}
+
+.active hr {
+    border-color: hsl(from var(--bs-primary) h s 30%) !important;
+}

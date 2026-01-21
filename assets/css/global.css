@@ -16,6 +16,7 @@
 :root {
     --bs-primary: #bb2e29;
     --bs-primary-rgb: 187, 46, 41;
+    --bs-list-group-active-bg: var(--bs-primary) !important;
 }
 
 .font-cinzel {
@@ -38,7 +39,9 @@
     --bs-btn-border-color: var(--bs-primary);
 }
 
-.btn-primary:hover, .btn:focus-visible, :not(.btn-check) + .btn:active {
+.btn-primary:hover,
+.btn:focus-visible,
+:not(.btn-check)+.btn:active {
     background-color: hsl(from var(--bs-btn-bg) h s 35%);
     border-color: hsl(from var(--bs-btn-bg) h s 35%);
     box-shadow: none;
@@ -55,18 +58,26 @@
 /*
 * Headers
 */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: "Merriweather Sans";
 }
 
-button, [class*="btn"], a {
+button,
+[class*="btn"],
+a {
     font-family: "Merriweather Sans";
 }
 
 /*
 * General layout
 */
-html, body {
+html,
+body {
     min-height: 100dvh;
 }
 

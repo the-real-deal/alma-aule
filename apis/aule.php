@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/lib/php/citta.php';
 class Site
 {
@@ -8,18 +8,13 @@ class Site
     public $lat;
     public $lon;
     public $city;
-    public function __construct($site)
+    public function __construct($site, City $city)
     {
         $this->siteId = $site[0];
         $this->street = $site[1];
         $this->lat = $site[2];
         $this->lon = $site[3];
-        $this->city = new City($site[4]);
-    }
-
-    public function getId()
-    {
-        return $this->siteId;
+        $this->city = $city;
     }
 }
 class Room
@@ -33,9 +28,9 @@ class Room
     public $projector;
     public $plugs;
     public $laboratory;
-    public function __construct($site, $roomId, $roomName, $floorNumber, $seatsNumber, $accessibility, $projector, $plugs, $laboratory)
+    public function __construct($site, $roomId, $roomName, $floorNumber, $seatsNumber, $accessibility, $projector, $plugs, $laboratory, City $city)
     {
-        $this->site = new Site($site); //must insert $site as class site
+        $this->site = new Site($site, $city); //must insert $site as class site
         $this->roomId = $roomId;
         $this->roomName = $roomName;
         $this->floorNumber = $floorNumber;
@@ -47,11 +42,27 @@ class Room
     }
 }
 
+$out = $dbh->getCitta()->fetch_all();
+
+$cities = array();
+foreach ($out as $c) {
+    $tmp = new City($c[0], $c[1], $c[2], $c[3]);
+    array_push($cities, $tmp);
+}
+
+
+
+$city = new City(null, null, null, null);
 $rooms = array();
 $sedi = $dbh->getSites()->fetch_all();
 foreach ($sedi as $s) {
-
+    for ($i = 0; $i < count($cities); $i++) {
+        if ($cities[$i]->id === $s[4]) {
+            $city = $cities[$i];
+        }
+    }
     foreach ($dbh->getSiteRooms($s[0])->fetch_all() as $a) {
+
         $tmp = new Room(
             $s,
             $a[0],
@@ -61,7 +72,8 @@ foreach ($sedi as $s) {
             $a[5],
             $a[6],
             $a[7],
-            $a[8]
+            $a[8],
+            $city
         );
         array_push($rooms, $tmp);
     }

@@ -3,9 +3,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/lib/php/uuid.php';
 class City{
     public $name;
     public $id;
-    public function __construct($name) {
+    public $lat;
+    public $long;
+    public function __construct($id,$name,$lat,$lon) {
         $this->name = $name;
-        $this->id= guidv4();
+        $this->id= $id;
+        $this->lat=$lat;
+        $this->long=$lon;
     }
     
 }
