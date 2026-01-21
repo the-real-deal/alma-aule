@@ -132,7 +132,7 @@ class DatabaseHelper
         return null;
     }
 
-    public function getReports($username) 
+    public function getReports($username)
     {
         $query = "SELECT s.CodiceSegnalazione, au.NomeAula, se.Via, au.NumeroPiano, p.DataPrenotazione, s.Descrizione, s.Stato 
                     FROM segnalazioni s JOIN account a ON s.CodiceAccount = a.Username JOIN prenotazioni p ON s.CodicePrenotazione = p.CodicePrenotazione 
@@ -155,7 +155,7 @@ class DatabaseHelper
         return $result;
     }
 
-    public function getAllUsers(): bool|mysqli_result 
+    public function getAllUsers(): bool|mysqli_result
     {
         $query = "SELECT 
                     a.Username, 
@@ -180,35 +180,35 @@ class DatabaseHelper
         return $result;
     }
 
-    public function toggleAccountState($username) 
+    public function toggleAccountState($username)
     {
         $query = "UPDATE account SET Attivo = NOT Attivo WHERE Username = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s', $username);
         $stmt->execute();
-        
+
         return $stmt->affected_rows > 0;
     }
 
-    public function updateReports($reports) 
+    public function updateReports($reports)
     {
         try {
             $query = "UPDATE segnalazioni SET Stato = ? WHERE CodiceSegnalazione = ?";
             #$query = "UPDATE segnalazioni SET Stato = NOT Stato WHERE CodiceSegnalazione = ?";
             $stmt = $this->db->prepare($query);
-            
+
             foreach ($reports as $report) {
                 if (is_array($report) && count($report) >= 2) { #(is_array($report))
                     $id = $report[0];
                     $stato = $report[1] ? 1 : 0;
-                    
+
                     $stmt->bind_param("ii", $stato, $id);
                     $stmt->execute();
                 }
             }
             return true;
 
-        } catch (Exception $e) { 
+        } catch (Exception $e) {
             return false;
         }
     }
@@ -221,6 +221,32 @@ class DatabaseHelper
         $stmt->execute();
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         return isset($result[0]['Username']);
+    }
+
+    public function getAula($id)
+    {
+        $query = "SELECT * FROM aule au JOIN sedi s ON au.CodiceSede=s.CodiceSede WHERE au.CodiceAula=?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    public function getAulaReservations($idAula, $date)
+    {
+        $query = "SELECT * FROM prenotazioni p WHERE p.CodiceAula=? AND date(p.DataPrenotazione) = ? ";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $idAula, $date);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    public function addReservation($idAula, $username, $nPersone, $date)
+    {
+        $query = "INSERT INTO `prenotazioni` (`CodicePrenotazione`, `CodiceAula`, `CodiceAccount`, `NumeroPersone`, `DataPrenotazione`) VALUES (null, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("isis", $idAula, $username, $nPersone, $date);
+        $stmt->execute();
     }
 
     public function addReport($reportId,$user,$description) {

@@ -126,10 +126,10 @@ function createReservationCard(reservation, index) {
     createInfoCol(row, 'col-lg-3', 'Piano', `${reservation.NumeroPiano}`);
     createInfoCol(row, 'col-lg-3', 'Posti Disponibili', `${reservation.NumeroPosti} posti`);
     
-    const collapseButton = $('<button>')
+    $('<button>')
         .addClass('btn btn-secondary btn-sm')
         .attr('type', 'button')
-        .text(`Mostra Orari (${reservation.timeSlots.length})`)
+        .text(`Mostra orari (${reservation.timeSlots.length})`)
         .on('click', function() {
             $(`#${collapseId}`).collapse('toggle');
         })
@@ -169,13 +169,13 @@ function createReservationCard(reservation, index) {
         const actionsCell = $('<td>').appendTo(row);
         
         if (!slot.isFuture) {
-            const reportBtn = $('<button>')
+            $('<button>')
                 .addClass('btn btn-warning btn-sm')
-                .append($("<strong>").addClass('bi bi-exclamation-triangle').text("Segnala")
+                .append($("<strong>").addClass('bi bi-exclamation-triangle').text(" Segnala")
                 .on('click', function() {
                     showReportModal(reservation, slot, index, slotIndex);
                 }))
-                .appendTo(actionsCell);
+                .appendTo(actionsCell)
         } else {
             actionsCell.text('-');
         }
@@ -208,8 +208,8 @@ function showReportModal(reservation, slot, reservationIndex, slotIndex) {
         .addClass('modal-header')
         .appendTo(modalContent);
     
-    $('<h5>')
-        .addClass('modal-title')
+    $('<p>')
+        .addClass('h5 fw-bold modal-title')
         .text('Segnalazione Orario')
         .appendTo(modalHeader);
     
