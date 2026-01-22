@@ -30,7 +30,7 @@ class Room
     public $laboratory;
     public function __construct($site, $roomId, $roomName, $floorNumber, $seatsNumber, $accessibility, $projector, $plugs, $laboratory, City $city)
     {
-        $this->site = new Site($site, $city); //must insert $site as class site
+        $this->site = new Site($site, $city);
         $this->roomId = $roomId;
         $this->roomName = $roomName;
         $this->floorNumber = $floorNumber;
@@ -49,8 +49,6 @@ foreach ($out as $c) {
     $tmp = new City($c[0], $c[1], $c[2], $c[3]);
     array_push($cities, $tmp);
 }
-
-
 
 $city = new City(null, null, null, null);
 $rooms = array();

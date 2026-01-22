@@ -1,7 +1,6 @@
 <?php
 require_once "{$_SERVER['DOCUMENT_ROOT']}/bootstrap.php";
 
-//Recupero i dati dal json
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 

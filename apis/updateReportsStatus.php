@@ -2,9 +2,7 @@
 require_once "{$_SERVER['DOCUMENT_ROOT']}/bootstrap.php";
 
 $json = file_get_contents('php://input');
-
 $data = json_decode($json, true);
-
 $id = $data['id'] ?? null;
 
 try {

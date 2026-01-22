@@ -2,7 +2,6 @@
 
 require "{$_SERVER['DOCUMENT_ROOT']}/bootstrap.php";
 
-// Recupero i dati dal json
 $json = file_get_contents('php://input');
 $receivedData = json_decode($json, true);
 
