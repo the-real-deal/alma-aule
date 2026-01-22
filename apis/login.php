@@ -11,14 +11,18 @@ if(isset($data['dati']) && !empty($data['dati'])) {
     if(AuthManager::isUserLoggedIn($dbh, $receivedData)) {
         $_SESSION["username"] = $receivedData;
         echo json_encode([
+            'success' => true,
             'username' => $receivedData,
-            'admin' => AuthManager::isAdmin($dbh, $receivedData)
+            'admin' => AuthManager::isAdmin($dbh, $receivedData),
+            'active' => AuthManager::isActive($dbh, $receivedData)
         ]);
         exit;
     } else {
         echo json_encode([
+            'success'=> false,
             'username' => $receivedData,
-            'admin'=> false
+            'admin'=> false,
+            'active' => AuthManager::isActive($dbh, $receivedData)
         ]);
         exit;
     }
@@ -32,10 +36,10 @@ if(isset($data['dati']) && !empty($data['dati'])) {
 
             AuthManager::registerLoggedIn($dbh, $username);
             echo json_encode([
-
                 'success' => true,
                 'username' => $username,
-                'admin'=> AuthManager::isAdmin($dbh, $username)
+                'admin'=> AuthManager::isAdmin($dbh, $username),
+                'active' => AuthManager::isActive($dbh, $username)
             ]);
             exit;
         } else {
@@ -55,8 +59,10 @@ if(isset($data['dati']) && !empty($data['dati'])) {
     }
 } else {
     echo json_encode([
+        'success'=> false,
         'username' => '',
-        'admin' => false
+        'admin' => false,
+        'active' => false
     ]);
     exit;
 }

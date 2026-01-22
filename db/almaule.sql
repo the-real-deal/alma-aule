@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 21, 2026 alle 14:25
+-- Creato il: Gen 22, 2026 alle 01:15
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -20,7 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `almaule`
 --
-
 DROP DATABASE IF EXISTS almaule;
 CREATE DATABASE almaule;
 USE almaule;
@@ -44,10 +43,10 @@ CREATE TABLE `account` (
 
 INSERT INTO `account` (`Username`, `codiceRuolo`, `Attivo`, `Mail`, `Password`) VALUES
 ('beagre003', 3, 1, 'beagre003@studio.unibo.it', '123'),
-('clarom001', 3, 1, 'clarom001@studio.unibo.it', 'StudPass003'),
+('clarom001', 3, 0, 'clarom001@studio.unibo.it', 'StudPass003'),
 ('fedrus001', 2, 1, 'fedrus001@studio.unibo.it', 'ProfPass002'),
 ('ilabru001', 3, 1, 'ilabru001@studio.unibo.it', 'StudPass001'),
-('marmar001', 2, 1, 'marmar001@studio.unibo.it', '456'),
+('marmar001', 2, 0, 'marmar001@studio.unibo.it', '456'),
 ('matrus001', 3, 1, 'matrus001@studio.unibo.it', 'StudPass002'),
 ('vinesp001', 1, 1, 'vinesp001@studio.unibo.it', '789');
 
@@ -317,9 +316,9 @@ CREATE TABLE `authsessions` (
 --
 
 INSERT INTO `authsessions` (`CodiceSessione`, `CodiceAccount`, `ExpirationDate`, `ForceExpired`) VALUES
-(1, 'beagre003', '2026-01-31 12:37:40', 0),
-(2, 'vinesp001', '2026-01-31 12:26:06', 0),
-(3, 'marmar001', '2026-01-31 12:24:07', 0);
+(1, 'beagre003', '2026-02-01 01:12:45', 0),
+(2, 'vinesp001', '2026-02-01 00:47:24', 0),
+(3, 'marmar001', '2026-01-31 15:44:02', 0);
 
 -- --------------------------------------------------------
 
@@ -368,10 +367,10 @@ CREATE TABLE `prenotazioni` (
 --
 
 INSERT INTO `prenotazioni` (`CodicePrenotazione`, `CodiceAula`, `CodiceAccount`, `NumeroPersone`, `DataPrenotazione`) VALUES
-(1, 138, 'beagre003', 5, '2026-01-17 00:00:00'),
-(2, 4, 'beagre003', 15, '2026-01-19 11:09:27'),
-(3, 4, 'beagre003', 18, '2026-01-19 12:56:41'),
-(4, 109, 'beagre003', 20, '2026-01-22 12:56:56');
+(1, 138, 'beagre003', 5, '2026-01-17 08:00:00'),
+(2, 4, 'beagre003', 15, '2026-02-19 11:00:00'),
+(3, 109, 'beagre003', 18, '2026-01-21 11:00:00'),
+(4, 109, 'beagre003', 20, '2026-01-21 17:00:00');
 
 -- --------------------------------------------------------
 
@@ -730,7 +729,7 @@ ALTER TABLE `sedi`
 -- AUTO_INCREMENT per la tabella `segnalazioni`
 --
 ALTER TABLE `segnalazioni`
-  MODIFY `CodiceSegnalazione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `CodiceSegnalazione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT per la tabella `tipi_account`

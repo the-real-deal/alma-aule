@@ -6,6 +6,10 @@ class AuthManager {
 
     
 
+    public static function isActive($dbh, $user) {
+        return $dbh->isActive($user);
+    }
+
     public static function isAdmin($dbh, $username) { 
         return $dbh->isAdmin($username);
     }

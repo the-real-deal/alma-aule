@@ -256,4 +256,13 @@ class DatabaseHelper
         $stmt->bind_param("isis", $idAula, $username, $nPersone, $date);
         $stmt->execute();
     }
+
+    public function isActive($user) {
+        $query = "SELECT * FROM account WHERE Username = ? AND Attivo = 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->num_rows > 0;
+    }
 }
