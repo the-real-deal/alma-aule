@@ -14,12 +14,12 @@ main::before {
     background: var(--bs-primary);
 }
 
-h1 {
+.h1 {
     position: relative;
     max-width: fit-content !important;
 }
 
-h1::after {
+.h1::after {
     content: '';
     min-width: 85px;
     min-height: 85px;
