@@ -7,7 +7,7 @@
         "/pages/admin/{$page_name}/style.css"
     ];
     $page["js"] = [
-        "/pages/admin/{$page_name}/main.js"
+        "/components/reportsManager/reportsManager.js"
     ];
     $page["container-classes"] = "p-5 overflow-x-hidden";
     include "{$_SERVER['DOCUMENT_ROOT']}/template/admin.php";

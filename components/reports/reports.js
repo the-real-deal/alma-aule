@@ -1,4 +1,5 @@
 function caricaReports() {
+    $('#reportsContainer').empty();
     $.ajax({
         url: "/apis/reports.php",
         type: "GET",
@@ -112,4 +113,8 @@ function createReportInfoCol(parent, colClass, label, value) {
 
 $(document).ready(function() {
     caricaReports();
+    $(document).on('reportsUpdated', function() {
+        console.log("Ricevuto segnale di aggiornamento!");
+        caricaReports(); // Qui la funzione è visibile perché siamo nello stesso file
+    });
 });

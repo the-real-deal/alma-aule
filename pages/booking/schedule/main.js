@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const idAula = sessionStorage.getItem("idAula");
     getAula(idAula);
     const date = new Date().toJSON().slice(0, 10);
+    $("#calendar").attr("min",date);
 
     $("#calendar").val(date);
     loadReservations();
@@ -39,24 +40,24 @@ document.addEventListener("DOMContentLoaded", () => {
         // console.log($(this).val());
         loadReservations();
     });
-
+    
     $("#book").on("click", () => {
-        $(".btn-check:checked").each(btn => {
-            const hour = $(btn).id;//NON VA
-            hour.replace("btn-", "");
+        $(".btn-check:checked").each((index,btn) => {
+            const hour = parseInt(btn.id.replace("btn-",""));
             const date = new Date($("#calendar").val());
-            date.setHours(hour);
-            console.log(date);
-        });
-
-        $.ajax({
+            date.setHours(hour+1);
+            
+            $.ajax({
             url: "/apis/reserve.php",
             type: "post",
             data: {
                 idAula: idAula,
-                date: $("#calendar").val(),
+                date: date.toISOString().slice(0, 19).replace('T', ' '),
+                seats:$("#capacity").find(":selected").val()
             }
         });
+        });
+        loadReservations();
     });
 });
 
@@ -100,6 +101,7 @@ function getAula(idAula) {
             else {
                 $("#lab > * ").addClass("text-primary");
             }
+            setCapacity(aula.NumeroPosti);
         }
 
     });
@@ -112,15 +114,16 @@ function loadReservations() {
         data: {
             idAula: sessionStorage.getItem("idAula"),
             day: $("#calendar").val(),
+            seats:$("#capacity").val()
         },
         success: function (response) {
             $(".btn-outline-secondary").removeClass("btn-outline-secondary")
                 .addClass("btn-outline-primary")
-            $(".btn-check").prop('disabled', false);
-            console.log($("#calendar").val());
+            $(".btn-check").prop('disabled', false).prop("checked",false);
+
             const res = JSON.parse(response);
             res.forEach(element => {
-
+                
                 $(`#btn-${new Date(element.DataPrenotazione).getHours()}`).prop('disabled', true);
                 $(`[for='btn-${new Date(element.DataPrenotazione).getHours()}']`)
                     .removeClass("btn-outline-primary")
@@ -128,4 +131,12 @@ function loadReservations() {
             });
         }
     });
+}
+
+function setCapacity(max){
+
+    for (let i = 1; i <= max; i++) {
+        const option = $("<option>").val(i).text(i);
+        $("#capacity").append(option);
+    }
 }

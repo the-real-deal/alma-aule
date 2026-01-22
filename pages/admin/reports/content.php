@@ -11,7 +11,7 @@
     </div>
     <div class="row">
         <?php 
-            require "{$_SERVER['DOCUMENT_ROOT']}/components/reports/reports.php";
+            require "{$_SERVER['DOCUMENT_ROOT']}/components/reportsManager/reportsManager.php";
         ?>
     </div>
 </div>
