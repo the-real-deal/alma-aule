@@ -3,13 +3,12 @@ main::before {
     width: 640px;
     height: 180px;
     position: absolute;
-    overflow-x: hidden;
     z-index: -1;
     top: 110px;
     right: 0px;
     -webkit-mask: url(/assets/imgs/shapeTop.svg) 100% 100% no-repeat;
     mask: url(/assets/imgs/shapeTop.svg) 100% 100% no-repeat;
-    mask-size: auto;
+    mask-size: cover;
     -webkit-mask-size: cover;
     mask-size: cover;
     background: var(--bs-primary);
