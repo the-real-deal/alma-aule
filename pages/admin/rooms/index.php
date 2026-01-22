@@ -4,10 +4,12 @@
     $page["title"] = "Gestione Aule";
     $page["content"] = "{$_SERVER['DOCUMENT_ROOT']}/pages/admin/{$page_name}/content.php";
     $page["css"] = [
-        "/pages/admin/{$page_name}/style.css"
+        "/pages/admin/{$page_name}/style.css",
+        "/components/rooms-view/style.css"
     ];
     $page["js"] = [
-        "/pages/admin/{$page_name}/main.js"
+        "/components/rooms-view/view.js",
+        "/pages/admin/{$page_name}/main.js",
     ];
     $page["container-classes"] = "p-5";
     include "{$_SERVER['DOCUMENT_ROOT']}/template/admin.php";

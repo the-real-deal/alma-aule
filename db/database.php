@@ -265,4 +265,15 @@ class DatabaseHelper
         $result = $stmt->get_result();
         return $result->num_rows > 0;
     }
+    public function updateRoom($seats,$projector,$plugs,$accessibility,$lab,$idRoom){
+        $query = "UPDATE aule SET NumeroPosti=?,Accessibilita = ?, Proiettore = ?, Prese = ?, Laboratorio = ? WHERE CodiceAula = ?";
+        $stmt = $this->db->prepare($query);
+        $accessibility = $accessibility ? 1 : 0;
+        $projector = $projector ? 1 : 0;
+        $lab = $lab ? 1 : 0;
+        $plugs=$plugs ? 1 : 0;
+        // Ordine corretto: accessibility, projector, plugs, lab, idRoom
+        $stmt->bind_param("iiiiii",$seats, $accessibility, $projector, $plugs, $lab, $idRoom);
+        $result = $stmt->execute();
+    }
 }
