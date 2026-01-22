@@ -27,7 +27,7 @@
                         new Link("/admin/rooms", "Gestione aule", "bi-door-closed-fill"),
                         new Link("/admin/booking", "Gestione prenotazioni", "bi-bookmark-plus-fill"),
                         new Link("/admin/users", "Gestione utenti", "bi-people"),
-                        new Link("/admin/notifications", "Gestione segnalazioni", "bi-flag-fill"),
+                        new Link("/admin/reports", "Gestione segnalazioni", "bi-flag-fill"),
                     ];
                     
                     foreach ($links as $link) {

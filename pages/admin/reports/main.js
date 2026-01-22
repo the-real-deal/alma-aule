@@ -1,14 +1,16 @@
+let allReportsData = []; // Variabile globale per i dati
+
 function caricaReports() {
-    // Clear the container before re-rendering to avoid duplicates on refresh
     $('#reportsContainer').empty();
 
     $.ajax({
-        url: "/apis/getLatestReports.php",
+        url: "/apis/getAllReports.php",
         type: "GET",
         dataType: "json",
         success: function(response) {
             if (response.success) {
-                renderReports(response.data);
+                allReportsData = response.data.reports;
+                renderReports(response.data.reports, response.data.username);
             } else {
                 $('#reportsContainer').html(
                     `<div class="alert alert-danger" role="alert">${response.message}</div>`
@@ -16,17 +18,33 @@ function caricaReports() {
             }
         },
         error: function(error) {
-            console.error('Errore nel caricamento:', error);
             $('#reportsContainer').html('<div class="alert alert-danger">Errore nel caricamento</div>');
         }
     });
 }
 
-function renderReports(data) {
-    const container = $('#reportsContainer');
+function setupSearch() {
+    $('#reportInput').on('input', function() {
+        const searchTerm = $(this).val().toLowerCase();
+        
+        // Filtriamo i report basandoci su NomeAula o Descrizione
+        const filteredReports = allReportsData.filter(report => {
+            return report.NomeAula.toLowerCase().includes(searchTerm) || 
+                   report.Descrizione.toLowerCase().includes(searchTerm) ||
+                   report.Via.toLowerCase().includes(searchTerm);
+        });
 
-    if (data.reports.length === 0) {
-        container.html(`<div class="alert alert-warning">${data.username}: Nessuna segnalazione</div>`);
+        // Riaffittiamo solo la parte dell'accordion
+        renderReports(filteredReports);
+    });
+}
+
+function renderReports(reports, username = "") {
+    const container = $('#reportsContainer');
+    container.empty(); // Puliamo il container prima di ridisegnare
+
+    if (reports.length === 0) {
+        container.html(`<div class="alert alert-warning">Nessun risultato trovato</div>`);
         return;
     }
     
@@ -34,7 +52,7 @@ function renderReports(data) {
         .addClass('accordion accordion-flush')
         .attr('id', 'accordionExample');
     
-    data.reports.forEach((report, index) => {
+    reports.forEach((report, index) => {
         const item = createReportItem(report, index);
         accordion.append(item);
     });
@@ -117,4 +135,5 @@ function createReportInfoCol(parent, colClass, label, value) {
 
 $(document).ready(function() {
     caricaReports();
+    setupSearch();
 });
