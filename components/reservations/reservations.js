@@ -303,6 +303,8 @@ function deleteReservation(slot) {
             showErrorMessage('Errore di comunicazione con il server');
         }
     });
+
+    $(document).trigger('statsUpdated');
 }
 
 function showReportModal(reservation, slot, reservationIndex, slotIndex) {
