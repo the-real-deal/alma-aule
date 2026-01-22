@@ -496,8 +496,9 @@ function createPagination(totalPages) {
         .addClass('d-flex justify-content-center p-4 border-top');
     
     const nav = $('<nav>').appendTo(paginationContainer);
-    const ul = $('<ul>').addClass('pagination mb-0').appendTo(nav);
+    const ul = $('<ul>').addClass('pagination mb-0 flex-wrap').appendTo(nav);
     
+    // Bottone Precedente
     const prevLi = $('<li>')
         .addClass('page-item')
         .toggleClass('disabled', currentPage === 1)
@@ -506,7 +507,7 @@ function createPagination(totalPages) {
     $('<a>')
         .addClass('page-link')
         .attr('href', '#')
-        .text('Precedente')
+        .html('<i class="bi bi-chevron-left"></i><span class="d-none d-sm-inline ms-1">Precedente</span>')
         .on('click', function(e) {
             e.preventDefault();
             if (currentPage > 1) {
@@ -516,7 +517,57 @@ function createPagination(totalPages) {
         })
         .appendTo(prevLi);
     
-    for (let i = 1; i <= totalPages; i++) {
+    // Logica per mostrare solo alcune pagine
+    const maxVisiblePages = 5;
+    let startPage, endPage;
+    
+    if (totalPages <= maxVisiblePages) {
+        // Mostra tutte le pagine se sono poche
+        startPage = 1;
+        endPage = totalPages;
+    } else {
+        // Calcola quali pagine mostrare
+        const halfVisible = Math.floor(maxVisiblePages / 2);
+        
+        if (currentPage <= halfVisible) {
+            startPage = 1;
+            endPage = maxVisiblePages;
+        } else if (currentPage + halfVisible >= totalPages) {
+            startPage = totalPages - maxVisiblePages + 1;
+            endPage = totalPages;
+        } else {
+            startPage = currentPage - halfVisible;
+            endPage = currentPage + halfVisible;
+        }
+    }
+    
+    // Prima pagina + ellipsis se necessario
+    if (startPage > 1) {
+        const li = $('<li>')
+            .addClass('page-item')
+            .appendTo(ul);
+        
+        $('<a>')
+            .addClass('page-link')
+            .attr('href', '#')
+            .text('1')
+            .on('click', function(e) {
+                e.preventDefault();
+                currentPage = 1;
+                renderReservations();
+            })
+            .appendTo(li);
+        
+        if (startPage > 2) {
+            $('<li>')
+                .addClass('page-item disabled')
+                .append($('<span>').addClass('page-link').text('...'))
+                .appendTo(ul);
+        }
+    }
+    
+    // Pagine centrali
+    for (let i = startPage; i <= endPage; i++) {
         const li = $('<li>')
             .addClass('page-item')
             .toggleClass('active', i === currentPage)
@@ -534,6 +585,32 @@ function createPagination(totalPages) {
             .appendTo(li);
     }
     
+    // Ellipsis + ultima pagina se necessario
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+            $('<li>')
+                .addClass('page-item disabled')
+                .append($('<span>').addClass('page-link').text('...'))
+                .appendTo(ul);
+        }
+        
+        const li = $('<li>')
+            .addClass('page-item')
+            .appendTo(ul);
+        
+        $('<a>')
+            .addClass('page-link')
+            .attr('href', '#')
+            .text(totalPages)
+            .on('click', function(e) {
+                e.preventDefault();
+                currentPage = totalPages;
+                renderReservations();
+            })
+            .appendTo(li);
+    }
+    
+    // Bottone Successivo
     const nextLi = $('<li>')
         .addClass('page-item')
         .toggleClass('disabled', currentPage === totalPages)
@@ -542,7 +619,7 @@ function createPagination(totalPages) {
     $('<a>')
         .addClass('page-link')
         .attr('href', '#')
-        .text('Successivo')
+        .html('<span class="d-none d-sm-inline me-1">Successivo</span><i class="bi bi-chevron-right"></i>')
         .on('click', function(e) {
             e.preventDefault();
             if (currentPage < totalPages) {
