@@ -49,4 +49,8 @@ function createStatRow(parent, label, value, id, hasBorder) {
 
 $(document).ready(function() {
     loadStats();
+    $(document).on('statsUpdated', function() {
+        console.log("🎯 Ricevuto segnale di aggiornamento!"); // <-- CAMBIA QUESTO
+        loadStats();
+    });
 });

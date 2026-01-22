@@ -80,14 +80,37 @@ function loadReservations() {
             seats: $("#capacity").val()
         },
         success: function (response) {
-            $(".btn-outline-secondary").removeClass("btn-outline-secondary").addClass("btn-outline-primary");
+            // Reset tutti i bottoni
+            $(".btn-outline-secondary").removeClass("btn-outline-secondary")
+                .addClass("btn-outline-primary");
             $(".btn-check").prop('disabled', false).prop("checked", false);
 
+            const now = new Date();
+            const selectedDate = new Date($("#calendar").val());
+
+            const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const selectedDateStart = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+
+            const isToday = selectedDateStart.getTime() === todayStart.getTime();
+
+            $(".btn-check").each((index, btn) => {
+                const hour = parseInt(btn.id.replace("btn-", ""));
+                if (isToday && hour <= now.getHours()) {
+                    $(btn).prop('disabled', true);
+                    $(`[for='${btn.id}']`)
+                        .removeClass("btn-outline-primary")
+                        .addClass("btn-outline-secondary");
+                }
+            });
+
+            // Disabilita gli slot già prenotati
             const res = JSON.parse(response);
             res.forEach(element => {
-                const hour = new Date(element.DataPrenotazione).getHours();
-                $(`#btn-${hour}`).prop('disabled', true);
-                $(`[for='btn-${hour}']`).removeClass("btn-outline-primary").addClass("btn-outline-secondary");
+                const reservationHour = new Date(element.DataPrenotazione).getHours();
+                $(`#btn-${reservationHour}`).prop('disabled', true);
+                $(`[for='btn-${reservationHour}']`)
+                    .removeClass("btn-outline-primary")
+                    .addClass("btn-outline-secondary");
             });
         }
     });

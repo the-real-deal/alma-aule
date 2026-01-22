@@ -169,20 +169,142 @@ function createReservationCard(reservation, index) {
         
         const actionsCell = $('<td>').appendTo(row);
         
-        if (!slot.isFuture) {
+        if (slot.isFuture) {
+            $('<button>')
+                .addClass('btn btn-danger btn-sm me-2')
+                .append($('<i>').addClass('bi bi-trash'))
+                .append(' Elimina')
+                .on('click', function() {
+                    showDeleteModal(reservation, slot, index, slotIndex);
+                })
+                .appendTo(actionsCell);
+        } else {
             $('<button>')
                 .addClass('btn btn-warning btn-sm')
-                .append($("<strong>").addClass('bi bi-exclamation-triangle').text(" Segnala")
+                .append($('<i>').addClass('bi bi-exclamation-triangle'))
+                .append(' Segnala')
                 .on('click', function() {
                     showReportModal(reservation, slot, index, slotIndex);
-                }))
-                .appendTo(actionsCell)
-        } else {
-            actionsCell.text('-');
+                })
+                .appendTo(actionsCell);
         }
     });
     
     return card;
+}
+
+function showDeleteModal(reservation, slot, reservationIndex, slotIndex) {
+    const modalId = `deleteModal-${reservationIndex}-${slotIndex}`;
+    
+    $(`#${modalId}`).remove();
+    
+    const modal = $('<div>')
+        .addClass('modal fade')
+        .attr('id', modalId)
+        .attr('tabindex', '-1')
+        .attr('aria-hidden', 'true');
+    
+    const modalDialog = $('<div>')
+        .addClass('modal-dialog')
+        .appendTo(modal);
+    
+    const modalContent = $('<div>')
+        .addClass('modal-content')
+        .appendTo(modalDialog);
+    
+    // Header
+    const modalHeader = $('<div>')
+        .addClass('modal-header bg-danger text-white')
+        .appendTo(modalContent);
+    
+    $('<p>')
+        .addClass('h5 fw-bold modal-title mb-0')
+        .text('Conferma Eliminazione')
+        .appendTo(modalHeader);
+    
+    $('<button>')
+        .addClass('btn-close btn-close-white')
+        .attr('type', 'button')
+        .attr('data-bs-dismiss', 'modal')
+        .attr('aria-label', 'Close')
+        .appendTo(modalHeader);
+    
+    // Body
+    const modalBody = $('<div>')
+        .addClass('modal-body')
+        .appendTo(modalContent);
+    
+    $('<p>')
+        .addClass('mb-3')
+        .html(`Sei sicuro di voler eliminare questa prenotazione?<br><br>
+               <strong>Aula:</strong> ${reservation.NomeAula}<br>
+               <strong>Data:</strong> ${reservation.date}<br>
+               <strong>Orario:</strong> ${slot.time}<br>
+               <strong>Persone:</strong> ${slot.NumeroPersone}`)
+        .appendTo(modalBody);
+    
+    $('<div>')
+        .addClass('alert alert-warning')
+        .append($('<i>').addClass('bi bi-exclamation-triangle-fill me-2'))
+        .append('Questa azione non può essere annullata.')
+        .appendTo(modalBody);
+    
+    // Footer
+    const modalFooter = $('<div>')
+        .addClass('modal-footer')
+        .appendTo(modalContent);
+    
+    $('<button>')
+        .addClass('btn btn-secondary')
+        .attr('type', 'button')
+        .attr('data-bs-dismiss', 'modal')
+        .text('Annulla')
+        .appendTo(modalFooter);
+    
+    $('<button>')
+        .addClass('btn btn-danger')
+        .attr('type', 'button')
+        .text('Elimina Prenotazione')
+        .on('click', function() {
+            deleteReservation(slot);
+            const bsModal = bootstrap.Modal.getInstance(modal[0]);
+            bsModal.hide();
+        })
+        .appendTo(modalFooter);
+    
+    $('body').append(modal);
+    
+    const bsModal = new bootstrap.Modal(modal[0]);
+    bsModal.show();
+    
+    modal.on('hidden.bs.modal', function() {
+        $(this).remove();
+    });
+}
+
+function deleteReservation(slot) {
+    $.ajax({
+        url: '/apis/deleteReservation.php',
+        type: 'POST',
+        data: {
+            id: slot.CodicePrenotazione
+        },
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                loadReservations();
+                showSuccessMessage(response.message);
+            } else {
+                showErrorMessage(response.message || 'Errore durante l\'eliminazione della prenotazione');
+            }
+        },
+        error: function(error) {
+            console.error('Errore eliminazione:', error);
+            showErrorMessage('Errore di comunicazione con il server');
+        }
+    });
+
+    $(document).trigger('statsUpdated');
 }
 
 function showReportModal(reservation, slot, reservationIndex, slotIndex) {
@@ -257,7 +379,6 @@ function showReportModal(reservation, slot, reservationIndex, slotIndex) {
         charCounter.text(`${length}/250 caratteri`);
     });
     
-
     const modalFooter = $('<div>')
         .addClass('modal-footer')
         .appendTo(modalContent);
@@ -293,7 +414,7 @@ function showReportModal(reservation, slot, reservationIndex, slotIndex) {
 function submitReport(slot, description) {
     const reportData = {
         reservationId: slot.CodicePrenotazione,
-        user : localStorage.getItem("username"),
+        user: localStorage.getItem("username"),
         description: description,
     };
     
@@ -312,6 +433,46 @@ function submitReport(slot, description) {
         
     //Permette il reload di reports senza problemi, siccome tanto questi componententi sono sempre usati insieme:
     $(document).trigger('reportsUpdated');
+}
+
+function showSuccessMessage(message) {
+    const alert = $('<div>')
+        .addClass('alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3')
+        .attr('role', 'alert')
+        .css('z-index', '9999')
+        .append($('<strong>').addClass('bi bi-check-circle-fill me-2'))
+        .append(message)
+        .append($('<button>')
+        .attr('type', 'button')
+        .addClass('btn-close')
+        .attr('data-bs-dismiss', 'alert')
+        .attr('aria-label', 'Close'));
+    
+    $('body').append(alert);
+    
+    setTimeout(() => {
+        alert.alert('close');
+    }, 3000);
+}
+
+function showErrorMessage(message) {
+    const alert = $('<div>')
+        .addClass('alert alert-danger alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3')
+        .attr('role', 'alert')
+        .css('z-index', '9999')
+        .append($('<strong>').addClass('bi bi-exclamation-triangle-fill me-2'))
+        .append(message)
+        .append($('<button>')
+        .attr('type', 'button')
+        .addClass('btn-close')
+        .attr('data-bs-dismiss', 'alert')
+        .attr('aria-label', 'Close'));
+    
+    $('body').append(alert);
+    
+    setTimeout(() => {
+        alert.alert('close');
+    }, 3000);
 }
 
 function createInfoCol(parent, colClass, label, value) {

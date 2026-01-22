@@ -4,9 +4,9 @@
     $page["title"] = "Profilo utente";
     $page["js"] = [ 
         "/pages/{$page_name}/main.js",
-        "/components/reservations/reservations.js",
         "/components/reservationstats/reservationsStats.js",
-        "/components/reports/reports.js"
+        "/components/reports/reports.js",
+        "/components/reservations/reservations.js"
     ];
     $page["container-classes"] = "container py-5";
     $page["content"] = "{$_SERVER['DOCUMENT_ROOT']}/pages/{$page_name}/content.php";
