@@ -59,7 +59,7 @@ function renderReports(reports, username = "") {
 
 function createReportItem(report, index) {
     const accordionItem = $('<div>').addClass('accordion-item');
-    const header = $('<p>').addClass('h2 fw-bold accordion-header').appendTo(accordionItem);
+    const header = $("<p></p>").addClass('h2 fw-bold accordion-header').appendTo(accordionItem);
     
     const button = $('<div>') 
         .addClass('accordion-button collapsed')

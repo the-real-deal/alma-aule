@@ -1,7 +1,7 @@
 <div class="container-lg py-1 py-lg-2 w-100">
     <div class="my-5">
         <button onclick="history.back()" class="btn btn-outline-primary">
-            <i class="bi bi-arrow-left me-2"></i>Indietro
+            <strong class="bi bi-arrow-left me-2"></strong>Indietro
         </button>
     </div>
     <div class="card border-2 border-primary">
@@ -46,7 +46,7 @@
             <!-- Card Orari -->
             <div class="card flex-grow-1 d-flex flex-column">
                 <div class="card-header flex-shrink-0">
-                    <h6 class="mb-2">Orari</h6>
+                    <p class="h6 fw-bold mb-2">Orari</p>
                     <div class="row g-2">
                         <div class="col-12 col-md-6">
                             <label class="form-label small mb-1" for="calendar">

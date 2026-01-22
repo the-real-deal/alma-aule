@@ -172,7 +172,7 @@ function createReservationCard(reservation, index) {
         if (slot.isFuture) {
             $('<button>')
                 .addClass('btn btn-danger btn-sm me-2')
-                .append($('<i>').addClass('bi bi-trash'))
+                .append($('<strong>').addClass('bi bi-trash'))
                 .append(' Elimina')
                 .on('click', function() {
                     showDeleteModal(reservation, slot, index, slotIndex);
@@ -181,7 +181,7 @@ function createReservationCard(reservation, index) {
         } else {
             $('<button>')
                 .addClass('btn btn-warning btn-sm')
-                .append($('<i>').addClass('bi bi-exclamation-triangle'))
+                .append($('<strong>').addClass('bi bi-exclamation-triangle'))
                 .append(' Segnala')
                 .on('click', function() {
                     showReportModal(reservation, slot, index, slotIndex);
@@ -245,7 +245,7 @@ function showDeleteModal(reservation, slot, reservationIndex, slotIndex) {
     
     $('<div>')
         .addClass('alert alert-warning')
-        .append($('<i>').addClass('bi bi-exclamation-triangle-fill me-2'))
+        .append($('<strong>').addClass('bi bi-exclamation-triangle-fill me-2'))
         .append('Questa azione non può essere annullata.')
         .appendTo(modalBody);
     
@@ -509,7 +509,7 @@ function createPagination(totalPages) {
     $('<a>')
         .addClass('page-link')
         .attr('href', '#')
-        .html('<i class="bi bi-chevron-left"></i><span class="d-none d-sm-inline ms-1">Precedente</span>')
+        .html('<strong class="bi bi-chevron-left"></strong><span class="d-none d-sm-inline ms-1">Precedente</span>')
         .on('click', function(e) {
             e.preventDefault();
             if (currentPage > 1) {
@@ -621,7 +621,7 @@ function createPagination(totalPages) {
     $('<a>')
         .addClass('page-link')
         .attr('href', '#')
-        .html('<span class="d-none d-sm-inline me-1">Successivo</span><i class="bi bi-chevron-right"></i>')
+        .html('<span class="d-none d-sm-inline me-1">Successivo</span><strong class="bi bi-chevron-right"></strong>')
         .on('click', function(e) {
             e.preventDefault();
             if (currentPage < totalPages) {

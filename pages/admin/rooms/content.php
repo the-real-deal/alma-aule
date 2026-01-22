@@ -26,7 +26,7 @@
             <div class="input-group"></div>
             <label for="seats" class="form-label">Posti</label>
             <input type="number" id="seats" class="form-control">
-            <h4 class="m-0">Dotazioni</h4>
+            <p class="h4 fw-bold m-0">Dotazioni</p>
             <hr class="border border-primary border-2 opacity-75 my-1 mx-1 pb-0">
             <div class="form-check">
               <label for="accessibility" class="form-check-label">Accessibilità</label>
