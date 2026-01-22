@@ -49,7 +49,7 @@
               <label for="plugs" class="form-check-label">Prese</label>
               <input type="checkbox" id="plugs" class="form-check-input">
             </div>
-            
+
           </form>
         </div>
         <div class="modal-footer">
