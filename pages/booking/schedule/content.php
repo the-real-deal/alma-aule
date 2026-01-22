@@ -40,10 +40,17 @@
                 </div>
             </div>
             <div class="card">
-                <div class="card-header ">
+                <div class="card-header gap-2 d-flex ">
                     <div class="container">
-                        <strong class="pe-5">Orari</strong>
+                        <h6>Orari <br> </h6>
+                        <label class="pe-1" for="calendar">Data:</label>
                         <input type="date" name="days" id="calendar">
+                    </div>
+                    <div class="container">
+                        <label for="">Presenti:</label>
+                        <select class="form-select" id="capacity">
+
+                        </select>
                     </div>
 
                 </div>
