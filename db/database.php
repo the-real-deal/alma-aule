@@ -203,7 +203,7 @@ class DatabaseHelper
         }
     }
 
-    public function isAdmin($username) 
+    public function isAdmin($username)
     {
         $query = "SELECT Username FROM account WHERE Username = ? AND codiceRuolo = 1";
         $stmt = $this->db->prepare($query);
@@ -222,7 +222,8 @@ class DatabaseHelper
         return $stmt->get_result();
     }
 
-    public function addReport($reportId,$user,$description) {
+    public function addReport($reportId, $user, $description)
+    {
         $query = "INSERT INTO segnalazioni (CodicePrenotazione,CodiceAccount,Descrizione) VALUES (?,?,?)";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("iss", $reportId, $user, $description);
@@ -247,7 +248,8 @@ class DatabaseHelper
         $stmt->execute();
     }
 
-    public function isActive($user) {
+    public function isActive($user)
+    {
         $query = "SELECT * FROM account WHERE Username = ? AND Attivo = 1";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $user);
@@ -266,4 +268,73 @@ class DatabaseHelper
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getAllReservations()
+    {
+        $sql = "SELECT p.CodicePrenotazione, p.CodiceAula, p.CodiceAccount, 
+               p.NumeroPersone, p.DataPrenotazione, a.NomeAula
+        FROM prenotazioni p
+        LEFT JOIN aule a ON p.CodiceAula = a.CodiceAula
+        ORDER BY p.DataPrenotazione DESC";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $result;
+    }
+
+    public function updateReservation(int $id, int $aula, string $account, int $persone, string $data)
+    {
+        $dataFormatted = date('Y-m-d H:i:s', strtotime($data));
+        
+        $checkRoom = $this->db->prepare("SELECT CodiceAula FROM aule WHERE CodiceAula = ?");
+        $checkRoom->bind_param("i", $aula);
+        $checkRoom->execute();
+        if ($checkRoom->get_result()->num_rows === 0) {
+            echo json_encode(['success' => false, 'message' => 'Aula non trovata']);
+            $checkRoom->close();
+            $this->db->close();
+            exit;
+        }
+        $checkRoom->close();
+
+        $checkAccount = $this->db->prepare("SELECT Username FROM account WHERE Username = ?");
+        $checkAccount->bind_param("s", $account);
+        $checkAccount->execute();
+        if ($checkAccount->get_result()->num_rows === 0) {
+            echo json_encode(['success' => false, 'message' => 'Account non trovato']);
+            $checkAccount->close();
+            $this->db->close();
+            exit;
+        }
+        $checkAccount->close();
+
+        $checkConflict = $this->db->prepare("SELECT CodicePrenotazione FROM prenotazioni 
+                                 WHERE CodiceAula = ? AND DataPrenotazione = ? 
+                                 AND CodicePrenotazione != ?");
+        $checkConflict->bind_param("isi", $aula, $dataFormatted, $id);
+        $checkConflict->execute();
+        if ($checkConflict->get_result()->num_rows > 0) {
+            echo json_encode(['success' => false, 'message' => 'Conflitto: aula già prenotata per questa data']);
+            $checkConflict->close();
+            $this->db->close();
+            exit;
+        }
+        $checkConflict->close();
+
+        $stmt = $this->db->prepare("UPDATE prenotazioni 
+                        SET CodiceAula = ?, CodiceAccount = ?, 
+                            NumeroPersone = ?, DataPrenotazione = ? 
+                        WHERE CodicePrenotazione = ?");
+        $stmt->bind_param("isisi", $aula, $account, $persone, $dataFormatted, $id);
+
+        if ($stmt->execute()) {
+            echo json_encode(['success' => true, 'message' => 'Prenotazione aggiornata']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Errore nell\'aggiornamento: ' . $stmt->error]);
+        }
+
+        $stmt->close();
+    }
 }
+

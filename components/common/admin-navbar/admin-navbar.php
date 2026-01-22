@@ -25,7 +25,7 @@
                     $links = [
                         new Link("/admin", "Dashboard", "bi-person-gear"),
                         new Link("/admin/rooms", "Gestione aule", "bi-door-closed-fill"),
-                        new Link("/admin/booking", "Gestione prenotazioni", "bi-bookmark-plus-fill"),
+                        new Link("/admin/bookings", "Gestione prenotazioni", "bi-bookmark-plus-fill"),
                         new Link("/admin/users", "Gestione utenti", "bi-people"),
                         new Link("/admin/reports", "Gestione segnalazioni", "bi-flag-fill"),
                     ];
