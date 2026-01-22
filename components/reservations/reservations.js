@@ -309,7 +309,7 @@ function submitReport(slot, description) {
         $('#loginErrorModal').modal('show');
     });
         
-    window.location.reload();
+    $(document).trigger('reportsUpdated');
 }
 
 function createInfoCol(parent, colClass, label, value) {
