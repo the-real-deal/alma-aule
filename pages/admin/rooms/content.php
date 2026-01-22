@@ -4,18 +4,13 @@
   </div>
   <div class="row pb-4">
     <p class="col-lg-7 lead m-0">Qui puoi modificare le informazioni delle aule disponibili per le prenotazioni.</p>
-    <form class="col-lg-5 pt-4 pt-lg-0 d-flex d-lg-inline-block">
-      <label class="d-flex align-items-center" for="searchRoomInput">Ricerca una specifica aula:</label>
-      <input type="text" placeholder="es. AULA MAGNA..." id="searchRoomInput" class="w-75 form-control ms-3 ms-lg-0">
-    </form>
+
   </div>
   <div class="row">
-    <div class="col-lg-7 d-flex" id="listAule">
-      <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/rooms-view/view.php" ?>
-    </div>
-    <div class="col-lg-5">
 
-    </div>
+    <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/rooms-view/view.php" ?>
+
+
   </div>
 
   <!-- Modal -->
