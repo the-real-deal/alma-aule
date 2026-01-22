@@ -1,0 +1,43 @@
+main::before {
+    content: '';
+    width: 640px;
+    height: 180px;
+    position: absolute;
+    z-index: -1;
+    top: 110px;
+    right: 0px;
+    -webkit-mask: url(/assets/imgs/shapeTop.svg) 100% 100% no-repeat;
+    mask: url(/assets/imgs/shapeTop.svg) 100% 100% no-repeat;
+    mask-size: cover;
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    background: var(--bs-primary);
+}
+
+.h1 {
+    position: relative;
+    max-width: fit-content !important;
+}
+
+.h1::after {
+    content: '';
+    min-width: 85px;
+    min-height: 85px;
+    position: absolute;
+    right: -50px;
+    top: -50px;
+    transform: scaleX(-1) rotate(-25deg);
+    mask: url(/assets/imgs/accent.svg) 100% 100% no-repeat;
+    -webkit-mask: url(/assets/imgs/accent.svg) 100% 100% no-repeat;
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    background: var(--bs-primary);
+}
+
+
+@media screen and (max-width: 576px) {
+    main::before {
+        top: 120px;
+        right: 250px;
+    }
+}
