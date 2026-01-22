@@ -2,7 +2,7 @@
     require_once "{$_SERVER['DOCUMENT_ROOT']}/bootstrap.php";
     $page_name = FileUtils::getFolderName($_SERVER['PHP_SELF']);
     $page["title"] = "Admin Dashboard";
-    $page["js"] = [
+    $page["js"] = [ "/components/reportsManager/reportsManager.js",
         "/pages/{$page_name}/main.js"
     ];
     $page["container-classes"] = "p-5";
