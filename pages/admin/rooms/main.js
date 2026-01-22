@@ -1,19 +1,19 @@
 
 let idAula
-$(document).on('click', 'a[id^="aula-"]', function(e) {
+$(document).on('click', 'a[id^="aula-"]', function (e) {
     e.preventDefault();
-    idAula=$(this).attr('id').replace('aula-', '');
-    
+    idAula = $(this).attr('id').replace('aula-', '');
+
     $.ajax({
         url: "/apis/aula.php",
         type: "get",
         data: {
             idAula: idAula,
         },
-        success: function(response){
-            
+        success: function (response) {
+
             const aula = JSON.parse(response);
-            
+
             $("#seats").val(aula.NumeroPosti);
             $("#accessibility").prop('checked', aula.Accessibilita);
             $("#lab").prop('checked', aula.Laboratorio);
@@ -23,8 +23,8 @@ $(document).on('click', 'a[id^="aula-"]', function(e) {
     })
     $('#staticBackdrop').modal('show');
 });
-$("#save").on("click",()=>{
-     const data = {
+$("#save").on("click", () => {
+    const data = {
         idAula: sessionStorage.getItem("idAula"),
         seats: $("#seats").val(),
         accessibility: $("#accessibility").is(":checked") ? 1 : 0,  // Esplicito 1/0
@@ -33,13 +33,14 @@ $("#save").on("click",()=>{
         plugs: $("#plugs").is(":checked") ? 1 : 0
     };
     $.ajax({
-        url:"/apis/updateRoom.php",
-        type:"post",
-        data:data,
-        success:function(response){
+        url: "/apis/updateRoom.php",
+        type: "post",
+        data: data,
+        success: function (response) {
             $('#staticBackdrop').modal('hide');
         }
     })
+    window.location.reload();
 });
 
 

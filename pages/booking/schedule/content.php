@@ -1,4 +1,9 @@
 <div class="container-lg py-1 py-lg-2 w-100">
+    <div class="my-5">
+        <button onclick="history.back()" class="btn btn-outline-primary">
+            <i class="bi bi-arrow-left me-2"></i>Indietro
+        </button>
+    </div>
     <div class="card border-2 border-primary">
         <div class="card-header bg-primary text-white">
             <h1 id="title" class="m-0 fs-3 fs-lg-1"></h1>
