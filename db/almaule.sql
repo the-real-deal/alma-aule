@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 22, 2026 alle 01:15
+-- Creato il: Gen 22, 2026 alle 23:02
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -20,9 +20,11 @@ SET time_zone = "+00:00";
 --
 -- Database: `almaule`
 --
+
 DROP DATABASE IF EXISTS almaule;
 CREATE DATABASE almaule;
 USE almaule;
+
 -- --------------------------------------------------------
 
 --
@@ -42,13 +44,13 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`Username`, `codiceRuolo`, `Attivo`, `Mail`, `Password`) VALUES
-('beagre003', 3, 1, 'beagre003@studio.unibo.it', '123'),
+('beagre003', 3, 1, 'beagre003@studio.unibo.it', 'StudPass004'),
 ('clarom001', 3, 0, 'clarom001@studio.unibo.it', 'StudPass003'),
 ('fedrus001', 2, 1, 'fedrus001@studio.unibo.it', 'ProfPass002'),
 ('ilabru001', 3, 1, 'ilabru001@studio.unibo.it', 'StudPass001'),
-('marmar001', 2, 0, 'marmar001@studio.unibo.it', '456'),
+('marmar001', 2, 1, 'marmar001@studio.unibo.it', 'ProfPass001'),
 ('matrus001', 3, 1, 'matrus001@studio.unibo.it', 'StudPass002'),
-('vinesp001', 1, 1, 'vinesp001@studio.unibo.it', '789');
+('vinesp001', 1, 1, 'vinesp001@studio.unibo.it', 'Admin001');
 
 -- --------------------------------------------------------
 
@@ -316,9 +318,10 @@ CREATE TABLE `authsessions` (
 --
 
 INSERT INTO `authsessions` (`CodiceSessione`, `CodiceAccount`, `ExpirationDate`, `ForceExpired`) VALUES
-(1, 'beagre003', '2026-02-01 01:12:45', 0),
-(2, 'vinesp001', '2026-02-01 00:47:24', 0),
-(3, 'marmar001', '2026-01-31 15:44:02', 0);
+(1, 'beagre003', '2026-02-01 22:31:42', 0),
+(2, 'vinesp001', '2026-02-01 22:37:46', 0),
+(3, 'marmar001', '2026-02-01 22:36:35', 0),
+(4, 'fedrus001', '2026-02-01 22:24:18', 0);
 
 -- --------------------------------------------------------
 
@@ -367,10 +370,17 @@ CREATE TABLE `prenotazioni` (
 --
 
 INSERT INTO `prenotazioni` (`CodicePrenotazione`, `CodiceAula`, `CodiceAccount`, `NumeroPersone`, `DataPrenotazione`) VALUES
-(1, 138, 'beagre003', 5, '2026-01-17 08:00:00'),
-(2, 4, 'beagre003', 15, '2026-02-19 11:00:00'),
-(3, 109, 'beagre003', 18, '2026-01-21 11:00:00'),
-(4, 109, 'beagre003', 20, '2026-01-21 17:00:00');
+(1, 64, 'beagre003', 32, '2026-01-13 12:00:00'),
+(2, 64, 'beagre003', 32, '2026-01-13 13:00:00'),
+(3, 58, 'beagre003', 100, '2026-01-29 09:00:00'),
+(4, 58, 'beagre003', 100, '2026-01-29 16:00:00'),
+(5, 154, 'beagre003', 54, '2026-03-11 09:00:00'),
+(9, 24, 'beagre003', 20, '2025-11-06 09:00:00'),
+(10, 154, 'fedrus001', 20, '2026-01-27 13:00:00'),
+(11, 143, 'fedrus001', 75, '2026-02-09 12:00:00'),
+(12, 143, 'fedrus001', 75, '2026-02-09 14:00:00'),
+(13, 143, 'fedrus001', 75, '2026-02-09 13:00:00'),
+(16, 136, 'beagre003', 12, '2026-01-23 15:00:00');
 
 -- --------------------------------------------------------
 
@@ -567,8 +577,9 @@ CREATE TABLE `segnalazioni` (
 --
 
 INSERT INTO `segnalazioni` (`CodiceSegnalazione`, `CodicePrenotazione`, `CodiceAccount`, `Descrizione`, `Stato`) VALUES
-(1, 1, 'beagre003', 'La classe era sporca, non si capisce per quale motivo ci fosse una fetta di salame attaccata al muro', 1),
-(2, 4, 'beagre003', 'Se le luci non si accendono più non è colpa della sottoscritta, la matricola Matteo Tonelli è responsabile, ha svitato tutto', 0);
+(1, 9, 'beagre003', 'Dal soffitto cade acqua e le finestre non sono ben fissate!!', 0),
+(2, 1, 'beagre003', 'Non c\'era tutta l\'attrezzatura, e quella che c\'era era rovinata!', 0),
+(3, 2, 'beagre003', 'L\'aula purtroppo non ha i banchi', 1);
 
 -- --------------------------------------------------------
 
@@ -705,7 +716,7 @@ ALTER TABLE `aule`
 -- AUTO_INCREMENT per la tabella `authsessions`
 --
 ALTER TABLE `authsessions`
-  MODIFY `CodiceSessione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `CodiceSessione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT per la tabella `citta`
@@ -717,7 +728,7 @@ ALTER TABLE `citta`
 -- AUTO_INCREMENT per la tabella `prenotazioni`
 --
 ALTER TABLE `prenotazioni`
-  MODIFY `CodicePrenotazione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `CodicePrenotazione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT per la tabella `sedi`
@@ -729,7 +740,7 @@ ALTER TABLE `sedi`
 -- AUTO_INCREMENT per la tabella `segnalazioni`
 --
 ALTER TABLE `segnalazioni`
-  MODIFY `CodiceSegnalazione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `CodiceSegnalazione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT per la tabella `tipi_account`
