@@ -258,7 +258,7 @@ class DatabaseHelper
         return $result->num_rows > 0;
     }
 
-    public function getAllReports() 
+    public function getAllReports()
     {
         $query = "SELECT s.CodiceSegnalazione, au.NomeAula, se.Via, au.NumeroPiano, p.DataPrenotazione, s.Descrizione, s.Stato 
                     FROM segnalazioni s JOIN account a ON s.CodiceAccount = a.Username JOIN prenotazioni p ON s.CodicePrenotazione = p.CodicePrenotazione 
@@ -286,15 +286,12 @@ class DatabaseHelper
     public function updateReservation(int $id, int $aula, string $account, int $persone, string $data)
     {
         $dataFormatted = date('Y-m-d H:i:s', strtotime($data));
-        
+
         $checkRoom = $this->db->prepare("SELECT CodiceAula FROM aule WHERE CodiceAula = ?");
         $checkRoom->bind_param("i", $aula);
         $checkRoom->execute();
         if ($checkRoom->get_result()->num_rows === 0) {
-            echo json_encode(['success' => false, 'message' => 'Aula non trovata']);
-            $checkRoom->close();
-            $this->db->close();
-            exit;
+            return false;
         }
         $checkRoom->close();
 
@@ -302,10 +299,7 @@ class DatabaseHelper
         $checkAccount->bind_param("s", $account);
         $checkAccount->execute();
         if ($checkAccount->get_result()->num_rows === 0) {
-            echo json_encode(['success' => false, 'message' => 'Account non trovato']);
-            $checkAccount->close();
-            $this->db->close();
-            exit;
+            return false;
         }
         $checkAccount->close();
 
@@ -315,10 +309,7 @@ class DatabaseHelper
         $checkConflict->bind_param("isi", $aula, $dataFormatted, $id);
         $checkConflict->execute();
         if ($checkConflict->get_result()->num_rows > 0) {
-            echo json_encode(['success' => false, 'message' => 'Conflitto: aula già prenotata per questa data']);
-            $checkConflict->close();
-            $this->db->close();
-            exit;
+            return false;
         }
         $checkConflict->close();
 
@@ -328,13 +319,50 @@ class DatabaseHelper
                         WHERE CodicePrenotazione = ?");
         $stmt->bind_param("isisi", $aula, $account, $persone, $dataFormatted, $id);
 
-        if ($stmt->execute()) {
-            echo json_encode(['success' => true, 'message' => 'Prenotazione aggiornata']);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Errore nell\'aggiornamento: ' . $stmt->error]);
+        return $stmt->execute();
+    }
+
+    public function deleteReservation(int $id)
+    {
+        // Check if reservation exists
+        $checkReservation = $this->db->prepare("SELECT CodicePrenotazione FROM prenotazioni WHERE CodicePrenotazione = ?");
+        $checkReservation->bind_param("i", $id);
+        $checkReservation->execute();
+        if ($checkReservation->get_result()->num_rows === 0) {
+            echo json_encode(['success' => false, 'message' => 'Prenotazione non trovata']);
+            $checkReservation->close();
+            $this->db->close();
+            exit;
+        }
+        $checkReservation->close();
+
+        // Check if there are related reports (segnalazioni)
+        $checkReports = $this->db->prepare("SELECT COUNT(*) as count FROM segnalazioni WHERE CodicePrenotazione = ?");
+        $checkReports->bind_param("i", $id);
+        $checkReports->execute();
+        $result = $checkReports->get_result();
+        $row = $result->fetch_assoc();
+        $reportCount = $row['count'];
+        $checkReports->close();
+
+        // If there are reports, delete them first (or you can choose to prevent deletion)
+        if ($reportCount > 0) {
+            $deleteReports = $this->db->prepare("DELETE FROM segnalazioni WHERE CodicePrenotazione = ?");
+            $deleteReports->bind_param("i", $id);
+            $deleteReports->execute();
+            $deleteReports->close();
         }
 
-        $stmt->close();
+        // Delete reservation
+        $stmt = $this->db->prepare("DELETE FROM prenotazioni WHERE CodicePrenotazione = ?");
+        $stmt->bind_param("i", $id);
+
+        if ($stmt->execute()) {
+            if ($stmt->affected_rows > 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

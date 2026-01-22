@@ -60,8 +60,8 @@
 
 .btn-secondary:hover, .btn-secondary:focus-visible, :not(.btn-check) + .btn-secondary:active {
     color: var(--bs-btn-color);
+    --bs-btn-border-color: var(--bs-primary);
     background-color: hsl(from var(--bs-btn-bg) h s 90%);
-    border-color: hsl(from var(--bs-btn-bg) h s 90%);
     box-shadow: none;
 }
 
