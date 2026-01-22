@@ -190,24 +190,14 @@ class DatabaseHelper
         return $stmt->affected_rows > 0;
     }
 
-    public function updateReports($reports)
+    public function updateReports($id)
     {
         try {
-            $query = "UPDATE segnalazioni SET Stato = ? WHERE CodiceSegnalazione = ?";
-            #$query = "UPDATE segnalazioni SET Stato = NOT Stato WHERE CodiceSegnalazione = ?";
+            $query = "UPDATE segnalazioni SET Stato = NOT Stato WHERE CodiceSegnalazione = ?";
             $stmt = $this->db->prepare($query);
-
-            foreach ($reports as $report) {
-                if (is_array($report) && count($report) >= 2) { #(is_array($report))
-                    $id = $report[0];
-                    $stato = $report[1] ? 1 : 0;
-
-                    $stmt->bind_param("ii", $stato, $id);
-                    $stmt->execute();
-                }
-            }
-            return true;
-
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            return $stmt->affected_rows > 0;
         } catch (Exception $e) {
             return false;
         }
@@ -264,5 +254,21 @@ class DatabaseHelper
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->num_rows > 0;
+    }
+
+    public function getAllReports() 
+    {
+        $query = "SELECT s.CodiceSegnalazione, au.NomeAula, se.Via, au.NumeroPiano, p.DataPrenotazione, s.Descrizione, s.Stato 
+                    FROM segnalazioni s JOIN account a ON s.CodiceAccount = a.Username JOIN prenotazioni p ON s.CodicePrenotazione = p.CodicePrenotazione 
+                    JOIN aule au ON p.CodiceAula = au.CodiceAula JOIN sedi se ON au.CodiceSede = se.CodiceSede";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function updateReportStatus() 
+    {
+
     }
 }

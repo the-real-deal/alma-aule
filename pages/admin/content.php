@@ -5,4 +5,7 @@
 
 <section class="py-5">
     <p class="h2 fw-bold">Ultime segnalazioni ricevute</p>
+    <?php 
+        require "{$_SERVER['DOCUMENT_ROOT']}/components/reports/reports.php";
+    ?>
 </section>
