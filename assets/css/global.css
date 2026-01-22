@@ -20,6 +20,12 @@
     --bs-list-group-active-bg: var(--bs-primary) !important;
 }
 
+.table-primary {
+    --bs-table-bg: hsl(from var(--bs-primary) h s l / .70);
+    --bs-table-active-bg: hsl(from var(--bs-primary) h s l / .90);
+    --bs-table-border-color: var(--bs-primary);
+}
+
 .font-cinzel {
     font-family: "Cinzel" !important;
 }
@@ -54,8 +60,8 @@
 
 .btn-secondary:hover, .btn-secondary:focus-visible, :not(.btn-check) + .btn-secondary:active {
     color: var(--bs-btn-color);
+    --bs-btn-border-color: var(--bs-primary);
     background-color: hsl(from var(--bs-btn-bg) h s 90%);
-    border-color: hsl(from var(--bs-btn-bg) h s 90%);
     box-shadow: none;
 }
 
@@ -75,7 +81,13 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
     font-family: "Merriweather Sans";
 }
 

@@ -1,4 +1,5 @@
 function caricaReports() {
+    $('#reportsContainer').empty();
     $.ajax({
         url: "/apis/reports.php",
         type: "GET",
@@ -7,16 +8,12 @@ function caricaReports() {
             if (response.success) {
                 renderReports(response.data);
             } else {
-                $('#reportsContainer').html(
-                    `<div class="alert alert-danger" role="alert">${response.message}</div>`
-                );
+               $('#reportsContainer').append($("<div>").addClass("alert alert-danger").attr("role=alert").text(response.message));
             }
         },
         error: function(error) {
             console.error('Errore nel caricamento delle segnalazioni:', error);
-            $('#reportsContainer').html(
-                '<div class="alert alert-danger" role="alert">Errore nel caricamento delle segnalazioni</div>'
-            );
+           $('#reportsContainer').append($("<div>").addClass("alert alert-danger").attr("role=alert").text("Errore nel caricamento"));
         }
     });
 }
@@ -74,10 +71,10 @@ function createReportItem(report, index) {
     
     const formattedDate = new Date(report.DataPrenotazione).toLocaleDateString('it-IT', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })
     
-    createReportInfoCol(row, 'col-md-6 col-lg-3', 'NomeAula', report.NomeAula);
-    createReportInfoCol(row, 'col-md-6 col-lg-3', 'Via Sede', report.Via);
-    createReportInfoCol(row, 'col-md-6 col-lg-2', 'Piano', report.NumeroPiano);
-    createReportInfoCol(row, 'col-md-6 col-lg-2', 'Data Prenotazione', formattedDate);
+    createReportInfoCol(row, 'col-lg-6 col-lg-3', 'NomeAula', report.NomeAula);
+    createReportInfoCol(row, 'col-lg-6 col-lg-3', 'Via Sede', report.Via);
+    createReportInfoCol(row, 'col-lg-6 col-lg-2', 'Piano', report.NumeroPiano);
+    createReportInfoCol(row, 'col-lg-6 col-lg-2', 'Data Prenotazione', formattedDate);
     
     const collapseDiv = $('<div>')
         .addClass('accordion-collapse collapse')
@@ -112,4 +109,8 @@ function createReportInfoCol(parent, colClass, label, value) {
 
 $(document).ready(function() {
     caricaReports();
+    $(document).on('reportsUpdated', function() {
+        console.log("Ricevuto segnale di aggiornamento!");
+        caricaReports();
+    });
 });

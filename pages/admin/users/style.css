@@ -3,6 +3,7 @@ main::before {
     width: 640px;
     height: 180px;
     position: absolute;
+    overflow-x: hidden;
     z-index: -1;
     top: 110px;
     right: 0px;
@@ -14,12 +15,12 @@ main::before {
     background: var(--bs-primary);
 }
 
-h1 {
+.h1 {
     position: relative;
     max-width: fit-content !important;
 }
 
-h1::after {
+.h1::after {
     content: '';
     min-width: 85px;
     min-height: 85px;
@@ -38,6 +39,6 @@ h1::after {
 @media screen and (max-width: 576px) {
     main::before {
         top: 120px;
-        right: -250px;
+        right: 250px;
     }
 }

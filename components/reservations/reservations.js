@@ -13,7 +13,6 @@ function loadReservations() {
                 allReservations = groupReservationsByRoomAndDate(response.reservations);
                 renderReservations();
             } else {
-                console.log("DJJDJDJD")
                 $('#mainReservationsCard').append($('<div>').append(($('<p>').addClass('text-danger text-center mb-0').text(response.message))));            
             }
         },
@@ -24,6 +23,8 @@ function loadReservations() {
     });
 }
 
+// Siccome la stessa aula nello stesso giorno può avere più prenotazioni per ore diverse è
+// necessario raggrupparle.
 function groupReservationsByRoomAndDate(reservations) {
     const grouped = {};
     const now = new Date();
@@ -144,8 +145,8 @@ function createReservationCard(reservation, index) {
         .addClass('card card-body')
         .appendTo(collapse);
     
-    $('<h6>')
-        .addClass('mb-3')
+    $('<p>')
+        .addClass('h6 fw-bold mb-3')
         .text('Orari Prenotati:')
         .appendTo(collapseBody);
     
@@ -309,7 +310,8 @@ function submitReport(slot, description) {
         $('#loginErrorModal').modal('show');
     });
         
-    window.location.reload();
+    //Permette il reload di reports senza problemi, siccome tanto questi componententi sono sempre usati insieme:
+    $(document).trigger('reportsUpdated');
 }
 
 function createInfoCol(parent, colClass, label, value) {

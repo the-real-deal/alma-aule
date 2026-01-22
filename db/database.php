@@ -190,30 +190,20 @@ class DatabaseHelper
         return $stmt->affected_rows > 0;
     }
 
-    public function updateReports($reports)
+    public function updateReports($id)
     {
         try {
-            $query = "UPDATE segnalazioni SET Stato = ? WHERE CodiceSegnalazione = ?";
-            #$query = "UPDATE segnalazioni SET Stato = NOT Stato WHERE CodiceSegnalazione = ?";
+            $query = "UPDATE segnalazioni SET Stato = NOT Stato WHERE CodiceSegnalazione = ?";
             $stmt = $this->db->prepare($query);
-
-            foreach ($reports as $report) {
-                if (is_array($report) && count($report) >= 2) { #(is_array($report))
-                    $id = $report[0];
-                    $stato = $report[1] ? 1 : 0;
-
-                    $stmt->bind_param("ii", $stato, $id);
-                    $stmt->execute();
-                }
-            }
-            return true;
-
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            return $stmt->affected_rows > 0;
         } catch (Exception $e) {
             return false;
         }
     }
 
-    public function isAdmin($username) 
+    public function isAdmin($username)
     {
         $query = "SELECT Username FROM account WHERE Username = ? AND codiceRuolo = 1";
         $stmt = $this->db->prepare($query);
@@ -232,7 +222,8 @@ class DatabaseHelper
         return $stmt->get_result();
     }
 
-    public function addReport($reportId,$user,$description) {
+    public function addReport($reportId, $user, $description)
+    {
         $query = "INSERT INTO segnalazioni (CodicePrenotazione,CodiceAccount,Descrizione) VALUES (?,?,?)";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("iss", $reportId, $user, $description);
@@ -257,7 +248,8 @@ class DatabaseHelper
         $stmt->execute();
     }
 
-    public function isActive($user) {
+    public function isActive($user)
+    {
         $query = "SELECT * FROM account WHERE Username = ? AND Attivo = 1";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $user);
@@ -265,15 +257,123 @@ class DatabaseHelper
         $result = $stmt->get_result();
         return $result->num_rows > 0;
     }
-    public function updateRoom($seats,$projector,$plugs,$accessibility,$lab,$idRoom){
+    public function updateRoom($seats, $projector, $plugs, $accessibility, $lab, $idRoom)
+    {
         $query = "UPDATE aule SET NumeroPosti=?,Accessibilita = ?, Proiettore = ?, Prese = ?, Laboratorio = ? WHERE CodiceAula = ?";
         $stmt = $this->db->prepare($query);
         $accessibility = $accessibility ? 1 : 0;
         $projector = $projector ? 1 : 0;
         $lab = $lab ? 1 : 0;
-        $plugs=$plugs ? 1 : 0;
+        $plugs = $plugs ? 1 : 0;
         // Ordine corretto: accessibility, projector, plugs, lab, idRoom
-        $stmt->bind_param("iiiiii",$seats, $accessibility, $projector, $plugs, $lab, $idRoom);
+        $stmt->bind_param("iiiiii", $seats, $accessibility, $projector, $plugs, $lab, $idRoom);
         $result = $stmt->execute();
+    }
+
+    public function getAllReports()
+    {
+        $query = "SELECT s.CodiceSegnalazione, au.NomeAula, se.Via, au.NumeroPiano, p.DataPrenotazione, s.Descrizione, s.Stato 
+                    FROM segnalazioni s JOIN account a ON s.CodiceAccount = a.Username JOIN prenotazioni p ON s.CodicePrenotazione = p.CodicePrenotazione 
+                    JOIN aule au ON p.CodiceAula = au.CodiceAula JOIN sedi se ON au.CodiceSede = se.CodiceSede ORDER BY p.DataPrenotazione DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAllReservations()
+    {
+        $sql = "SELECT p.CodicePrenotazione, p.CodiceAula, p.CodiceAccount, 
+               p.NumeroPersone, p.DataPrenotazione, a.NomeAula
+        FROM prenotazioni p
+        LEFT JOIN aule a ON p.CodiceAula = a.CodiceAula
+        ORDER BY p.DataPrenotazione DESC";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $result;
+    }
+
+    public function updateReservation(int $id, int $aula, string $account, int $persone, string $data)
+    {
+        $dataFormatted = date('Y-m-d H:i:s', strtotime($data));
+
+        $checkRoom = $this->db->prepare("SELECT CodiceAula FROM aule WHERE CodiceAula = ?");
+        $checkRoom->bind_param("i", $aula);
+        $checkRoom->execute();
+        if ($checkRoom->get_result()->num_rows === 0) {
+            return false;
+        }
+        $checkRoom->close();
+
+        $checkAccount = $this->db->prepare("SELECT Username FROM account WHERE Username = ?");
+        $checkAccount->bind_param("s", $account);
+        $checkAccount->execute();
+        if ($checkAccount->get_result()->num_rows === 0) {
+            return false;
+        }
+        $checkAccount->close();
+
+        $checkConflict = $this->db->prepare("SELECT CodicePrenotazione FROM prenotazioni 
+                                 WHERE CodiceAula = ? AND DataPrenotazione = ? 
+                                 AND CodicePrenotazione != ?");
+        $checkConflict->bind_param("isi", $aula, $dataFormatted, $id);
+        $checkConflict->execute();
+        if ($checkConflict->get_result()->num_rows > 0) {
+            return false;
+        }
+        $checkConflict->close();
+
+        $stmt = $this->db->prepare("UPDATE prenotazioni 
+                        SET CodiceAula = ?, CodiceAccount = ?, 
+                            NumeroPersone = ?, DataPrenotazione = ? 
+                        WHERE CodicePrenotazione = ?");
+        $stmt->bind_param("isisi", $aula, $account, $persone, $dataFormatted, $id);
+
+        return $stmt->execute();
+    }
+
+    public function deleteReservation(int $id)
+    {
+        // Check if reservation exists
+        $checkReservation = $this->db->prepare("SELECT CodicePrenotazione FROM prenotazioni WHERE CodicePrenotazione = ?");
+        $checkReservation->bind_param("i", $id);
+        $checkReservation->execute();
+        if ($checkReservation->get_result()->num_rows === 0) {
+            echo json_encode(['success' => false, 'message' => 'Prenotazione non trovata']);
+            $checkReservation->close();
+            $this->db->close();
+            exit;
+        }
+        $checkReservation->close();
+
+        // Check if there are related reports (segnalazioni)
+        $checkReports = $this->db->prepare("SELECT COUNT(*) as count FROM segnalazioni WHERE CodicePrenotazione = ?");
+        $checkReports->bind_param("i", $id);
+        $checkReports->execute();
+        $result = $checkReports->get_result();
+        $row = $result->fetch_assoc();
+        $reportCount = $row['count'];
+        $checkReports->close();
+
+        // If there are reports, delete them first (or you can choose to prevent deletion)
+        if ($reportCount > 0) {
+            $deleteReports = $this->db->prepare("DELETE FROM segnalazioni WHERE CodicePrenotazione = ?");
+            $deleteReports->bind_param("i", $id);
+            $deleteReports->execute();
+            $deleteReports->close();
+        }
+
+        // Delete reservation
+        $stmt = $this->db->prepare("DELETE FROM prenotazioni WHERE CodicePrenotazione = ?");
+        $stmt->bind_param("i", $id);
+
+        if ($stmt->execute()) {
+            if ($stmt->affected_rows > 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }
