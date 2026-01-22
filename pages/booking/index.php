@@ -6,12 +6,15 @@ $page["content"] = "{$_SERVER['DOCUMENT_ROOT']}/pages/{$page_name}/content.php";
 $page["css"] = [
     "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
     "/components/map/map.css",
-    "/pages/{$page_name}/style.css"
+    "/pages/{$page_name}/style.css",
+    "/components/rooms-view/style.css"
 ];
 $page["js"] = [
     "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js",
+    "/components/rooms-view/view.js",
     "/pages/{$page_name}/main.js",
     "/components/map/map.js",
     "/pages/{$page_name}/map.js",
+    
 ];
 require "{$_SERVER['DOCUMENT_ROOT']}/template/base.php";

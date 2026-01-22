@@ -20,7 +20,6 @@
                     
                     $links = [
                         new Link("/home", "Home", "bi-house-fill"),
-                        new Link("/rooms", "Aule", "bi-door-closed-fill"),
                         new Link("/booking", "Prenotazioni", "bi-bookmark-plus-fill"),
                         new Link("/profile", "Profilo", "bi-person-fill"),
                     ];

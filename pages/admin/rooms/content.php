@@ -10,8 +10,8 @@
     </form>
   </div>
   <div class="row">
-    <div class="col-lg-7" id="listAule">
-
+    <div class="col-lg-7 d-flex" id="listAule">
+      <?php require "{$_SERVER['DOCUMENT_ROOT']}/components/rooms-view/view.php" ?>
     </div>
     <div class="col-lg-5">
 
@@ -27,11 +27,34 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          ...
+          <form>
+            <div class="input-group"></div>
+            <label for="seats" class="form-label">Posti</label>
+            <input type="number" id="seats" class="form-control">
+            <h4 class="m-0">Dotazioni</h4>
+            <hr class="border border-primary border-2 opacity-75 my-1 mx-1 pb-0">
+            <div class="form-check">
+              <label for="accessibility" class="form-check-label">Accessibilità</label>
+              <input type="checkbox" id="accessibility" class="form-check-input">
+            </div>
+            <div class="form-check">
+              <label for="projector" class="form-check-label">Proiettore</label>
+              <input type="checkbox" id="projector" class="form-check-input">
+            </div>
+            <div class="form-check">
+              <label for="lab" class="form-check-label">Laboratorio</label>
+              <input type="checkbox" id="lab" class="form-check-input">
+            </div>
+            <div class="form-check">
+              <label for="plugs" class="form-check-label">Prese</label>
+              <input type="checkbox" id="plugs" class="form-check-input">
+            </div>
+
+          </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Understood</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+          <button id="save" type="submit" class="btn btn-primary">Salva</button>
         </div>
       </div>
     </div>

@@ -2,107 +2,71 @@ document.addEventListener("DOMContentLoaded", () => {
     const idAula = sessionStorage.getItem("idAula");
     getAula(idAula);
     const date = new Date().toJSON().slice(0, 10);
-    $("#calendar").attr("min",date);
-
+    $("#calendar").attr("min", date);
     $("#calendar").val(date);
     loadReservations();
+
     const container = $("#grid");
     const timeStart = 8;
-    let row = $("<div>").addClass("row"); // Inizializza la prima row
 
     for (let i = 1; i < 10; i++) {
-        const col = $("<div>").addClass("col pb-1");
+        const col = $("<div>").addClass("col-12 col-md-6 col-lg-4");
+
         const input = $('<input>')
             .addClass("btn-check")
             .attr("id", `btn-${i + timeStart}`)
-            .attr("type", "checkbox")
+            .attr("type", "checkbox");
+
         const label = $('<label>')
-            .addClass("btn btn-outline-primary text-nowrap align-content-center p-1 w-100 h-100")
+            .addClass("btn btn-outline-primary w-100")
             .attr("for", `btn-${i + timeStart}`)
             .text(`${i + timeStart}:00-${i + timeStart + 1}:00`);
 
-        col.append(input);
-        col.append(label);
-        row.append(col);
-
-        if (i % 3 == 0) {
-            container.append(row);
-            row = $("<div>").addClass("row"); // Crea una NUOVA row
-        }
-    }
-
-    // Aggiungi l'ultima row se contiene elementi
-    if (row.children().length > 0) {
-        container.append(row);
+        col.append(input).append(label);
+        container.append(col);
     }
 
     $("#calendar").on("input", () => {
-        // console.log($(this).val());
         loadReservations();
     });
-    
+
     $("#book").on("click", () => {
-        $(".btn-check:checked").each((index,btn) => {
-            const hour = parseInt(btn.id.replace("btn-",""));
+        $(".btn-check:checked").each((index, btn) => {
+            const hour = parseInt(btn.id.replace("btn-", ""));
             const date = new Date($("#calendar").val());
-            date.setHours(hour+1);
-            
+            date.setHours(hour + 1);
+
             $.ajax({
-            url: "/apis/reserve.php",
-            type: "post",
-            data: {
-                idAula: idAula,
-                date: date.toISOString().slice(0, 19).replace('T', ' '),
-                seats:$("#capacity").find(":selected").val()
-            }
-        });
+                url: "/apis/reserve.php",
+                type: "post",
+                data: {
+                    idAula: idAula,
+                    date: date.toISOString().slice(0, 19).replace('T', ' '),
+                    seats: $("#capacity").find(":selected").val()
+                }
+            });
         });
         loadReservations();
     });
 });
 
 function getAula(idAula) {
-
     $.ajax({
         url: "/apis/aula.php",
         type: "get",
-        data: {
-            idAula: idAula,
-        },
+        data: { idAula: idAula },
         success: function (response) {
-
             const aula = JSON.parse(response);
-            $("#title").attr("value", response.CodiceAula);
             $("#title").text(aula.NomeAula);
             $("#address").text(aula.Indirizzo);
-            if (aula.Accessibilita) {
-                $("#accessibility > * ").addClass("text-success");
-            }
-            else {
-                $("#accessibility > * ").addClass("text-primary");
-            }
 
-            if (aula.Proiettore) {
-                $("#projector > * ").addClass("text-success");
-            }
-            else {
-                $("#projector > * ").addClass("text-primary");
-            }
-            if (aula.Prese) {
-                $("#plugs > * ").addClass("text-success");
-            }
-            else {
-                $("#plugs > * ").addClass("text-primary");
-            }
-            if (aula.Laboratorio) {
-                $("#lab > * ").addClass("text-success");
-            }
-            else {
-                $("#lab > * ").addClass("text-primary");
-            }
+            $("#accessibility > *").addClass(aula.Accessibilita ? "text-success" : "text-primary");
+            $("#projector > *").addClass(aula.Proiettore ? "text-success" : "text-primary");
+            $("#plugs > *").addClass(aula.Prese ? "text-success" : "text-primary");
+            $("#lab > *").addClass(aula.Laboratorio ? "text-success" : "text-primary");
+
             setCapacity(aula.NumeroPosti);
         }
-
     });
 }
 
@@ -123,10 +87,10 @@ function loadReservations() {
 
             const now = new Date();
             const selectedDate = new Date($("#calendar").val());
-            
+
             const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
             const selectedDateStart = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
-            
+
             const isToday = selectedDateStart.getTime() === todayStart.getTime();
 
             $(".btn-check").each((index, btn) => {
@@ -152,10 +116,8 @@ function loadReservations() {
     });
 }
 
-function setCapacity(max){
-
+function setCapacity(max) {
     for (let i = 1; i <= max; i++) {
-        const option = $("<option>").val(i).text(i);
-        $("#capacity").append(option);
+        $("#capacity").append($("<option>").val(i).text(i));
     }
 }
