@@ -208,8 +208,8 @@ function showReportModal(reservation, slot, reservationIndex, slotIndex) {
         .addClass('modal-header')
         .appendTo(modalContent);
     
-    $('<h5>')
-        .addClass('modal-title')
+    $('<p>')
+        .addClass('h5 fw-bold modal-title')
         .text('Segnalazione Orario')
         .appendTo(modalHeader);
     

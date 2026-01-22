@@ -6,7 +6,7 @@
         <div class="card-body gap-3 d-flex">
             <div class="card border-2 p-0 border-primary">
                 <div class="card-header bg-primary text-white">
-                    <h6>Informazioni</h6>
+                    <p class="h6 fw-bold">Informazioni</p>
                 </div>
                 <div class="card-body">
 
@@ -14,26 +14,26 @@
                         <strong class="border-bottom border-2 border-primary">Dotazioni:</strong>
                         <ol class="list-group list-group-flush">
                             <li id="accessibility" class="list-group-item">
-                                <i class="bi bi-person-wheelchair"></i>
-                                <label for="bi-person-wheelchair">Accessibilità</label>
+                                <strong class="bi bi-person-wheelchair"></strong>
+                                <label>Accessibilità</label>
                             </li>
                             <li id="projector" class="list-group-item">
-                                <i class="bi bi-projector"></i>
-                                <label for="bi-projector">Proiettore</label>
+                                <strong class="bi bi-projector"></strong>
+                                <label>Proiettore</label>
                             </li>
                             <li id="plugs" class="list-group-item">
-                                <i class="bi bi-plug-fill"></i>
-                                <label for="bi-plug-fill">Prese</label>
+                                <strong class="bi bi-plug-fill"></strong>
+                                <label>Prese</label>
                             </li>
                             <li id="lab" class="list-group-item">
-                                <i class="bi bi-pc-display"></i>
-                                <label for="bi-pc-display">Laboratorio</label>
+                                <strong class="bi bi-pc-display"></strong>
+                                <label>Laboratorio</label>
                             </li>
                         </ol>
                     </div>
                     <div class="pt-2 gap-1">
                         <strong>
-                            <i class="bi bi-geo-alt"></i>
+                            <strong class="bi bi-geo-alt"></strong>
                         </strong>
                         <span id="address"></span>
                     </div>
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="card-footer w-100 d-flex justify-content-end ">
-                    <button id="book" class="btn btn-primary" type="button ">Prenota</button>
+                    <button id="book" class="btn btn-primary">Prenota</button>
                 </div>
             </div>
 

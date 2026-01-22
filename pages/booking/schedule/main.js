@@ -15,13 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
             .addClass("btn-check")
             .attr("id", `btn-${i + timeStart}`)
             .attr("type", "checkbox")
-            .attr("autocomplete", "off");
         const label = $('<label>')
             .addClass("btn btn-outline-primary text-nowrap align-content-center p-1 w-100 h-100")
             .attr("for", `btn-${i + timeStart}`)
             .text(`${i + timeStart}:00-${i + timeStart + 1}:00`);
 
-        col.append(input).append(label);
+        col.append(input);
+        col.append(label);
         row.append(col);
 
         if (i % 3 == 0) {

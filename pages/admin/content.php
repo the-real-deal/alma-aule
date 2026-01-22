@@ -4,6 +4,5 @@
 </h1>
 
 <section class="py-5">
-    <h2>Ultime segnalazioni ricevute</h2>
-    
+    <p class="h2 fw-bold">Ultime segnalazioni ricevute</p>
 </section>

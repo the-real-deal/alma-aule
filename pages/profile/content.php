@@ -11,7 +11,7 @@
     require $_SERVER['DOCUMENT_ROOT'] . "/components/reservationstats/reservationsStats.php";
 ?>
 
-<section class="container mt-4">
+<div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <p class="h2 text-uppercase fw-bold mb-0">Le tue segnalazioni</p>
     </div>
@@ -22,4 +22,4 @@
             require "{$_SERVER['DOCUMENT_ROOT']}/components/reports/reports.php";
         ?>
     </div>
-</section>
+</div>
