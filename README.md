@@ -51,8 +51,10 @@ git clone git@github.com:the-real-deal/alma-aule.git htdocs
 │   │   ├── map.css
 │   │   ├── map.include
 │   │   └── map.js
+|   |__ ...
 ├── config.php
 ├── db/
+|── docs/
 ├── index.php
 ├── lib/
 │   ├── js/
@@ -185,3 +187,64 @@ Per creare una pagina occorre seguire i seguenti step:
 > * `/<nome_pagina>/`
 >
 > È preferibile l'ultima, e ricorda di evitare **sempre** di referenziare `content.php`!
+
+
+## Configurazione Iniziale
+
+### File Config
+Affinché l'applicativo funzioni correttamente, è necessario modificare il file di configurazione:
+
+* Apri il file `config`.
+* Imposta il campo `PORT` con il valore della porta **MySQL** utilizzata da **XAMPP**.
+
+> **Attenzione:** Se la porta non corrisponde a quella indicata su XAMPP, l'applicativo non riuscirà a connettersi al database.
+
+### Setup del Database
+Per clonare e installare il database necessario:
+
+1. Accedi al pannello di controllo su `localhost/phpmyadmin`.
+2. Seleziona la funzione **Importa**.
+3. Carica il file `almaule.sql` che trovi all'interno della cartella `db` del progetto.
+
+---
+
+## Credenziali di Accesso
+
+Di seguito sono riportati gli account di test pre-configurati per le varie tipologie di utente:
+
+| Ruolo | Descrizione | Email | Password |
+| :--- | :--- | :--- | :--- |
+| **Studente** | Con prenotazioni e segnalazioni attive | `beagre003@studio.unibo.it` | `StudPass004` |
+| **Professore** | Con prenotazioni attive | `fedrus001@studio.unibo.it` | `ProfPass002` |
+| **Professore** | Account vuoto (senza storico) | `marmar001@studio.unibo.it` | `ProfPass001` |
+| **Admin** | Accesso completo | `vinesp001@studio.unibo.it` | `Admin001` |
+
+---
+
+## Funzionalità della Piattaforma
+
+### Utenti Base (Studenti e Professori)
+Tutti gli utenti standard hanno accesso alle seguenti funzioni:
+* **Prenotazioni:** Effettuare nuove prenotazioni per aule specifiche.
+* **Storico:** Visualizzare la lista delle prenotazioni passate e future.
+* **Statistiche:** Consultare dati riguardanti il numero di prenotazioni effettuate.
+* **Segnalazioni:**
+    * Creare segnalazioni relative a prenotazioni passate (già effettuate).
+    * Visualizzare le proprie segnalazioni inviate.
+
+### Amministratore (Admin)
+L'utente Admin possiede i privilegi più elevati per la gestione della piattaforma:
+* **Gestione Prenotazioni:** Visualizzazione globale di tutte le prenotazioni con possibilità di **modifica** o **eliminazione**.
+* **Gestione Segnalazioni:** Visualizzazione di tutte le segnalazioni e possibilità di aggiornare lo stato (es. segnare come *Risolta*).
+* **Gestione Aule:** Modifica delle caratteristiche delle aule (es. presenza proiettore, disponibilità prese elettriche, ecc.).
+* **Gestione Utenti:** Possibilità di attivare o disabilitare gli account registrati sulla piattaforma.
+
+---
+
+## Documentazione e Analisi
+All'interno della cartella `docs` è disponibile il materiale relativo alla fase di analisi e progettazione:
+
+* **Mockup:** Bozze grafiche dell'interfaccia utente.
+* **Personas:** Profili utente utilizzati per definire i requisiti.
+
+Consultare questi file per comprendere meglio l'approccio progettuale adottato.
